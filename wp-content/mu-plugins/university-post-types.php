@@ -46,9 +46,9 @@ function university_post_types() {
           'items_list_navigation' => __('Events list navigation', 'university-site'),
           'items_list' => __('Events list', 'university-site'),
       ),
-      'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
+      'supports' => array('title', 'editor', 'thumbnail', 'excerpt'),
       'has_archive' => true,
-      'rewrite' => array('slug' => 'events'),
+      'rewrite' => array('slug' => 'events'), // rewrite the slug to be plural
       'show_in_rest' => true, // Enable Gutenberg editor support
   ));
 }
