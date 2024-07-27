@@ -2,7 +2,7 @@
 
 pageBanner(array(
   'title' => 'Past Events',
-  'subtitle' => 'Recap of past events'
+  'subtitle' => 'A recap of our past events'
 ));
 ?>
 
@@ -23,7 +23,7 @@ pageBanner(array(
               'key' => 'event_date',
               'compare' => '<',
               'value' => $today,
-              'type' => 'numeric'
+              'type' => 'numeric' // this object is numeric
             )
         )    
       ));
