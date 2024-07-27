@@ -1,2 +1,4 @@
 # Ignore the plugins folder
 wp-content/plugins/
+wp-content/uploads/
+local-xdebuginfo.php
