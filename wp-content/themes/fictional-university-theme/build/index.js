@@ -1,1 +1,4256 @@
-(()=>{"use strict";var t,e={343:()=>{function t(t,e){var n=Object.keys(t);if(Object.getOwnPropertySymbols){var i=Object.getOwnPropertySymbols(t);e&&(i=i.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),n.push.apply(n,i)}return n}function e(e){for(var n=1;n<arguments.length;n++){var i=null!=arguments[n]?arguments[n]:{};n%2?t(Object(i),!0).forEach((function(t){s(e,t,i[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(i)):t(Object(i)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(i,t))}))}return e}function n(t){return n="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},n(t)}function i(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function r(t,e){for(var n=0;n<e.length;n++){var i=e[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(t,i.key,i)}}function o(t,e,n){return e&&r(t.prototype,e),n&&r(t,n),t}function s(t,e,n){return e in t?Object.defineProperty(t,e,{value:n,enumerable:!0,configurable:!0,writable:!0}):t[e]=n,t}function u(t){return u=Object.setPrototypeOf?Object.getPrototypeOf:function(t){return t.__proto__||Object.getPrototypeOf(t)},u(t)}function a(t,e){return a=Object.setPrototypeOf||function(t,e){return t.__proto__=e,t},a(t,e)}function c(t){var e=function(){if("undefined"==typeof Reflect||!Reflect.construct)return!1;if(Reflect.construct.sham)return!1;if("function"==typeof Proxy)return!0;try{return Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],(function(){}))),!0}catch(t){return!1}}();return function(){var n,i=u(t);if(e){var r=u(this).constructor;n=Reflect.construct(i,arguments,r)}else n=i.apply(this,arguments);return function(t,e){if(e&&("object"==typeof e||"function"==typeof e))return e;if(void 0!==e)throw new TypeError("Derived constructors may only return object or undefined");return function(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}(t)}(this,n)}}function l(){return l="undefined"!=typeof Reflect&&Reflect.get?Reflect.get:function(t,e,n){var i=function(t,e){for(;!Object.prototype.hasOwnProperty.call(t,e)&&null!==(t=u(t)););return t}(t,e);if(i){var r=Object.getOwnPropertyDescriptor(i,e);return r.get?r.get.call(arguments.length<3?t:n):r.value}},l.apply(this,arguments)}var f={type:"slider",startAt:0,perView:1,focusAt:0,gap:10,autoplay:!1,hoverpause:!0,keyboard:!0,bound:!1,swipeThreshold:80,dragThreshold:120,perSwipe:"",touchRatio:.5,touchAngle:45,animationDuration:400,rewind:!0,rewindDuration:800,animationTimingFunc:"cubic-bezier(.165, .840, .440, 1)",waitForTransition:!0,throttle:10,direction:"ltr",peek:0,cloningRatio:1,breakpoints:{},classes:{swipeable:"glide--swipeable",dragging:"glide--dragging",direction:{ltr:"glide--ltr",rtl:"glide--rtl"},type:{slider:"glide--slider",carousel:"glide--carousel"},slide:{clone:"glide__slide--clone",active:"glide__slide--active"},arrow:{disabled:"glide__arrow--disabled"},nav:{active:"glide__bullet--active"}}};function d(t){console.error("[Glide warn]: ".concat(t))}function h(t){return parseInt(t)}function v(t){return"string"==typeof t}function p(t){var e=n(t);return"function"===e||"object"===e&&!!t}function m(t){return"function"==typeof t}function g(t){return void 0===t}function y(t){return t.constructor===Array}function b(t,e,n){Object.defineProperty(t,e,n)}function w(t,n){var i=Object.assign({},t,n);return n.hasOwnProperty("classes")&&(i.classes=Object.assign({},t.classes,n.classes),["direction","type","slide","arrow","nav"].forEach((function(r){n.classes.hasOwnProperty(r)&&(i.classes[r]=e(e({},t.classes[r]),n.classes[r]))}))),n.hasOwnProperty("breakpoints")&&(i.breakpoints=Object.assign({},t.breakpoints,n.breakpoints)),i}var _=function(){function t(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};i(this,t),this.events=e,this.hop=e.hasOwnProperty}return o(t,[{key:"on",value:function(t,e){if(!y(t)){this.hop.call(this.events,t)||(this.events[t]=[]);var n=this.events[t].push(e)-1;return{remove:function(){delete this.events[t][n]}}}for(var i=0;i<t.length;i++)this.on(t[i],e)}},{key:"emit",value:function(t,e){if(y(t))for(var n=0;n<t.length;n++)this.emit(t[n],e);else this.hop.call(this.events,t)&&this.events[t].forEach((function(t){t(e||{})}))}}]),t}(),k=function(){function t(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};i(this,t),this._c={},this._t=[],this._e=new _,this.disabled=!1,this.selector=e,this.settings=w(f,n),this.index=this.settings.startAt}return o(t,[{key:"mount",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};return this._e.emit("mount.before"),p(t)?this._c=function(t,e,n){var i={};for(var r in e)m(e[r])?i[r]=e[r](t,i,n):d("Extension must be a function");for(var o in i)m(i[o].mount)&&i[o].mount();return i}(this,t,this._e):d("You need to provide a object on `mount()`"),this._e.emit("mount.after"),this}},{key:"mutate",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[];return y(t)?this._t=t:d("You need to provide a array on `mutate()`"),this}},{key:"update",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};return this.settings=w(this.settings,t),t.hasOwnProperty("startAt")&&(this.index=t.startAt),this._e.emit("update"),this}},{key:"go",value:function(t){return this._c.Run.make(t),this}},{key:"move",value:function(t){return this._c.Transition.disable(),this._c.Move.make(t),this}},{key:"destroy",value:function(){return this._e.emit("destroy"),this}},{key:"play",value:function(){var t=arguments.length>0&&void 0!==arguments[0]&&arguments[0];return t&&(this.settings.autoplay=t),this._e.emit("play"),this}},{key:"pause",value:function(){return this._e.emit("pause"),this}},{key:"disable",value:function(){return this.disabled=!0,this}},{key:"enable",value:function(){return this.disabled=!1,this}},{key:"on",value:function(t,e){return this._e.on(t,e),this}},{key:"isType",value:function(t){return this.settings.type===t}},{key:"settings",get:function(){return this._o},set:function(t){p(t)?this._o=t:d("Options must be an `object` instance.")}},{key:"index",get:function(){return this._i},set:function(t){this._i=h(t)}},{key:"type",get:function(){return this.settings.type}},{key:"disabled",get:function(){return this._d},set:function(t){this._d=!!t}}]),t}();function S(){return(new Date).getTime()}function O(t,e){var n,i,r,o,s=arguments.length>2&&void 0!==arguments[2]?arguments[2]:{},u=0,a=function(){u=!1===s.leading?0:S(),n=null,o=t.apply(i,r),n||(i=r=null)},c=function(){var c=S();u||!1!==s.leading||(u=c);var l=e-(c-u);return i=this,r=arguments,l<=0||l>e?(n&&(clearTimeout(n),n=null),u=c,o=t.apply(i,r),n||(i=r=null)):n||!1===s.trailing||(n=setTimeout(a,l)),o};return c.cancel=function(){clearTimeout(n),u=0,n=i=r=null},c}var H={ltr:["marginLeft","marginRight"],rtl:["marginRight","marginLeft"]};function T(t){if(t&&t.parentNode){for(var e=t.parentNode.firstChild,n=[];e;e=e.nextSibling)1===e.nodeType&&e!==t&&n.push(e);return n}return[]}function x(t){return Array.prototype.slice.call(t)}var j=function(){function t(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};i(this,t),this.listeners=e}return o(t,[{key:"on",value:function(t,e,n){var i=arguments.length>3&&void 0!==arguments[3]&&arguments[3];v(t)&&(t=[t]);for(var r=0;r<t.length;r++)this.listeners[t[r]]=n,e.addEventListener(t[r],this.listeners[t[r]],i)}},{key:"off",value:function(t,e){var n=arguments.length>2&&void 0!==arguments[2]&&arguments[2];v(t)&&(t=[t]);for(var i=0;i<t.length;i++)e.removeEventListener(t[i],this.listeners[t[i]],n)}},{key:"destroy",value:function(){delete this.listeners}}]),t}(),A=["ltr","rtl"],P={">":"<","<":">","=":"="};function R(t,e){return{modify:function(t){return e.Direction.is("rtl")?-t:t}}}function L(t,e){return{modify:function(t){var n=Math.floor(t/e.Sizes.slideWidth);return t+e.Gaps.value*n}}}function E(t,e){return{modify:function(t){return t+e.Clones.grow/2}}}function M(t,e){return{modify:function(n){if(t.settings.focusAt>=0){var i=e.Peek.value;return p(i)?n-i.before:n-i}return n}}}function C(t,e){return{modify:function(n){var i=e.Gaps.value,r=e.Sizes.width,o=t.settings.focusAt,s=e.Sizes.slideWidth;return"center"===o?n-(r/2-s/2):n-s*o-i*o}}}var z=!1;try{var D=Object.defineProperty({},"passive",{get:function(){z=!0}});window.addEventListener("testPassive",null,D),window.removeEventListener("testPassive",null,D)}catch(t){}var B=z,q=["touchstart","mousedown"],W=["touchmove","mousemove"],V=["touchend","touchcancel","mouseup","mouseleave"],I=["mousedown","mousemove","mouseup","mouseleave"],G='[data-glide-el^="controls"]',F="".concat(G,' [data-glide-dir*="<"]'),N="".concat(G,' [data-glide-dir*=">"]');function Y(t){return p(t)?(e=t,Object.keys(e).sort().reduce((function(t,n){return t[n]=e[n],t[n],t}),{})):(d("Breakpoints option must be an object"),{});var e}var X={Html:function(t,e,n){var i={mount:function(){this.root=t.selector,this.track=this.root.querySelector('[data-glide-el="track"]'),this.collectSlides()},collectSlides:function(){this.slides=x(this.wrapper.children).filter((function(e){return!e.classList.contains(t.settings.classes.slide.clone)}))}};return b(i,"root",{get:function(){return i._r},set:function(t){v(t)&&(t=document.querySelector(t)),null!==t?i._r=t:d("Root element must be a existing Html node")}}),b(i,"track",{get:function(){return i._t},set:function(t){i._t=t}}),b(i,"wrapper",{get:function(){return i.track.children[0]}}),n.on("update",(function(){i.collectSlides()})),i},Translate:function(t,e,n){var i={set:function(n){var i=function(t,e){var n=[L,E,M,C].concat(t._t,[R]);return{mutate:function(i){for(var r=0;r<n.length;r++){var o=n[r];m(o)&&m(o().modify)?i=o(t,e,undefined).modify(i):d("Transformer should be a function that returns an object with `modify()` method")}return i}}}(t,e).mutate(n),r="translate3d(".concat(-1*i,"px, 0px, 0px)");e.Html.wrapper.style.mozTransform=r,e.Html.wrapper.style.webkitTransform=r,e.Html.wrapper.style.transform=r},remove:function(){e.Html.wrapper.style.transform=""},getStartIndex:function(){var n=e.Sizes.length,i=t.index,r=t.settings.perView;return e.Run.isOffset(">")||e.Run.isOffset("|>")?n+(i-r):(i+r)%n},getTravelDistance:function(){var n=e.Sizes.slideWidth*t.settings.perView;return e.Run.isOffset(">")||e.Run.isOffset("|>")?-1*n:n}};return n.on("move",(function(r){if(!t.isType("carousel")||!e.Run.isOffset())return i.set(r.movement);e.Transition.after((function(){n.emit("translate.jump"),i.set(e.Sizes.slideWidth*t.index)}));var o=e.Sizes.slideWidth*e.Translate.getStartIndex();return i.set(o-e.Translate.getTravelDistance())})),n.on("destroy",(function(){i.remove()})),i},Transition:function(t,e,n){var i=!1,r={compose:function(e){var n=t.settings;return i?"".concat(e," 0ms ").concat(n.animationTimingFunc):"".concat(e," ").concat(this.duration,"ms ").concat(n.animationTimingFunc)},set:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"transform";e.Html.wrapper.style.transition=this.compose(t)},remove:function(){e.Html.wrapper.style.transition=""},after:function(t){setTimeout((function(){t()}),this.duration)},enable:function(){i=!1,this.set()},disable:function(){i=!0,this.set()}};return b(r,"duration",{get:function(){var n=t.settings;return t.isType("slider")&&e.Run.offset?n.rewindDuration:n.animationDuration}}),n.on("move",(function(){r.set()})),n.on(["build.before","resize","translate.jump"],(function(){r.disable()})),n.on("run",(function(){r.enable()})),n.on("destroy",(function(){r.remove()})),r},Direction:function(t,e,n){var i={mount:function(){this.value=t.settings.direction},resolve:function(t){var e=t.slice(0,1);return this.is("rtl")?t.split(e).join(P[e]):t},is:function(t){return this.value===t},addClass:function(){e.Html.root.classList.add(t.settings.classes.direction[this.value])},removeClass:function(){e.Html.root.classList.remove(t.settings.classes.direction[this.value])}};return b(i,"value",{get:function(){return i._v},set:function(t){A.indexOf(t)>-1?i._v=t:d("Direction value must be `ltr` or `rtl`")}}),n.on(["destroy","update"],(function(){i.removeClass()})),n.on("update",(function(){i.mount()})),n.on(["build.before","update"],(function(){i.addClass()})),i},Peek:function(t,e,n){var i={mount:function(){this.value=t.settings.peek}};return b(i,"value",{get:function(){return i._v},set:function(t){p(t)?(t.before=h(t.before),t.after=h(t.after)):t=h(t),i._v=t}}),b(i,"reductor",{get:function(){var e=i.value,n=t.settings.perView;return p(e)?e.before/n+e.after/n:2*e/n}}),n.on(["resize","update"],(function(){i.mount()})),i},Sizes:function(t,e,n){var i={setupSlides:function(){for(var t="".concat(this.slideWidth,"px"),n=e.Html.slides,i=0;i<n.length;i++)n[i].style.width=t},setupWrapper:function(){e.Html.wrapper.style.width="".concat(this.wrapperSize,"px")},remove:function(){for(var t=e.Html.slides,n=0;n<t.length;n++)t[n].style.width="";e.Html.wrapper.style.width=""}};return b(i,"length",{get:function(){return e.Html.slides.length}}),b(i,"width",{get:function(){return e.Html.track.offsetWidth}}),b(i,"wrapperSize",{get:function(){return i.slideWidth*i.length+e.Gaps.grow+e.Clones.grow}}),b(i,"slideWidth",{get:function(){return i.width/t.settings.perView-e.Peek.reductor-e.Gaps.reductor}}),n.on(["build.before","resize","update"],(function(){i.setupSlides(),i.setupWrapper()})),n.on("destroy",(function(){i.remove()})),i},Gaps:function(t,e,n){var i={apply:function(t){for(var n=0,i=t.length;n<i;n++){var r=t[n].style,o=e.Direction.value;r[H[o][0]]=0!==n?"".concat(this.value/2,"px"):"",n!==t.length-1?r[H[o][1]]="".concat(this.value/2,"px"):r[H[o][1]]=""}},remove:function(t){for(var e=0,n=t.length;e<n;e++){var i=t[e].style;i.marginLeft="",i.marginRight=""}}};return b(i,"value",{get:function(){return h(t.settings.gap)}}),b(i,"grow",{get:function(){return i.value*e.Sizes.length}}),b(i,"reductor",{get:function(){var e=t.settings.perView;return i.value*(e-1)/e}}),n.on(["build.after","update"],O((function(){i.apply(e.Html.wrapper.children)}),30)),n.on("destroy",(function(){i.remove(e.Html.wrapper.children)})),i},Move:function(t,e,n){var i={mount:function(){this._o=0},make:function(){var t=this,i=arguments.length>0&&void 0!==arguments[0]?arguments[0]:0;this.offset=i,n.emit("move",{movement:this.value}),e.Transition.after((function(){n.emit("move.after",{movement:t.value})}))}};return b(i,"offset",{get:function(){return i._o},set:function(t){i._o=g(t)?0:h(t)}}),b(i,"translate",{get:function(){return e.Sizes.slideWidth*t.index}}),b(i,"value",{get:function(){var t=this.offset,n=this.translate;return e.Direction.is("rtl")?n+t:n-t}}),n.on(["build.before","run"],(function(){i.make()})),i},Clones:function(t,e,n){var i={mount:function(){this.items=[],t.isType("carousel")&&(this.items=this.collect())},collect:function(){var n=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],i=e.Html.slides,r=t.settings,o=r.perView,s=r.classes,u=r.cloningRatio;if(i.length>0)for(var a=o+ +!!t.settings.peek+Math.round(o/2),c=i.slice(0,a).reverse(),l=i.slice(-1*a),f=0;f<Math.max(u,Math.floor(o/i.length));f++){for(var d=0;d<c.length;d++){var h=c[d].cloneNode(!0);h.classList.add(s.slide.clone),n.push(h)}for(var v=0;v<l.length;v++){var p=l[v].cloneNode(!0);p.classList.add(s.slide.clone),n.unshift(p)}}return n},append:function(){for(var t=this.items,n=e.Html,i=n.wrapper,r=n.slides,o=Math.floor(t.length/2),s=t.slice(0,o).reverse(),u=t.slice(-1*o).reverse(),a="".concat(e.Sizes.slideWidth,"px"),c=0;c<u.length;c++)i.appendChild(u[c]);for(var l=0;l<s.length;l++)i.insertBefore(s[l],r[0]);for(var f=0;f<t.length;f++)t[f].style.width=a},remove:function(){for(var t=this.items,n=0;n<t.length;n++)e.Html.wrapper.removeChild(t[n])}};return b(i,"grow",{get:function(){return(e.Sizes.slideWidth+e.Gaps.value)*i.items.length}}),n.on("update",(function(){i.remove(),i.mount(),i.append()})),n.on("build.before",(function(){t.isType("carousel")&&i.append()})),n.on("destroy",(function(){i.remove()})),i},Resize:function(t,e,n){var i=new j,r={mount:function(){this.bind()},bind:function(){i.on("resize",window,O((function(){n.emit("resize")}),t.settings.throttle))},unbind:function(){i.off("resize",window)}};return n.on("destroy",(function(){r.unbind(),i.destroy()})),r},Build:function(t,e,n){var i={mount:function(){n.emit("build.before"),this.typeClass(),this.activeClass(),n.emit("build.after")},typeClass:function(){e.Html.root.classList.add(t.settings.classes.type[t.settings.type])},activeClass:function(){var n=t.settings.classes,i=e.Html.slides[t.index];i&&(i.classList.add(n.slide.active),T(i).forEach((function(t){t.classList.remove(n.slide.active)})))},removeClasses:function(){var n=t.settings.classes,i=n.type,r=n.slide;e.Html.root.classList.remove(i[t.settings.type]),e.Html.slides.forEach((function(t){t.classList.remove(r.active)}))}};return n.on(["destroy","update"],(function(){i.removeClasses()})),n.on(["resize","update"],(function(){i.mount()})),n.on("move.after",(function(){i.activeClass()})),i},Run:function(t,e,n){var i={mount:function(){this._o=!1},make:function(i){var r=this;t.disabled||(!t.settings.waitForTransition||t.disable(),this.move=i,n.emit("run.before",this.move),this.calculate(),n.emit("run",this.move),e.Transition.after((function(){r.isStart()&&n.emit("run.start",r.move),r.isEnd()&&n.emit("run.end",r.move),r.isOffset()&&(r._o=!1,n.emit("run.offset",r.move)),n.emit("run.after",r.move),t.enable()})))},calculate:function(){var e=this.move,n=this.length,r=e.steps,o=e.direction,s=1;if("="===o)return t.settings.bound&&h(r)>n?void(t.index=n):void(t.index=r);if(">"!==o||">"!==r)if("<"!==o||"<"!==r){if("|"===o&&(s=t.settings.perView||1),">"===o||"|"===o&&">"===r){var u=function(e){var n=t.index;return t.isType("carousel")?n+e:n+(e-n%e)}(s);return u>n&&(this._o=!0),void(t.index=function(e,n){var r=i.length;return e<=r?e:t.isType("carousel")?e-(r+1):t.settings.rewind?i.isBound()&&!i.isEnd()?r:0:i.isBound()?r:Math.floor(r/n)*n}(u,s))}if("<"===o||"|"===o&&"<"===r){var a=function(e){var n=t.index;return t.isType("carousel")?n-e:(Math.ceil(n/e)-1)*e}(s);return a<0&&(this._o=!0),void(t.index=function(e,n){var r=i.length;return e>=0?e:t.isType("carousel")?e+(r+1):t.settings.rewind?i.isBound()&&i.isStart()?r:Math.floor(r/n)*n:0}(a,s))}d("Invalid direction pattern [".concat(o).concat(r,"] has been used"))}else t.index=0;else t.index=n},isStart:function(){return t.index<=0},isEnd:function(){return t.index>=this.length},isOffset:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:void 0;return t?!!this._o&&("|>"===t?"|"===this.move.direction&&">"===this.move.steps:"|<"===t?"|"===this.move.direction&&"<"===this.move.steps:this.move.direction===t):this._o},isBound:function(){return t.isType("slider")&&"center"!==t.settings.focusAt&&t.settings.bound}};return b(i,"move",{get:function(){return this._m},set:function(t){var e=t.substr(1);this._m={direction:t.substr(0,1),steps:e?h(e)?h(e):e:0}}}),b(i,"length",{get:function(){var n=t.settings,i=e.Html.slides.length;return this.isBound()?i-1-(h(n.perView)-1)+h(n.focusAt):i-1}}),b(i,"offset",{get:function(){return this._o}}),i},Swipe:function(t,e,n){var i=new j,r=0,o=0,s=0,u=!1,a=!!B&&{passive:!0},c={mount:function(){this.bindSwipeStart()},start:function(e){if(!u&&!t.disabled){this.disable();var i=this.touches(e);r=null,o=h(i.pageX),s=h(i.pageY),this.bindSwipeMove(),this.bindSwipeEnd(),n.emit("swipe.start")}},move:function(i){if(!t.disabled){var u=t.settings,a=u.touchAngle,c=u.touchRatio,l=u.classes,f=this.touches(i),d=h(f.pageX)-o,v=h(f.pageY)-s,p=Math.abs(d<<2),m=Math.abs(v<<2),g=Math.sqrt(p+m),y=Math.sqrt(m);if(!(180*(r=Math.asin(y/g))/Math.PI<a))return!1;i.stopPropagation(),e.Move.make(d*parseFloat(c)),e.Html.root.classList.add(l.dragging),n.emit("swipe.move")}},end:function(i){if(!t.disabled){var s=t.settings,u=s.perSwipe,a=s.touchAngle,c=s.classes,l=this.touches(i),f=this.threshold(i),d=l.pageX-o,h=180*r/Math.PI;this.enable(),d>f&&h<a?e.Run.make(e.Direction.resolve("".concat(u,"<"))):d<-f&&h<a?e.Run.make(e.Direction.resolve("".concat(u,">"))):e.Move.make(),e.Html.root.classList.remove(c.dragging),this.unbindSwipeMove(),this.unbindSwipeEnd(),n.emit("swipe.end")}},bindSwipeStart:function(){var n=this,r=t.settings,o=r.swipeThreshold,s=r.dragThreshold;o&&i.on(q[0],e.Html.wrapper,(function(t){n.start(t)}),a),s&&i.on(q[1],e.Html.wrapper,(function(t){n.start(t)}),a)},unbindSwipeStart:function(){i.off(q[0],e.Html.wrapper,a),i.off(q[1],e.Html.wrapper,a)},bindSwipeMove:function(){var n=this;i.on(W,e.Html.wrapper,O((function(t){n.move(t)}),t.settings.throttle),a)},unbindSwipeMove:function(){i.off(W,e.Html.wrapper,a)},bindSwipeEnd:function(){var t=this;i.on(V,e.Html.wrapper,(function(e){t.end(e)}))},unbindSwipeEnd:function(){i.off(V,e.Html.wrapper)},touches:function(t){return I.indexOf(t.type)>-1?t:t.touches[0]||t.changedTouches[0]},threshold:function(e){var n=t.settings;return I.indexOf(e.type)>-1?n.dragThreshold:n.swipeThreshold},enable:function(){return u=!1,e.Transition.enable(),this},disable:function(){return u=!0,e.Transition.disable(),this}};return n.on("build.after",(function(){e.Html.root.classList.add(t.settings.classes.swipeable)})),n.on("destroy",(function(){c.unbindSwipeStart(),c.unbindSwipeMove(),c.unbindSwipeEnd(),i.destroy()})),c},Images:function(t,e,n){var i=new j,r={mount:function(){this.bind()},bind:function(){i.on("dragstart",e.Html.wrapper,this.dragstart)},unbind:function(){i.off("dragstart",e.Html.wrapper)},dragstart:function(t){t.preventDefault()}};return n.on("destroy",(function(){r.unbind(),i.destroy()})),r},Anchors:function(t,e,n){var i=new j,r=!1,o=!1,s={mount:function(){this._a=e.Html.wrapper.querySelectorAll("a"),this.bind()},bind:function(){i.on("click",e.Html.wrapper,this.click)},unbind:function(){i.off("click",e.Html.wrapper)},click:function(t){o&&(t.stopPropagation(),t.preventDefault())},detach:function(){if(o=!0,!r){for(var t=0;t<this.items.length;t++)this.items[t].draggable=!1;r=!0}return this},attach:function(){if(o=!1,r){for(var t=0;t<this.items.length;t++)this.items[t].draggable=!0;r=!1}return this}};return b(s,"items",{get:function(){return s._a}}),n.on("swipe.move",(function(){s.detach()})),n.on("swipe.end",(function(){e.Transition.after((function(){s.attach()}))})),n.on("destroy",(function(){s.attach(),s.unbind(),i.destroy()})),s},Controls:function(t,e,n){var i=new j,r=!!B&&{passive:!0},o={mount:function(){this._n=e.Html.root.querySelectorAll('[data-glide-el="controls[nav]"]'),this._c=e.Html.root.querySelectorAll(G),this._arrowControls={previous:e.Html.root.querySelectorAll(F),next:e.Html.root.querySelectorAll(N)},this.addBindings()},setActive:function(){for(var t=0;t<this._n.length;t++)this.addClass(this._n[t].children)},removeActive:function(){for(var t=0;t<this._n.length;t++)this.removeClass(this._n[t].children)},addClass:function(e){var n=t.settings,i=e[t.index];i&&(i.classList.add(n.classes.nav.active),T(i).forEach((function(t){t.classList.remove(n.classes.nav.active)})))},removeClass:function(e){var n=e[t.index];null==n||n.classList.remove(t.settings.classes.nav.active)},setArrowState:function(){if(!t.settings.rewind){var n=o._arrowControls.next,i=o._arrowControls.previous;this.resetArrowState(n,i),0===t.index&&this.disableArrow(i),t.index===e.Run.length&&this.disableArrow(n)}},resetArrowState:function(){for(var e=t.settings,n=arguments.length,i=new Array(n),r=0;r<n;r++)i[r]=arguments[r];i.forEach((function(t){x(t).forEach((function(t){t.classList.remove(e.classes.arrow.disabled)}))}))},disableArrow:function(){for(var e=t.settings,n=arguments.length,i=new Array(n),r=0;r<n;r++)i[r]=arguments[r];i.forEach((function(t){x(t).forEach((function(t){t.classList.add(e.classes.arrow.disabled)}))}))},addBindings:function(){for(var t=0;t<this._c.length;t++)this.bind(this._c[t].children)},removeBindings:function(){for(var t=0;t<this._c.length;t++)this.unbind(this._c[t].children)},bind:function(t){for(var e=0;e<t.length;e++)i.on("click",t[e],this.click),i.on("touchstart",t[e],this.click,r)},unbind:function(t){for(var e=0;e<t.length;e++)i.off(["click","touchstart"],t[e])},click:function(t){B||"touchstart"!==t.type||t.preventDefault();var n=t.currentTarget.getAttribute("data-glide-dir");e.Run.make(e.Direction.resolve(n))}};return b(o,"items",{get:function(){return o._c}}),n.on(["mount.after","move.after"],(function(){o.setActive()})),n.on(["mount.after","run"],(function(){o.setArrowState()})),n.on("destroy",(function(){o.removeBindings(),o.removeActive(),i.destroy()})),o},Keyboard:function(t,e,n){var i=new j,r={mount:function(){t.settings.keyboard&&this.bind()},bind:function(){i.on("keyup",document,this.press)},unbind:function(){i.off("keyup",document)},press:function(n){var i=t.settings.perSwipe;["ArrowRight","ArrowLeft"].includes(n.code)&&e.Run.make(e.Direction.resolve("".concat(i).concat({ArrowRight:">",ArrowLeft:"<"}[n.code])))}};return n.on(["destroy","update"],(function(){r.unbind()})),n.on("update",(function(){r.mount()})),n.on("destroy",(function(){i.destroy()})),r},Autoplay:function(t,e,n){var i=new j,r={mount:function(){this.enable(),this.start(),t.settings.hoverpause&&this.bind()},enable:function(){this._e=!0},disable:function(){this._e=!1},start:function(){var i=this;this._e&&(this.enable(),t.settings.autoplay&&g(this._i)&&(this._i=setInterval((function(){i.stop(),e.Run.make(">"),i.start(),n.emit("autoplay")}),this.time)))},stop:function(){this._i=clearInterval(this._i)},bind:function(){var t=this;i.on("mouseover",e.Html.root,(function(){t._e&&t.stop()})),i.on("mouseout",e.Html.root,(function(){t._e&&t.start()}))},unbind:function(){i.off(["mouseover","mouseout"],e.Html.root)}};return b(r,"time",{get:function(){return h(e.Html.slides[t.index].getAttribute("data-glide-autoplay")||t.settings.autoplay)}}),n.on(["destroy","update"],(function(){r.unbind()})),n.on(["run.before","swipe.start","update"],(function(){r.stop()})),n.on(["pause","destroy"],(function(){r.disable(),r.stop()})),n.on(["run.after","swipe.end"],(function(){r.start()})),n.on(["play"],(function(){r.enable(),r.start()})),n.on("update",(function(){r.mount()})),n.on("destroy",(function(){i.destroy()})),r},Breakpoints:function(t,e,n){var i=new j,r=t.settings,o=Y(r.breakpoints),s=Object.assign({},r),u={match:function(t){if(void 0!==window.matchMedia)for(var e in t)if(t.hasOwnProperty(e)&&window.matchMedia("(max-width: ".concat(e,"px)")).matches)return t[e];return s}};return Object.assign(r,u.match(o)),i.on("resize",window,O((function(){t.settings=w(r,u.match(o))}),t.settings.throttle)),n.on("update",(function(){o=Y(o),s=Object.assign({},r)})),n.on("destroy",(function(){i.off("resize",window)})),u}},K=function(t){!function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function");t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,writable:!0,configurable:!0}}),e&&a(t,e)}(n,t);var e=c(n);function n(){return i(this,n),e.apply(this,arguments)}return o(n,[{key:"mount",value:function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};return l(u(n.prototype),"mount",this).call(this,Object.assign({},X,t))}}]),n}(k);new class{constructor(){this.menu=document.querySelector(".site-header__menu"),this.openButton=document.querySelector(".site-header__menu-trigger"),this.events()}events(){this.openButton.addEventListener("click",(()=>this.openMenu()))}openMenu(){this.openButton.classList.toggle("fa-bars"),this.openButton.classList.toggle("fa-window-close"),this.menu.classList.toggle("site-header__menu--active")}},new class{constructor(){if(document.querySelector(".hero-slider")){const t=document.querySelectorAll(".hero-slider__slide").length;let e="";for(let n=0;n<t;n++)e+=`<button class="slider__bullet glide__bullet" data-glide-dir="=${n}"></button>`;document.querySelector(".glide__bullets").insertAdjacentHTML("beforeend",e),new K(".hero-slider",{type:"carousel",perView:1,autoplay:3e3}).mount()}}}}},n={};function i(t){var r=n[t];if(void 0!==r)return r.exports;var o=n[t]={exports:{}};return e[t](o,o.exports,i),o.exports}i.m=e,t=[],i.O=(e,n,r,o)=>{if(!n){var s=1/0;for(l=0;l<t.length;l++){for(var[n,r,o]=t[l],u=!0,a=0;a<n.length;a++)(!1&o||s>=o)&&Object.keys(i.O).every((t=>i.O[t](n[a])))?n.splice(a--,1):(u=!1,o<s&&(s=o));if(u){t.splice(l--,1);var c=r();void 0!==c&&(e=c)}}return e}o=o||0;for(var l=t.length;l>0&&t[l-1][2]>o;l--)t[l]=t[l-1];t[l]=[n,r,o]},i.o=(t,e)=>Object.prototype.hasOwnProperty.call(t,e),(()=>{var t={57:0,350:0};i.O.j=e=>0===t[e];var e=(e,n)=>{var r,o,[s,u,a]=n,c=0;if(s.some((e=>0!==t[e]))){for(r in u)i.o(u,r)&&(i.m[r]=u[r]);if(a)var l=a(i)}for(e&&e(n);c<s.length;c++)o=s[c],i.o(t,o)&&t[o]&&t[o][0](),t[o]=0;return i.O(l)},n=globalThis.webpackChunkfictional_university_theme=globalThis.webpackChunkfictional_university_theme||[];n.forEach(e.bind(null,0)),n.push=e.bind(null,n.push.bind(n))})();var r=i.O(void 0,[350],(()=>i(343)));r=i.O(r)})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _css_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../css/style.scss */ "./css/style.scss");
+/* harmony import */ var _modules_MobileMenu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/MobileMenu */ "./src/modules/MobileMenu.js");
+/* harmony import */ var _modules_HeroSlider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/HeroSlider */ "./src/modules/HeroSlider.js");
+/* harmony import */ var _modules_GoogleMap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/GoogleMap */ "./src/modules/GoogleMap.js");
+
+
+// Our modules / classes
+
+
+
+// import Gmap from "./modules/Gmap"
+
+// Instantiate a new object using our modules/classes
+const mobileMenu = new _modules_MobileMenu__WEBPACK_IMPORTED_MODULE_1__["default"]();
+const heroSlider = new _modules_HeroSlider__WEBPACK_IMPORTED_MODULE_2__["default"]();
+const googleMap = new _modules_GoogleMap__WEBPACK_IMPORTED_MODULE_3__["default"]();
+// const gmap = new Gmap()
+
+/***/ }),
+
+/***/ "./src/modules/GoogleMap.js":
+/*!**********************************!*\
+  !*** ./src/modules/GoogleMap.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+class GMap {
+  constructor() {
+    document.querySelectorAll(".acf-map").forEach(el => {
+      this.new_map(el);
+    });
+  }
+  new_map($el) {
+    var $markers = $el.querySelectorAll(".marker");
+    var args = {
+      zoom: 16,
+      center: new google.maps.LatLng(0, 0),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map($el, args);
+    map.markers = [];
+    var that = this;
+
+    // add markers
+    $markers.forEach(function (x) {
+      that.add_marker(x, map);
+    });
+
+    // center map
+    this.center_map(map);
+  } // end new_map
+
+  add_marker($marker, map) {
+    var latlng = new google.maps.LatLng($marker.getAttribute("data-lat"), $marker.getAttribute("data-lng"));
+    var marker = new google.maps.Marker({
+      position: latlng,
+      map: map
+    });
+    map.markers.push(marker);
+
+    // if marker contains HTML, add it to an infoWindow
+    if ($marker.innerHTML) {
+      // create info window
+      var infowindow = new google.maps.InfoWindow({
+        content: $marker.innerHTML
+      });
+
+      // show info window when marker is clicked
+      google.maps.event.addListener(marker, "click", function () {
+        infowindow.open(map, marker);
+      });
+    }
+  } // end add_marker
+
+  center_map(map) {
+    var bounds = new google.maps.LatLngBounds();
+
+    // loop through all markers and create bounds
+    map.markers.forEach(function (marker) {
+      var latlng = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
+      bounds.extend(latlng);
+    });
+
+    // only 1 marker?
+    if (map.markers.length == 1) {
+      // set center of map
+      map.setCenter(bounds.getCenter());
+      map.setZoom(16);
+    } else {
+      // fit to bounds
+      map.fitBounds(bounds);
+    }
+  } // end center_map
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (GMap);
+
+/***/ }),
+
+/***/ "./src/modules/HeroSlider.js":
+/*!***********************************!*\
+  !*** ./src/modules/HeroSlider.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _glidejs_glide__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @glidejs/glide */ "./node_modules/@glidejs/glide/dist/glide.esm.js");
+
+class HeroSlider {
+  constructor() {
+    if (document.querySelector(".hero-slider")) {
+      // count how many slides there are
+      const dotCount = document.querySelectorAll(".hero-slider__slide").length;
+
+      // Generate the HTML for the navigation dots
+      let dotHTML = "";
+      for (let i = 0; i < dotCount; i++) {
+        dotHTML += `<button class="slider__bullet glide__bullet" data-glide-dir="=${i}"></button>`;
+      }
+
+      // Add the dots HTML to the DOM
+      document.querySelector(".glide__bullets").insertAdjacentHTML("beforeend", dotHTML);
+
+      // Actually initialize the glide / slider script
+      var glide = new _glidejs_glide__WEBPACK_IMPORTED_MODULE_0__["default"](".hero-slider", {
+        type: "carousel",
+        perView: 1,
+        autoplay: 3000
+      });
+      glide.mount();
+    }
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (HeroSlider);
+
+/***/ }),
+
+/***/ "./src/modules/MobileMenu.js":
+/*!***********************************!*\
+  !*** ./src/modules/MobileMenu.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+class MobileMenu {
+  constructor() {
+    this.menu = document.querySelector(".site-header__menu");
+    this.openButton = document.querySelector(".site-header__menu-trigger");
+    this.events();
+  }
+  events() {
+    this.openButton.addEventListener("click", () => this.openMenu());
+  }
+  openMenu() {
+    this.openButton.classList.toggle("fa-bars");
+    this.openButton.classList.toggle("fa-window-close");
+    this.menu.classList.toggle("site-header__menu--active");
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MobileMenu);
+
+/***/ }),
+
+/***/ "./css/style.scss":
+/*!************************!*\
+  !*** ./css/style.scss ***!
+  \************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./node_modules/@glidejs/glide/dist/glide.esm.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@glidejs/glide/dist/glide.esm.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Glide)
+/* harmony export */ });
+/*!
+ * Glide.js v3.6.2
+ * (c) 2013-2024 Jędrzej Chałubek (https://github.com/jedrzejchalubek/)
+ * Released under the MIT License.
+ */
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+
+    if (enumerableOnly) {
+      symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    }
+
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function (obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function (obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+
+  try {
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (typeof call === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+
+  return _assertThisInitialized(self);
+}
+
+function _createSuper(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct();
+
+  return function _createSuperInternal() {
+    var Super = _getPrototypeOf(Derived),
+        result;
+
+    if (hasNativeReflectConstruct) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+
+    return _possibleConstructorReturn(this, result);
+  };
+}
+
+function _superPropBase(object, property) {
+  while (!Object.prototype.hasOwnProperty.call(object, property)) {
+    object = _getPrototypeOf(object);
+    if (object === null) break;
+  }
+
+  return object;
+}
+
+function _get() {
+  if (typeof Reflect !== "undefined" && Reflect.get) {
+    _get = Reflect.get;
+  } else {
+    _get = function _get(target, property, receiver) {
+      var base = _superPropBase(target, property);
+
+      if (!base) return;
+      var desc = Object.getOwnPropertyDescriptor(base, property);
+
+      if (desc.get) {
+        return desc.get.call(arguments.length < 3 ? target : receiver);
+      }
+
+      return desc.value;
+    };
+  }
+
+  return _get.apply(this, arguments);
+}
+
+var defaults = {
+  /**
+   * Type of the movement.
+   *
+   * Available types:
+   * `slider` - Rewinds slider to the start/end when it reaches the first or last slide.
+   * `carousel` - Changes slides without starting over when it reaches the first or last slide.
+   *
+   * @type {String}
+   */
+  type: 'slider',
+
+  /**
+   * Start at specific slide number defined with zero-based index.
+   *
+   * @type {Number}
+   */
+  startAt: 0,
+
+  /**
+   * A number of slides visible on the single viewport.
+   *
+   * @type {Number}
+   */
+  perView: 1,
+
+  /**
+   * Focus currently active slide at a specified position in the track.
+   *
+   * Available inputs:
+   * `center` - Current slide will be always focused at the center of a track.
+   * `0,1,2,3...` - Current slide will be focused on the specified zero-based index.
+   *
+   * @type {String|Number}
+   */
+  focusAt: 0,
+
+  /**
+   * A size of the gap added between slides.
+   *
+   * @type {Number}
+   */
+  gap: 10,
+
+  /**
+   * Change slides after a specified interval. Use `false` for turning off autoplay.
+   *
+   * @type {Number|Boolean}
+   */
+  autoplay: false,
+
+  /**
+   * Stop autoplay on mouseover event.
+   *
+   * @type {Boolean}
+   */
+  hoverpause: true,
+
+  /**
+   * Allow for changing slides with left and right keyboard arrows.
+   *
+   * @type {Boolean}
+   */
+  keyboard: true,
+
+  /**
+   * Stop running `perView` number of slides from the end. Use this
+   * option if you don't want to have an empty space after
+   * a slider. Works only with `slider` type and a
+   * non-centered `focusAt` setting.
+   *
+   * @type {Boolean}
+   */
+  bound: false,
+
+  /**
+   * Minimal swipe distance needed to change the slide. Use `false` for turning off a swiping.
+   *
+   * @type {Number|Boolean}
+   */
+  swipeThreshold: 80,
+
+  /**
+   * Minimal mouse drag distance needed to change the slide. Use `false` for turning off a dragging.
+   *
+   * @type {Number|Boolean}
+   */
+  dragThreshold: 120,
+
+  /**
+   * A number of slides moved on single swipe.
+   *
+   * Available types:
+   * `` - Moves slider by one slide per swipe
+   * `|` - Moves slider between views per swipe (number of slides defined in `perView` options)
+   *
+   * @type {String}
+   */
+  perSwipe: '',
+
+  /**
+   * Moving distance ratio of the slides on a swiping and dragging.
+   *
+   * @type {Number}
+   */
+  touchRatio: 0.5,
+
+  /**
+   * Angle required to activate slides moving on swiping or dragging.
+   *
+   * @type {Number}
+   */
+  touchAngle: 45,
+
+  /**
+   * Duration of the animation in milliseconds.
+   *
+   * @type {Number}
+   */
+  animationDuration: 400,
+
+  /**
+   * Allows looping the `slider` type. Slider will rewind to the first/last slide when it's at the start/end.
+   *
+   * @type {Boolean}
+   */
+  rewind: true,
+
+  /**
+   * Duration of the rewinding animation of the `slider` type in milliseconds.
+   *
+   * @type {Number}
+   */
+  rewindDuration: 800,
+
+  /**
+   * Easing function for the animation.
+   *
+   * @type {String}
+   */
+  animationTimingFunc: 'cubic-bezier(.165, .840, .440, 1)',
+
+  /**
+   * Wait for the animation to finish until the next user input can be processed
+   *
+   * @type {boolean}
+   */
+  waitForTransition: true,
+
+  /**
+   * Throttle costly events at most once per every wait milliseconds.
+   *
+   * @type {Number}
+   */
+  throttle: 10,
+
+  /**
+   * Moving direction mode.
+   *
+   * Available inputs:
+   * - 'ltr' - left to right movement,
+   * - 'rtl' - right to left movement.
+   *
+   * @type {String}
+   */
+  direction: 'ltr',
+
+  /**
+   * The distance value of the next and previous viewports which
+   * have to peek in the current view. Accepts number and
+   * pixels as a string. Left and right peeking can be
+   * set up separately with a directions object.
+   *
+   * For example:
+   * `100` - Peek 100px on the both sides.
+   * { before: 100, after: 50 }` - Peek 100px on the left side and 50px on the right side.
+   *
+   * @type {Number|String|Object}
+   */
+  peek: 0,
+
+  /**
+   * Defines how many clones of current viewport will be generated.
+   *
+   * @type {Number}
+   */
+  cloningRatio: 1,
+
+  /**
+   * Collection of options applied at specified media breakpoints.
+   * For example: display two slides per view under 800px.
+   * `{
+   *   '800px': {
+   *     perView: 2
+   *   }
+   * }`
+   */
+  breakpoints: {},
+
+  /**
+   * Collection of internally used HTML classes.
+   *
+   * @todo Refactor `slider` and `carousel` properties to single `type: { slider: '', carousel: '' }` object
+   * @type {Object}
+   */
+  classes: {
+    swipeable: 'glide--swipeable',
+    dragging: 'glide--dragging',
+    direction: {
+      ltr: 'glide--ltr',
+      rtl: 'glide--rtl'
+    },
+    type: {
+      slider: 'glide--slider',
+      carousel: 'glide--carousel'
+    },
+    slide: {
+      clone: 'glide__slide--clone',
+      active: 'glide__slide--active'
+    },
+    arrow: {
+      disabled: 'glide__arrow--disabled'
+    },
+    nav: {
+      active: 'glide__bullet--active'
+    }
+  }
+};
+
+/**
+ * Outputs warning message to the bowser console.
+ *
+ * @param  {String} msg
+ * @return {Void}
+ */
+function warn(msg) {
+  console.error("[Glide warn]: ".concat(msg));
+}
+
+/**
+ * Converts value entered as number
+ * or string to integer value.
+ *
+ * @param {String} value
+ * @returns {Number}
+ */
+function toInt(value) {
+  return parseInt(value);
+}
+/**
+ * Converts value entered as number
+ * or string to flat value.
+ *
+ * @param {String} value
+ * @returns {Number}
+ */
+
+function toFloat(value) {
+  return parseFloat(value);
+}
+/**
+ * Indicates whether the specified value is a string.
+ *
+ * @param  {*}   value
+ * @return {Boolean}
+ */
+
+function isString(value) {
+  return typeof value === 'string';
+}
+/**
+ * Indicates whether the specified value is an object.
+ *
+ * @param  {*} value
+ * @return {Boolean}
+ *
+ * @see https://github.com/jashkenas/underscore
+ */
+
+function isObject(value) {
+  var type = _typeof(value);
+
+  return type === 'function' || type === 'object' && !!value; // eslint-disable-line no-mixed-operators
+}
+/**
+ * Indicates whether the specified value is a function.
+ *
+ * @param  {*} value
+ * @return {Boolean}
+ */
+
+function isFunction(value) {
+  return typeof value === 'function';
+}
+/**
+ * Indicates whether the specified value is undefined.
+ *
+ * @param  {*} value
+ * @return {Boolean}
+ */
+
+function isUndefined(value) {
+  return typeof value === 'undefined';
+}
+/**
+ * Indicates whether the specified value is an array.
+ *
+ * @param  {*} value
+ * @return {Boolean}
+ */
+
+function isArray(value) {
+  return value.constructor === Array;
+}
+
+/**
+ * Creates and initializes specified collection of extensions.
+ * Each extension receives access to instance of glide and rest of components.
+ *
+ * @param {Object} glide
+ * @param {Object} extensions
+ *
+ * @returns {Object}
+ */
+
+function mount(glide, extensions, events) {
+  var components = {};
+
+  for (var name in extensions) {
+    if (isFunction(extensions[name])) {
+      components[name] = extensions[name](glide, components, events);
+    } else {
+      warn('Extension must be a function');
+    }
+  }
+
+  for (var _name in components) {
+    if (isFunction(components[_name].mount)) {
+      components[_name].mount();
+    }
+  }
+
+  return components;
+}
+
+/**
+ * Defines getter and setter property on the specified object.
+ *
+ * @param  {Object} obj         Object where property has to be defined.
+ * @param  {String} prop        Name of the defined property.
+ * @param  {Object} definition  Get and set definitions for the property.
+ * @return {Void}
+ */
+function define(obj, prop, definition) {
+  Object.defineProperty(obj, prop, definition);
+}
+/**
+ * Sorts aphabetically object keys.
+ *
+ * @param  {Object} obj
+ * @return {Object}
+ */
+
+function sortKeys(obj) {
+  return Object.keys(obj).sort().reduce(function (r, k) {
+    r[k] = obj[k];
+    return r[k], r;
+  }, {});
+}
+/**
+ * Merges passed settings object with default options.
+ *
+ * @param  {Object} defaults
+ * @param  {Object} settings
+ * @return {Object}
+ */
+
+function mergeOptions(defaults, settings) {
+  var options = Object.assign({}, defaults, settings); // `Object.assign` do not deeply merge objects, so we
+  // have to do it manually for every nested object
+  // in options. Although it does not look smart,
+  // it's smaller and faster than some fancy
+  // merging deep-merge algorithm script.
+
+  if (settings.hasOwnProperty('classes')) {
+    options.classes = Object.assign({}, defaults.classes, settings.classes);
+    var properties = ['direction', 'type', 'slide', 'arrow', 'nav'];
+    properties.forEach(function (property) {
+      if (settings.classes.hasOwnProperty(property)) {
+        options.classes[property] = _objectSpread2(_objectSpread2({}, defaults.classes[property]), settings.classes[property]);
+      }
+    });
+  }
+
+  if (settings.hasOwnProperty('breakpoints')) {
+    options.breakpoints = Object.assign({}, defaults.breakpoints, settings.breakpoints);
+  }
+
+  return options;
+}
+
+var EventsBus = /*#__PURE__*/function () {
+  /**
+   * Construct a EventBus instance.
+   *
+   * @param {Object} events
+   */
+  function EventsBus() {
+    var events = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    _classCallCheck(this, EventsBus);
+
+    this.events = events;
+    this.hop = events.hasOwnProperty;
+  }
+  /**
+   * Adds listener to the specifed event.
+   *
+   * @param {String|Array} event
+   * @param {Function} handler
+   */
+
+
+  _createClass(EventsBus, [{
+    key: "on",
+    value: function on(event, handler) {
+      if (isArray(event)) {
+        for (var i = 0; i < event.length; i++) {
+          this.on(event[i], handler);
+        }
+
+        return;
+      } // Create the event's object if not yet created
+
+
+      if (!this.hop.call(this.events, event)) {
+        this.events[event] = [];
+      } // Add the handler to queue
+
+
+      var index = this.events[event].push(handler) - 1; // Provide handle back for removal of event
+
+      return {
+        remove: function remove() {
+          delete this.events[event][index];
+        }
+      };
+    }
+    /**
+     * Runs registered handlers for specified event.
+     *
+     * @param {String|Array} event
+     * @param {Object=} context
+     */
+
+  }, {
+    key: "emit",
+    value: function emit(event, context) {
+      if (isArray(event)) {
+        for (var i = 0; i < event.length; i++) {
+          this.emit(event[i], context);
+        }
+
+        return;
+      } // If the event doesn't exist, or there's no handlers in queue, just leave
+
+
+      if (!this.hop.call(this.events, event)) {
+        return;
+      } // Cycle through events queue, fire!
+
+
+      this.events[event].forEach(function (item) {
+        item(context || {});
+      });
+    }
+  }]);
+
+  return EventsBus;
+}();
+
+var Glide$1 = /*#__PURE__*/function () {
+  /**
+   * Construct glide.
+   *
+   * @param  {String} selector
+   * @param  {Object} options
+   */
+  function Glide(selector) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    _classCallCheck(this, Glide);
+
+    this._c = {};
+    this._t = [];
+    this._e = new EventsBus();
+    this.disabled = false;
+    this.selector = selector;
+    this.settings = mergeOptions(defaults, options);
+    this.index = this.settings.startAt;
+  }
+  /**
+   * Initializes glide.
+   *
+   * @param {Object} extensions Collection of extensions to initialize.
+   * @return {Glide}
+   */
+
+
+  _createClass(Glide, [{
+    key: "mount",
+    value: function mount$1() {
+      var extensions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      this._e.emit('mount.before');
+
+      if (isObject(extensions)) {
+        this._c = mount(this, extensions, this._e);
+      } else {
+        warn('You need to provide a object on `mount()`');
+      }
+
+      this._e.emit('mount.after');
+
+      return this;
+    }
+    /**
+     * Collects an instance `translate` transformers.
+     *
+     * @param  {Array} transformers Collection of transformers.
+     * @return {Void}
+     */
+
+  }, {
+    key: "mutate",
+    value: function mutate() {
+      var transformers = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+
+      if (isArray(transformers)) {
+        this._t = transformers;
+      } else {
+        warn('You need to provide a array on `mutate()`');
+      }
+
+      return this;
+    }
+    /**
+     * Updates glide with specified settings.
+     *
+     * @param {Object} settings
+     * @return {Glide}
+     */
+
+  }, {
+    key: "update",
+    value: function update() {
+      var settings = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      this.settings = mergeOptions(this.settings, settings);
+
+      if (settings.hasOwnProperty('startAt')) {
+        this.index = settings.startAt;
+      }
+
+      this._e.emit('update');
+
+      return this;
+    }
+    /**
+     * Change slide with specified pattern. A pattern must be in the special format:
+     * `>` - Move one forward
+     * `<` - Move one backward
+     * `={i}` - Go to {i} zero-based slide (eq. '=1', will go to second slide)
+     * `>>` - Rewinds to end (last slide)
+     * `<<` - Rewinds to start (first slide)
+     * `|>` - Move one viewport forward
+     * `|<` - Move one viewport backward
+     *
+     * @param {String} pattern
+     * @return {Glide}
+     */
+
+  }, {
+    key: "go",
+    value: function go(pattern) {
+      this._c.Run.make(pattern);
+
+      return this;
+    }
+    /**
+     * Move track by specified distance.
+     *
+     * @param {String} distance
+     * @return {Glide}
+     */
+
+  }, {
+    key: "move",
+    value: function move(distance) {
+      this._c.Transition.disable();
+
+      this._c.Move.make(distance);
+
+      return this;
+    }
+    /**
+     * Destroy instance and revert all changes done by this._c.
+     *
+     * @return {Glide}
+     */
+
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      this._e.emit('destroy');
+
+      return this;
+    }
+    /**
+     * Start instance autoplaying.
+     *
+     * @param {Boolean|Number} interval Run autoplaying with passed interval regardless of `autoplay` settings
+     * @return {Glide}
+     */
+
+  }, {
+    key: "play",
+    value: function play() {
+      var interval = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+      if (interval) {
+        this.settings.autoplay = interval;
+      }
+
+      this._e.emit('play');
+
+      return this;
+    }
+    /**
+     * Stop instance autoplaying.
+     *
+     * @return {Glide}
+     */
+
+  }, {
+    key: "pause",
+    value: function pause() {
+      this._e.emit('pause');
+
+      return this;
+    }
+    /**
+     * Sets glide into a idle status.
+     *
+     * @return {Glide}
+     */
+
+  }, {
+    key: "disable",
+    value: function disable() {
+      this.disabled = true;
+      return this;
+    }
+    /**
+     * Sets glide into a active status.
+     *
+     * @return {Glide}
+     */
+
+  }, {
+    key: "enable",
+    value: function enable() {
+      this.disabled = false;
+      return this;
+    }
+    /**
+     * Adds cuutom event listener with handler.
+     *
+     * @param  {String|Array} event
+     * @param  {Function} handler
+     * @return {Glide}
+     */
+
+  }, {
+    key: "on",
+    value: function on(event, handler) {
+      this._e.on(event, handler);
+
+      return this;
+    }
+    /**
+     * Checks if glide is a precised type.
+     *
+     * @param  {String} name
+     * @return {Boolean}
+     */
+
+  }, {
+    key: "isType",
+    value: function isType(name) {
+      return this.settings.type === name;
+    }
+    /**
+     * Gets value of the core options.
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "settings",
+    get: function get() {
+      return this._o;
+    }
+    /**
+     * Sets value of the core options.
+     *
+     * @param  {Object} o
+     * @return {Void}
+     */
+    ,
+    set: function set(o) {
+      if (isObject(o)) {
+        this._o = o;
+      } else {
+        warn('Options must be an `object` instance.');
+      }
+    }
+    /**
+     * Gets current index of the slider.
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: "index",
+    get: function get() {
+      return this._i;
+    }
+    /**
+     * Sets current index a slider.
+     *
+     * @return {Object}
+     */
+    ,
+    set: function set(i) {
+      this._i = toInt(i);
+    }
+    /**
+     * Gets type name of the slider.
+     *
+     * @return {String}
+     */
+
+  }, {
+    key: "type",
+    get: function get() {
+      return this.settings.type;
+    }
+    /**
+     * Gets value of the idle status.
+     *
+     * @return {Boolean}
+     */
+
+  }, {
+    key: "disabled",
+    get: function get() {
+      return this._d;
+    }
+    /**
+     * Sets value of the idle status.
+     *
+     * @return {Boolean}
+     */
+    ,
+    set: function set(status) {
+      this._d = !!status;
+    }
+  }]);
+
+  return Glide;
+}();
+
+function Run (Glide, Components, Events) {
+  var Run = {
+    /**
+     * Initializes autorunning of the glide.
+     *
+     * @return {Void}
+     */
+    mount: function mount() {
+      this._o = false;
+    },
+
+    /**
+     * Makes glides running based on the passed moving schema.
+     *
+     * @param {String} move
+     */
+    make: function make(move) {
+      var _this = this;
+
+      if (!Glide.disabled) {
+        !Glide.settings.waitForTransition || Glide.disable();
+        this.move = move;
+        Events.emit('run.before', this.move);
+        this.calculate();
+        Events.emit('run', this.move);
+        Components.Transition.after(function () {
+          if (_this.isStart()) {
+            Events.emit('run.start', _this.move);
+          }
+
+          if (_this.isEnd()) {
+            Events.emit('run.end', _this.move);
+          }
+
+          if (_this.isOffset()) {
+            _this._o = false;
+            Events.emit('run.offset', _this.move);
+          }
+
+          Events.emit('run.after', _this.move);
+          Glide.enable();
+        });
+      }
+    },
+
+    /**
+     * Calculates current index based on defined move.
+     *
+     * @return {Number|Undefined}
+     */
+    calculate: function calculate() {
+      var move = this.move,
+          length = this.length;
+      var steps = move.steps,
+          direction = move.direction; // By default assume that size of view is equal to one slide
+
+      var viewSize = 1; // While direction is `=` we want jump to
+      // a specified index described in steps.
+
+      if (direction === '=') {
+        // Check if bound is true, 
+        // as we want to avoid whitespaces.
+        if (Glide.settings.bound && toInt(steps) > length) {
+          Glide.index = length;
+          return;
+        }
+
+        Glide.index = steps;
+        return;
+      } // When pattern is equal to `>>` we want
+      // fast forward to the last slide.
+
+
+      if (direction === '>' && steps === '>') {
+        Glide.index = length;
+        return;
+      } // When pattern is equal to `<<` we want
+      // fast forward to the first slide.
+
+
+      if (direction === '<' && steps === '<') {
+        Glide.index = 0;
+        return;
+      } // pagination movement
+
+
+      if (direction === '|') {
+        viewSize = Glide.settings.perView || 1;
+      } // we are moving forward
+
+
+      if (direction === '>' || direction === '|' && steps === '>') {
+        var index = calculateForwardIndex(viewSize);
+
+        if (index > length) {
+          this._o = true;
+        }
+
+        Glide.index = normalizeForwardIndex(index, viewSize);
+        return;
+      } // we are moving backward
+
+
+      if (direction === '<' || direction === '|' && steps === '<') {
+        var _index = calculateBackwardIndex(viewSize);
+
+        if (_index < 0) {
+          this._o = true;
+        }
+
+        Glide.index = normalizeBackwardIndex(_index, viewSize);
+        return;
+      }
+
+      warn("Invalid direction pattern [".concat(direction).concat(steps, "] has been used"));
+    },
+
+    /**
+     * Checks if we are on the first slide.
+     *
+     * @return {Boolean}
+     */
+    isStart: function isStart() {
+      return Glide.index <= 0;
+    },
+
+    /**
+     * Checks if we are on the last slide.
+     *
+     * @return {Boolean}
+     */
+    isEnd: function isEnd() {
+      return Glide.index >= this.length;
+    },
+
+    /**
+     * Checks if we are making a offset run.
+     *
+     * @param {String} direction
+     * @return {Boolean}
+     */
+    isOffset: function isOffset() {
+      var direction = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+
+      if (!direction) {
+        return this._o;
+      }
+
+      if (!this._o) {
+        return false;
+      } // did we view to the right?
+
+
+      if (direction === '|>') {
+        return this.move.direction === '|' && this.move.steps === '>';
+      } // did we view to the left?
+
+
+      if (direction === '|<') {
+        return this.move.direction === '|' && this.move.steps === '<';
+      }
+
+      return this.move.direction === direction;
+    },
+
+    /**
+     * Checks if bound mode is active
+     *
+     * @return {Boolean}
+     */
+    isBound: function isBound() {
+      return Glide.isType('slider') && Glide.settings.focusAt !== 'center' && Glide.settings.bound;
+    }
+  };
+  /**
+   * Returns index value to move forward/to the right
+   *
+   * @param viewSize
+   * @returns {Number}
+   */
+
+  function calculateForwardIndex(viewSize) {
+    var index = Glide.index;
+
+    if (Glide.isType('carousel')) {
+      return index + viewSize;
+    }
+
+    return index + (viewSize - index % viewSize);
+  }
+  /**
+   * Normalizes the given forward index based on glide settings, preventing it to exceed certain boundaries
+   *
+   * @param index
+   * @param length
+   * @param viewSize
+   * @returns {Number}
+   */
+
+
+  function normalizeForwardIndex(index, viewSize) {
+    var length = Run.length;
+
+    if (index <= length) {
+      return index;
+    }
+
+    if (Glide.isType('carousel')) {
+      return index - (length + 1);
+    }
+
+    if (Glide.settings.rewind) {
+      // bound does funny things with the length, therefor we have to be certain
+      // that we are on the last possible index value given by bound
+      if (Run.isBound() && !Run.isEnd()) {
+        return length;
+      }
+
+      return 0;
+    }
+
+    if (Run.isBound()) {
+      return length;
+    }
+
+    return Math.floor(length / viewSize) * viewSize;
+  }
+  /**
+   * Calculates index value to move backward/to the left
+   *
+   * @param viewSize
+   * @returns {Number}
+   */
+
+
+  function calculateBackwardIndex(viewSize) {
+    var index = Glide.index;
+
+    if (Glide.isType('carousel')) {
+      return index - viewSize;
+    } // ensure our back navigation results in the same index as a forward navigation
+    // to experience a homogeneous paging
+
+
+    var view = Math.ceil(index / viewSize);
+    return (view - 1) * viewSize;
+  }
+  /**
+   * Normalizes the given backward index based on glide settings, preventing it to exceed certain boundaries
+   *
+   * @param index
+   * @param length
+   * @param viewSize
+   * @returns {*}
+   */
+
+
+  function normalizeBackwardIndex(index, viewSize) {
+    var length = Run.length;
+
+    if (index >= 0) {
+      return index;
+    }
+
+    if (Glide.isType('carousel')) {
+      return index + (length + 1);
+    }
+
+    if (Glide.settings.rewind) {
+      // bound does funny things with the length, therefor we have to be certain
+      // that we are on first possible index value before we to rewind to the length given by bound
+      if (Run.isBound() && Run.isStart()) {
+        return length;
+      }
+
+      return Math.floor(length / viewSize) * viewSize;
+    }
+
+    return 0;
+  }
+
+  define(Run, 'move', {
+    /**
+     * Gets value of the move schema.
+     *
+     * @returns {Object}
+     */
+    get: function get() {
+      return this._m;
+    },
+
+    /**
+     * Sets value of the move schema.
+     *
+     * @returns {Object}
+     */
+    set: function set(value) {
+      var step = value.substr(1);
+      this._m = {
+        direction: value.substr(0, 1),
+        steps: step ? toInt(step) ? toInt(step) : step : 0
+      };
+    }
+  });
+  define(Run, 'length', {
+    /**
+     * Gets value of the running distance based
+     * on zero-indexing number of slides.
+     *
+     * @return {Number}
+     */
+    get: function get() {
+      var settings = Glide.settings;
+      var length = Components.Html.slides.length; // If the `bound` option is active, a maximum running distance should be
+      // reduced by `perView` and `focusAt` settings. Running distance
+      // should end before creating an empty space after instance.
+
+      if (this.isBound()) {
+        return length - 1 - (toInt(settings.perView) - 1) + toInt(settings.focusAt);
+      }
+
+      return length - 1;
+    }
+  });
+  define(Run, 'offset', {
+    /**
+     * Gets status of the offsetting flag.
+     *
+     * @return {Boolean}
+     */
+    get: function get() {
+      return this._o;
+    }
+  });
+  return Run;
+}
+
+/**
+ * Returns a current time.
+ *
+ * @return {Number}
+ */
+function now() {
+  return new Date().getTime();
+}
+
+/**
+ * Returns a function, that, when invoked, will only be triggered
+ * at most once during a given window of time.
+ *
+ * @param {Function} func
+ * @param {Number} wait
+ * @param {Object=} options
+ * @return {Function}
+ *
+ * @see https://github.com/jashkenas/underscore
+ */
+
+function throttle(func, wait) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var timeout, context, args, result;
+  var previous = 0;
+
+  var later = function later() {
+    previous = options.leading === false ? 0 : now();
+    timeout = null;
+    result = func.apply(context, args);
+    if (!timeout) context = args = null;
+  };
+
+  var throttled = function throttled() {
+    var at = now();
+    if (!previous && options.leading === false) previous = at;
+    var remaining = wait - (at - previous);
+    context = this;
+    args = arguments;
+
+    if (remaining <= 0 || remaining > wait) {
+      if (timeout) {
+        clearTimeout(timeout);
+        timeout = null;
+      }
+
+      previous = at;
+      result = func.apply(context, args);
+      if (!timeout) context = args = null;
+    } else if (!timeout && options.trailing !== false) {
+      timeout = setTimeout(later, remaining);
+    }
+
+    return result;
+  };
+
+  throttled.cancel = function () {
+    clearTimeout(timeout);
+    previous = 0;
+    timeout = context = args = null;
+  };
+
+  return throttled;
+}
+
+var MARGIN_TYPE = {
+  ltr: ['marginLeft', 'marginRight'],
+  rtl: ['marginRight', 'marginLeft']
+};
+function Gaps (Glide, Components, Events) {
+  var Gaps = {
+    /**
+     * Applies gaps between slides. First and last
+     * slides do not receive it's edge margins.
+     *
+     * @param {HTMLCollection} slides
+     * @return {Void}
+     */
+    apply: function apply(slides) {
+      for (var i = 0, len = slides.length; i < len; i++) {
+        var style = slides[i].style;
+        var direction = Components.Direction.value;
+
+        if (i !== 0) {
+          style[MARGIN_TYPE[direction][0]] = "".concat(this.value / 2, "px");
+        } else {
+          style[MARGIN_TYPE[direction][0]] = '';
+        }
+
+        if (i !== slides.length - 1) {
+          style[MARGIN_TYPE[direction][1]] = "".concat(this.value / 2, "px");
+        } else {
+          style[MARGIN_TYPE[direction][1]] = '';
+        }
+      }
+    },
+
+    /**
+     * Removes gaps from the slides.
+     *
+     * @param {HTMLCollection} slides
+     * @returns {Void}
+    */
+    remove: function remove(slides) {
+      for (var i = 0, len = slides.length; i < len; i++) {
+        var style = slides[i].style;
+        style.marginLeft = '';
+        style.marginRight = '';
+      }
+    }
+  };
+  define(Gaps, 'value', {
+    /**
+     * Gets value of the gap.
+     *
+     * @returns {Number}
+     */
+    get: function get() {
+      return toInt(Glide.settings.gap);
+    }
+  });
+  define(Gaps, 'grow', {
+    /**
+     * Gets additional dimensions value caused by gaps.
+     * Used to increase width of the slides wrapper.
+     *
+     * @returns {Number}
+     */
+    get: function get() {
+      return Gaps.value * Components.Sizes.length;
+    }
+  });
+  define(Gaps, 'reductor', {
+    /**
+     * Gets reduction value caused by gaps.
+     * Used to subtract width of the slides.
+     *
+     * @returns {Number}
+     */
+    get: function get() {
+      var perView = Glide.settings.perView;
+      return Gaps.value * (perView - 1) / perView;
+    }
+  });
+  /**
+   * Apply calculated gaps:
+   * - after building, so slides (including clones) will receive proper margins
+   * - on updating via API, to recalculate gaps with new options
+   */
+
+  Events.on(['build.after', 'update'], throttle(function () {
+    Gaps.apply(Components.Html.wrapper.children);
+  }, 30));
+  /**
+   * Remove gaps:
+   * - on destroying to bring markup to its inital state
+   */
+
+  Events.on('destroy', function () {
+    Gaps.remove(Components.Html.wrapper.children);
+  });
+  return Gaps;
+}
+
+/**
+ * Finds siblings nodes of the passed node.
+ *
+ * @param  {Element} node
+ * @return {Array}
+ */
+function siblings(node) {
+  if (node && node.parentNode) {
+    var n = node.parentNode.firstChild;
+    var matched = [];
+
+    for (; n; n = n.nextSibling) {
+      if (n.nodeType === 1 && n !== node) {
+        matched.push(n);
+      }
+    }
+
+    return matched;
+  }
+
+  return [];
+}
+/**
+ * Coerces a NodeList to an Array.
+ *
+ * @param  {NodeList} nodeList
+ * @return {Array}
+ */
+
+function toArray(nodeList) {
+  return Array.prototype.slice.call(nodeList);
+}
+
+var TRACK_SELECTOR = '[data-glide-el="track"]';
+function Html (Glide, Components, Events) {
+  var Html = {
+    /**
+     * Setup slider HTML nodes.
+     *
+     * @param {Glide} glide
+     */
+    mount: function mount() {
+      this.root = Glide.selector;
+      this.track = this.root.querySelector(TRACK_SELECTOR);
+      this.collectSlides();
+    },
+
+    /**
+     * Collect slides
+     */
+    collectSlides: function collectSlides() {
+      this.slides = toArray(this.wrapper.children).filter(function (slide) {
+        return !slide.classList.contains(Glide.settings.classes.slide.clone);
+      });
+    }
+  };
+  define(Html, 'root', {
+    /**
+     * Gets node of the glide main element.
+     *
+     * @return {Object}
+     */
+    get: function get() {
+      return Html._r;
+    },
+
+    /**
+     * Sets node of the glide main element.
+     *
+     * @return {Object}
+     */
+    set: function set(r) {
+      if (isString(r)) {
+        r = document.querySelector(r);
+      }
+
+      if (r !== null) {
+        Html._r = r;
+      } else {
+        warn('Root element must be a existing Html node');
+      }
+    }
+  });
+  define(Html, 'track', {
+    /**
+     * Gets node of the glide track with slides.
+     *
+     * @return {Object}
+     */
+    get: function get() {
+      return Html._t;
+    },
+
+    /**
+     * Sets node of the glide track with slides.
+     *
+     * @return {Object}
+     */
+    set: function set(t) {
+      Html._t = t;
+    }
+  });
+  define(Html, 'wrapper', {
+    /**
+     * Gets node of the slides wrapper.
+     *
+     * @return {Object}
+     */
+    get: function get() {
+      return Html.track.children[0];
+    }
+  });
+  /**
+   * Add/remove/reorder dynamic slides
+   */
+
+  Events.on('update', function () {
+    Html.collectSlides();
+  });
+  return Html;
+}
+
+function Peek (Glide, Components, Events) {
+  var Peek = {
+    /**
+     * Setups how much to peek based on settings.
+     *
+     * @return {Void}
+     */
+    mount: function mount() {
+      this.value = Glide.settings.peek;
+    }
+  };
+  define(Peek, 'value', {
+    /**
+     * Gets value of the peek.
+     *
+     * @returns {Number|Object}
+     */
+    get: function get() {
+      return Peek._v;
+    },
+
+    /**
+     * Sets value of the peek.
+     *
+     * @param {Number|Object} value
+     * @return {Void}
+     */
+    set: function set(value) {
+      if (isObject(value)) {
+        value.before = toInt(value.before);
+        value.after = toInt(value.after);
+      } else {
+        value = toInt(value);
+      }
+
+      Peek._v = value;
+    }
+  });
+  define(Peek, 'reductor', {
+    /**
+     * Gets reduction value caused by peek.
+     *
+     * @returns {Number}
+     */
+    get: function get() {
+      var value = Peek.value;
+      var perView = Glide.settings.perView;
+
+      if (isObject(value)) {
+        return value.before / perView + value.after / perView;
+      }
+
+      return value * 2 / perView;
+    }
+  });
+  /**
+   * Recalculate peeking sizes on:
+   * - when resizing window to update to proper percents
+   */
+
+  Events.on(['resize', 'update'], function () {
+    Peek.mount();
+  });
+  return Peek;
+}
+
+function Move (Glide, Components, Events) {
+  var Move = {
+    /**
+     * Constructs move component.
+     *
+     * @returns {Void}
+     */
+    mount: function mount() {
+      this._o = 0;
+    },
+
+    /**
+     * Calculates a movement value based on passed offset and currently active index.
+     *
+     * @param  {Number} offset
+     * @return {Void}
+     */
+    make: function make() {
+      var _this = this;
+
+      var offset = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      this.offset = offset;
+      Events.emit('move', {
+        movement: this.value
+      });
+      Components.Transition.after(function () {
+        Events.emit('move.after', {
+          movement: _this.value
+        });
+      });
+    }
+  };
+  define(Move, 'offset', {
+    /**
+     * Gets an offset value used to modify current translate.
+     *
+     * @return {Object}
+     */
+    get: function get() {
+      return Move._o;
+    },
+
+    /**
+     * Sets an offset value used to modify current translate.
+     *
+     * @return {Object}
+     */
+    set: function set(value) {
+      Move._o = !isUndefined(value) ? toInt(value) : 0;
+    }
+  });
+  define(Move, 'translate', {
+    /**
+     * Gets a raw movement value.
+     *
+     * @return {Number}
+     */
+    get: function get() {
+      return Components.Sizes.slideWidth * Glide.index;
+    }
+  });
+  define(Move, 'value', {
+    /**
+     * Gets an actual movement value corrected by offset.
+     *
+     * @return {Number}
+     */
+    get: function get() {
+      var offset = this.offset;
+      var translate = this.translate;
+
+      if (Components.Direction.is('rtl')) {
+        return translate + offset;
+      }
+
+      return translate - offset;
+    }
+  });
+  /**
+   * Make movement to proper slide on:
+   * - before build, so glide will start at `startAt` index
+   * - on each standard run to move to newly calculated index
+   */
+
+  Events.on(['build.before', 'run'], function () {
+    Move.make();
+  });
+  return Move;
+}
+
+function Sizes (Glide, Components, Events) {
+  var Sizes = {
+    /**
+     * Setups dimensions of slides.
+     *
+     * @return {Void}
+     */
+    setupSlides: function setupSlides() {
+      var width = "".concat(this.slideWidth, "px");
+      var slides = Components.Html.slides;
+
+      for (var i = 0; i < slides.length; i++) {
+        slides[i].style.width = width;
+      }
+    },
+
+    /**
+     * Setups dimensions of slides wrapper.
+     *
+     * @return {Void}
+     */
+    setupWrapper: function setupWrapper() {
+      Components.Html.wrapper.style.width = "".concat(this.wrapperSize, "px");
+    },
+
+    /**
+     * Removes applied styles from HTML elements.
+     *
+     * @returns {Void}
+     */
+    remove: function remove() {
+      var slides = Components.Html.slides;
+
+      for (var i = 0; i < slides.length; i++) {
+        slides[i].style.width = '';
+      }
+
+      Components.Html.wrapper.style.width = '';
+    }
+  };
+  define(Sizes, 'length', {
+    /**
+     * Gets count number of the slides.
+     *
+     * @return {Number}
+     */
+    get: function get() {
+      return Components.Html.slides.length;
+    }
+  });
+  define(Sizes, 'width', {
+    /**
+     * Gets width value of the slider (visible area).
+     *
+     * @return {Number}
+     */
+    get: function get() {
+      return Components.Html.track.offsetWidth;
+    }
+  });
+  define(Sizes, 'wrapperSize', {
+    /**
+     * Gets size of the slides wrapper.
+     *
+     * @return {Number}
+     */
+    get: function get() {
+      return Sizes.slideWidth * Sizes.length + Components.Gaps.grow + Components.Clones.grow;
+    }
+  });
+  define(Sizes, 'slideWidth', {
+    /**
+     * Gets width value of a single slide.
+     *
+     * @return {Number}
+     */
+    get: function get() {
+      return Sizes.width / Glide.settings.perView - Components.Peek.reductor - Components.Gaps.reductor;
+    }
+  });
+  /**
+   * Apply calculated glide's dimensions:
+   * - before building, so other dimensions (e.g. translate) will be calculated propertly
+   * - when resizing window to recalculate sildes dimensions
+   * - on updating via API, to calculate dimensions based on new options
+   */
+
+  Events.on(['build.before', 'resize', 'update'], function () {
+    Sizes.setupSlides();
+    Sizes.setupWrapper();
+  });
+  /**
+   * Remove calculated glide's dimensions:
+   * - on destoting to bring markup to its inital state
+   */
+
+  Events.on('destroy', function () {
+    Sizes.remove();
+  });
+  return Sizes;
+}
+
+function Build (Glide, Components, Events) {
+  var Build = {
+    /**
+     * Init glide building. Adds classes, sets
+     * dimensions and setups initial state.
+     *
+     * @return {Void}
+     */
+    mount: function mount() {
+      Events.emit('build.before');
+      this.typeClass();
+      this.activeClass();
+      Events.emit('build.after');
+    },
+
+    /**
+     * Adds `type` class to the glide element.
+     *
+     * @return {Void}
+     */
+    typeClass: function typeClass() {
+      Components.Html.root.classList.add(Glide.settings.classes.type[Glide.settings.type]);
+    },
+
+    /**
+     * Sets active class to current slide.
+     *
+     * @return {Void}
+     */
+    activeClass: function activeClass() {
+      var classes = Glide.settings.classes;
+      var slide = Components.Html.slides[Glide.index];
+
+      if (slide) {
+        slide.classList.add(classes.slide.active);
+        siblings(slide).forEach(function (sibling) {
+          sibling.classList.remove(classes.slide.active);
+        });
+      }
+    },
+
+    /**
+     * Removes HTML classes applied at building.
+     *
+     * @return {Void}
+     */
+    removeClasses: function removeClasses() {
+      var _Glide$settings$class = Glide.settings.classes,
+          type = _Glide$settings$class.type,
+          slide = _Glide$settings$class.slide;
+      Components.Html.root.classList.remove(type[Glide.settings.type]);
+      Components.Html.slides.forEach(function (sibling) {
+        sibling.classList.remove(slide.active);
+      });
+    }
+  };
+  /**
+   * Clear building classes:
+   * - on destroying to bring HTML to its initial state
+   * - on updating to remove classes before remounting component
+   */
+
+  Events.on(['destroy', 'update'], function () {
+    Build.removeClasses();
+  });
+  /**
+   * Remount component:
+   * - on resizing of the window to calculate new dimensions
+   * - on updating settings via API
+   */
+
+  Events.on(['resize', 'update'], function () {
+    Build.mount();
+  });
+  /**
+   * Swap active class of current slide:
+   * - after each move to the new index
+   */
+
+  Events.on('move.after', function () {
+    Build.activeClass();
+  });
+  return Build;
+}
+
+function Clones (Glide, Components, Events) {
+  var Clones = {
+    /**
+     * Create pattern map and collect slides to be cloned.
+     */
+    mount: function mount() {
+      this.items = [];
+
+      if (Glide.isType('carousel')) {
+        this.items = this.collect();
+      }
+    },
+
+    /**
+     * Collect clones with pattern.
+     *
+     * @return {[]}
+     */
+    collect: function collect() {
+      var items = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+      var slides = Components.Html.slides;
+      var _Glide$settings = Glide.settings,
+          perView = _Glide$settings.perView,
+          classes = _Glide$settings.classes,
+          cloningRatio = _Glide$settings.cloningRatio;
+
+      if (slides.length > 0) {
+        var peekIncrementer = +!!Glide.settings.peek;
+        var cloneCount = perView + peekIncrementer + Math.round(perView / 2);
+        var append = slides.slice(0, cloneCount).reverse();
+        var prepend = slides.slice(cloneCount * -1);
+
+        for (var r = 0; r < Math.max(cloningRatio, Math.floor(perView / slides.length)); r++) {
+          for (var i = 0; i < append.length; i++) {
+            var clone = append[i].cloneNode(true);
+            clone.classList.add(classes.slide.clone);
+            items.push(clone);
+          }
+
+          for (var _i = 0; _i < prepend.length; _i++) {
+            var _clone = prepend[_i].cloneNode(true);
+
+            _clone.classList.add(classes.slide.clone);
+
+            items.unshift(_clone);
+          }
+        }
+      }
+
+      return items;
+    },
+
+    /**
+     * Append cloned slides with generated pattern.
+     *
+     * @return {Void}
+     */
+    append: function append() {
+      var items = this.items;
+      var _Components$Html = Components.Html,
+          wrapper = _Components$Html.wrapper,
+          slides = _Components$Html.slides;
+      var half = Math.floor(items.length / 2);
+      var prepend = items.slice(0, half).reverse();
+      var append = items.slice(half * -1).reverse();
+      var width = "".concat(Components.Sizes.slideWidth, "px");
+
+      for (var i = 0; i < append.length; i++) {
+        wrapper.appendChild(append[i]);
+      }
+
+      for (var _i2 = 0; _i2 < prepend.length; _i2++) {
+        wrapper.insertBefore(prepend[_i2], slides[0]);
+      }
+
+      for (var _i3 = 0; _i3 < items.length; _i3++) {
+        items[_i3].style.width = width;
+      }
+    },
+
+    /**
+     * Remove all cloned slides.
+     *
+     * @return {Void}
+     */
+    remove: function remove() {
+      var items = this.items;
+
+      for (var i = 0; i < items.length; i++) {
+        Components.Html.wrapper.removeChild(items[i]);
+      }
+    }
+  };
+  define(Clones, 'grow', {
+    /**
+     * Gets additional dimensions value caused by clones.
+     *
+     * @return {Number}
+     */
+    get: function get() {
+      return (Components.Sizes.slideWidth + Components.Gaps.value) * Clones.items.length;
+    }
+  });
+  /**
+   * Append additional slide's clones:
+   * - while glide's type is `carousel`
+   */
+
+  Events.on('update', function () {
+    Clones.remove();
+    Clones.mount();
+    Clones.append();
+  });
+  /**
+   * Append additional slide's clones:
+   * - while glide's type is `carousel`
+   */
+
+  Events.on('build.before', function () {
+    if (Glide.isType('carousel')) {
+      Clones.append();
+    }
+  });
+  /**
+   * Remove clones HTMLElements:
+   * - on destroying, to bring HTML to its initial state
+   */
+
+  Events.on('destroy', function () {
+    Clones.remove();
+  });
+  return Clones;
+}
+
+var EventsBinder = /*#__PURE__*/function () {
+  /**
+   * Construct a EventsBinder instance.
+   */
+  function EventsBinder() {
+    var listeners = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    _classCallCheck(this, EventsBinder);
+
+    this.listeners = listeners;
+  }
+  /**
+   * Adds events listeners to arrows HTML elements.
+   *
+   * @param  {String|Array} events
+   * @param  {Element|Window|Document} el
+   * @param  {Function} closure
+   * @param  {Boolean|Object} capture
+   * @return {Void}
+   */
+
+
+  _createClass(EventsBinder, [{
+    key: "on",
+    value: function on(events, el, closure) {
+      var capture = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
+      if (isString(events)) {
+        events = [events];
+      }
+
+      for (var i = 0; i < events.length; i++) {
+        this.listeners[events[i]] = closure;
+        el.addEventListener(events[i], this.listeners[events[i]], capture);
+      }
+    }
+    /**
+     * Removes event listeners from arrows HTML elements.
+     *
+     * @param  {String|Array} events
+     * @param  {Element|Window|Document} el
+     * @param  {Boolean|Object} capture
+     * @return {Void}
+     */
+
+  }, {
+    key: "off",
+    value: function off(events, el) {
+      var capture = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+      if (isString(events)) {
+        events = [events];
+      }
+
+      for (var i = 0; i < events.length; i++) {
+        el.removeEventListener(events[i], this.listeners[events[i]], capture);
+      }
+    }
+    /**
+     * Destroy collected listeners.
+     *
+     * @returns {Void}
+     */
+
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      delete this.listeners;
+    }
+  }]);
+
+  return EventsBinder;
+}();
+
+function Resize (Glide, Components, Events) {
+  /**
+   * Instance of the binder for DOM Events.
+   *
+   * @type {EventsBinder}
+   */
+  var Binder = new EventsBinder();
+  var Resize = {
+    /**
+     * Initializes window bindings.
+     */
+    mount: function mount() {
+      this.bind();
+    },
+
+    /**
+     * Binds `rezsize` listener to the window.
+     * It's a costly event, so we are debouncing it.
+     *
+     * @return {Void}
+     */
+    bind: function bind() {
+      Binder.on('resize', window, throttle(function () {
+        Events.emit('resize');
+      }, Glide.settings.throttle));
+    },
+
+    /**
+     * Unbinds listeners from the window.
+     *
+     * @return {Void}
+     */
+    unbind: function unbind() {
+      Binder.off('resize', window);
+    }
+  };
+  /**
+   * Remove bindings from window:
+   * - on destroying, to remove added EventListener
+   */
+
+  Events.on('destroy', function () {
+    Resize.unbind();
+    Binder.destroy();
+  });
+  return Resize;
+}
+
+var VALID_DIRECTIONS = ['ltr', 'rtl'];
+var FLIPED_MOVEMENTS = {
+  '>': '<',
+  '<': '>',
+  '=': '='
+};
+function Direction (Glide, Components, Events) {
+  var Direction = {
+    /**
+     * Setups gap value based on settings.
+     *
+     * @return {Void}
+     */
+    mount: function mount() {
+      this.value = Glide.settings.direction;
+    },
+
+    /**
+     * Resolves pattern based on direction value
+     *
+     * @param {String} pattern
+     * @returns {String}
+     */
+    resolve: function resolve(pattern) {
+      var token = pattern.slice(0, 1);
+
+      if (this.is('rtl')) {
+        return pattern.split(token).join(FLIPED_MOVEMENTS[token]);
+      }
+
+      return pattern;
+    },
+
+    /**
+     * Checks value of direction mode.
+     *
+     * @param {String} direction
+     * @returns {Boolean}
+     */
+    is: function is(direction) {
+      return this.value === direction;
+    },
+
+    /**
+     * Applies direction class to the root HTML element.
+     *
+     * @return {Void}
+     */
+    addClass: function addClass() {
+      Components.Html.root.classList.add(Glide.settings.classes.direction[this.value]);
+    },
+
+    /**
+     * Removes direction class from the root HTML element.
+     *
+     * @return {Void}
+     */
+    removeClass: function removeClass() {
+      Components.Html.root.classList.remove(Glide.settings.classes.direction[this.value]);
+    }
+  };
+  define(Direction, 'value', {
+    /**
+     * Gets value of the direction.
+     *
+     * @returns {Number}
+     */
+    get: function get() {
+      return Direction._v;
+    },
+
+    /**
+     * Sets value of the direction.
+     *
+     * @param {String} value
+     * @return {Void}
+     */
+    set: function set(value) {
+      if (VALID_DIRECTIONS.indexOf(value) > -1) {
+        Direction._v = value;
+      } else {
+        warn('Direction value must be `ltr` or `rtl`');
+      }
+    }
+  });
+  /**
+   * Clear direction class:
+   * - on destroy to bring HTML to its initial state
+   * - on update to remove class before reappling bellow
+   */
+
+  Events.on(['destroy', 'update'], function () {
+    Direction.removeClass();
+  });
+  /**
+   * Remount component:
+   * - on update to reflect changes in direction value
+   */
+
+  Events.on('update', function () {
+    Direction.mount();
+  });
+  /**
+   * Apply direction class:
+   * - before building to apply class for the first time
+   * - on updating to reapply direction class that may changed
+   */
+
+  Events.on(['build.before', 'update'], function () {
+    Direction.addClass();
+  });
+  return Direction;
+}
+
+/**
+ * Reflects value of glide movement.
+ *
+ * @param  {Object} Glide
+ * @param  {Object} Components
+ * @return {Object}
+ */
+function Rtl (Glide, Components) {
+  return {
+    /**
+     * Negates the passed translate if glide is in RTL option.
+     *
+     * @param  {Number} translate
+     * @return {Number}
+     */
+    modify: function modify(translate) {
+      if (Components.Direction.is('rtl')) {
+        return -translate;
+      }
+
+      return translate;
+    }
+  };
+}
+
+/**
+ * Updates glide movement with a `gap` settings.
+ *
+ * @param  {Object} Glide
+ * @param  {Object} Components
+ * @return {Object}
+ */
+function Gap (Glide, Components) {
+  return {
+    /**
+     * Modifies passed translate value with number in the `gap` settings.
+     *
+     * @param  {Number} translate
+     * @return {Number}
+     */
+    modify: function modify(translate) {
+      var multiplier = Math.floor(translate / Components.Sizes.slideWidth);
+      return translate + Components.Gaps.value * multiplier;
+    }
+  };
+}
+
+/**
+ * Updates glide movement with width of additional clones width.
+ *
+ * @param  {Object} Glide
+ * @param  {Object} Components
+ * @return {Object}
+ */
+function Grow (Glide, Components) {
+  return {
+    /**
+     * Adds to the passed translate width of the half of clones.
+     *
+     * @param  {Number} translate
+     * @return {Number}
+     */
+    modify: function modify(translate) {
+      return translate + Components.Clones.grow / 2;
+    }
+  };
+}
+
+/**
+ * Updates glide movement with a `peek` settings.
+ *
+ * @param  {Object} Glide
+ * @param  {Object} Components
+ * @return {Object}
+ */
+
+function Peeking (Glide, Components) {
+  return {
+    /**
+     * Modifies passed translate value with a `peek` setting.
+     *
+     * @param  {Number} translate
+     * @return {Number}
+     */
+    modify: function modify(translate) {
+      if (Glide.settings.focusAt >= 0) {
+        var peek = Components.Peek.value;
+
+        if (isObject(peek)) {
+          return translate - peek.before;
+        }
+
+        return translate - peek;
+      }
+
+      return translate;
+    }
+  };
+}
+
+/**
+ * Updates glide movement with a `focusAt` settings.
+ *
+ * @param  {Object} Glide
+ * @param  {Object} Components
+ * @return {Object}
+ */
+function Focusing (Glide, Components) {
+  return {
+    /**
+     * Modifies passed translate value with index in the `focusAt` setting.
+     *
+     * @param  {Number} translate
+     * @return {Number}
+     */
+    modify: function modify(translate) {
+      var gap = Components.Gaps.value;
+      var width = Components.Sizes.width;
+      var focusAt = Glide.settings.focusAt;
+      var slideWidth = Components.Sizes.slideWidth;
+
+      if (focusAt === 'center') {
+        return translate - (width / 2 - slideWidth / 2);
+      }
+
+      return translate - slideWidth * focusAt - gap * focusAt;
+    }
+  };
+}
+
+/**
+ * Applies diffrent transformers on translate value.
+ *
+ * @param  {Object} Glide
+ * @param  {Object} Components
+ * @return {Object}
+ */
+
+function mutator (Glide, Components, Events) {
+  /**
+   * Merge instance transformers with collection of default transformers.
+   * It's important that the Rtl component be last on the list,
+   * so it reflects all previous transformations.
+   *
+   * @type {Array}
+   */
+  var TRANSFORMERS = [Gap, Grow, Peeking, Focusing].concat(Glide._t, [Rtl]);
+  return {
+    /**
+     * Piplines translate value with registered transformers.
+     *
+     * @param  {Number} translate
+     * @return {Number}
+     */
+    mutate: function mutate(translate) {
+      for (var i = 0; i < TRANSFORMERS.length; i++) {
+        var transformer = TRANSFORMERS[i];
+
+        if (isFunction(transformer) && isFunction(transformer().modify)) {
+          translate = transformer(Glide, Components, Events).modify(translate);
+        } else {
+          warn('Transformer should be a function that returns an object with `modify()` method');
+        }
+      }
+
+      return translate;
+    }
+  };
+}
+
+function Translate (Glide, Components, Events) {
+  var Translate = {
+    /**
+     * Sets value of translate on HTML element.
+     *
+     * @param {Number} value
+     * @return {Void}
+     */
+    set: function set(value) {
+      var transform = mutator(Glide, Components).mutate(value);
+      var translate3d = "translate3d(".concat(-1 * transform, "px, 0px, 0px)");
+      Components.Html.wrapper.style.mozTransform = translate3d; // needed for supported Firefox 10-15
+
+      Components.Html.wrapper.style.webkitTransform = translate3d; // needed for supported Chrome 10-35, Safari 5.1-8, and Opera 15-22
+
+      Components.Html.wrapper.style.transform = translate3d;
+    },
+
+    /**
+     * Removes value of translate from HTML element.
+     *
+     * @return {Void}
+     */
+    remove: function remove() {
+      Components.Html.wrapper.style.transform = '';
+    },
+
+    /**
+     * @return {number}
+     */
+    getStartIndex: function getStartIndex() {
+      var length = Components.Sizes.length;
+      var index = Glide.index;
+      var perView = Glide.settings.perView;
+
+      if (Components.Run.isOffset('>') || Components.Run.isOffset('|>')) {
+        return length + (index - perView);
+      } // "modulo length" converts an index that equals length to zero
+
+
+      return (index + perView) % length;
+    },
+
+    /**
+     * @return {number}
+     */
+    getTravelDistance: function getTravelDistance() {
+      var travelDistance = Components.Sizes.slideWidth * Glide.settings.perView;
+
+      if (Components.Run.isOffset('>') || Components.Run.isOffset('|>')) {
+        // reverse travel distance so that we don't have to change subtract operations
+        return travelDistance * -1;
+      }
+
+      return travelDistance;
+    }
+  };
+  /**
+   * Set new translate value:
+   * - on move to reflect index change
+   * - on updating via API to reflect possible changes in options
+   */
+
+  Events.on('move', function (context) {
+    if (!Glide.isType('carousel') || !Components.Run.isOffset()) {
+      return Translate.set(context.movement);
+    }
+
+    Components.Transition.after(function () {
+      Events.emit('translate.jump');
+      Translate.set(Components.Sizes.slideWidth * Glide.index);
+    });
+    var startWidth = Components.Sizes.slideWidth * Components.Translate.getStartIndex();
+    return Translate.set(startWidth - Components.Translate.getTravelDistance());
+  });
+  /**
+   * Remove translate:
+   * - on destroying to bring markup to its inital state
+   */
+
+  Events.on('destroy', function () {
+    Translate.remove();
+  });
+  return Translate;
+}
+
+function Transition (Glide, Components, Events) {
+  /**
+   * Holds inactivity status of transition.
+   * When true transition is not applied.
+   *
+   * @type {Boolean}
+   */
+  var disabled = false;
+  var Transition = {
+    /**
+     * Composes string of the CSS transition.
+     *
+     * @param {String} property
+     * @return {String}
+     */
+    compose: function compose(property) {
+      var settings = Glide.settings;
+
+      if (disabled) {
+        return "".concat(property, " 0ms ").concat(settings.animationTimingFunc);
+      }
+
+      return "".concat(property, " ").concat(this.duration, "ms ").concat(settings.animationTimingFunc);
+    },
+
+    /**
+     * Sets value of transition on HTML element.
+     *
+     * @param {String=} property
+     * @return {Void}
+     */
+    set: function set() {
+      var property = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'transform';
+      Components.Html.wrapper.style.transition = this.compose(property);
+    },
+
+    /**
+     * Removes value of transition from HTML element.
+     *
+     * @return {Void}
+     */
+    remove: function remove() {
+      Components.Html.wrapper.style.transition = '';
+    },
+
+    /**
+     * Runs callback after animation.
+     *
+     * @param  {Function} callback
+     * @return {Void}
+     */
+    after: function after(callback) {
+      setTimeout(function () {
+        callback();
+      }, this.duration);
+    },
+
+    /**
+     * Enable transition.
+     *
+     * @return {Void}
+     */
+    enable: function enable() {
+      disabled = false;
+      this.set();
+    },
+
+    /**
+     * Disable transition.
+     *
+     * @return {Void}
+     */
+    disable: function disable() {
+      disabled = true;
+      this.set();
+    }
+  };
+  define(Transition, 'duration', {
+    /**
+     * Gets duration of the transition based
+     * on currently running animation type.
+     *
+     * @return {Number}
+     */
+    get: function get() {
+      var settings = Glide.settings;
+
+      if (Glide.isType('slider') && Components.Run.offset) {
+        return settings.rewindDuration;
+      }
+
+      return settings.animationDuration;
+    }
+  });
+  /**
+   * Set transition `style` value:
+   * - on each moving, because it may be cleared by offset move
+   */
+
+  Events.on('move', function () {
+    Transition.set();
+  });
+  /**
+   * Disable transition:
+   * - before initial build to avoid transitioning from `0` to `startAt` index
+   * - while resizing window and recalculating dimensions
+   * - on jumping from offset transition at start and end edges in `carousel` type
+   */
+
+  Events.on(['build.before', 'resize', 'translate.jump'], function () {
+    Transition.disable();
+  });
+  /**
+   * Enable transition:
+   * - on each running, because it may be disabled by offset move
+   */
+
+  Events.on('run', function () {
+    Transition.enable();
+  });
+  /**
+   * Remove transition:
+   * - on destroying to bring markup to its inital state
+   */
+
+  Events.on('destroy', function () {
+    Transition.remove();
+  });
+  return Transition;
+}
+
+/**
+ * Test via a getter in the options object to see
+ * if the passive property is accessed.
+ *
+ * @see https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection
+ */
+var supportsPassive = false;
+
+try {
+  var opts = Object.defineProperty({}, 'passive', {
+    get: function get() {
+      supportsPassive = true;
+    }
+  });
+  window.addEventListener('testPassive', null, opts);
+  window.removeEventListener('testPassive', null, opts);
+} catch (e) {}
+
+var supportsPassive$1 = supportsPassive;
+
+var START_EVENTS = ['touchstart', 'mousedown'];
+var MOVE_EVENTS = ['touchmove', 'mousemove'];
+var END_EVENTS = ['touchend', 'touchcancel', 'mouseup', 'mouseleave'];
+var MOUSE_EVENTS = ['mousedown', 'mousemove', 'mouseup', 'mouseleave'];
+function Swipe (Glide, Components, Events) {
+  /**
+   * Instance of the binder for DOM Events.
+   *
+   * @type {EventsBinder}
+   */
+  var Binder = new EventsBinder();
+  var swipeSin = 0;
+  var swipeStartX = 0;
+  var swipeStartY = 0;
+  var disabled = false;
+  var capture = supportsPassive$1 ? {
+    passive: true
+  } : false;
+  var Swipe = {
+    /**
+     * Initializes swipe bindings.
+     *
+     * @return {Void}
+     */
+    mount: function mount() {
+      this.bindSwipeStart();
+    },
+
+    /**
+     * Handler for `swipestart` event. Calculates entry points of the user's tap.
+     *
+     * @param {Object} event
+     * @return {Void}
+     */
+    start: function start(event) {
+      if (!disabled && !Glide.disabled) {
+        this.disable();
+        var swipe = this.touches(event);
+        swipeSin = null;
+        swipeStartX = toInt(swipe.pageX);
+        swipeStartY = toInt(swipe.pageY);
+        this.bindSwipeMove();
+        this.bindSwipeEnd();
+        Events.emit('swipe.start');
+      }
+    },
+
+    /**
+     * Handler for `swipemove` event. Calculates user's tap angle and distance.
+     *
+     * @param {Object} event
+     */
+    move: function move(event) {
+      if (!Glide.disabled) {
+        var _Glide$settings = Glide.settings,
+            touchAngle = _Glide$settings.touchAngle,
+            touchRatio = _Glide$settings.touchRatio,
+            classes = _Glide$settings.classes;
+        var swipe = this.touches(event);
+        var subExSx = toInt(swipe.pageX) - swipeStartX;
+        var subEySy = toInt(swipe.pageY) - swipeStartY;
+        var powEX = Math.abs(subExSx << 2);
+        var powEY = Math.abs(subEySy << 2);
+        var swipeHypotenuse = Math.sqrt(powEX + powEY);
+        var swipeCathetus = Math.sqrt(powEY);
+        swipeSin = Math.asin(swipeCathetus / swipeHypotenuse);
+
+        if (swipeSin * 180 / Math.PI < touchAngle) {
+          event.stopPropagation();
+          Components.Move.make(subExSx * toFloat(touchRatio));
+          Components.Html.root.classList.add(classes.dragging);
+          Events.emit('swipe.move');
+        } else {
+          return false;
+        }
+      }
+    },
+
+    /**
+     * Handler for `swipeend` event. Finitializes user's tap and decides about glide move.
+     *
+     * @param {Object} event
+     * @return {Void}
+     */
+    end: function end(event) {
+      if (!Glide.disabled) {
+        var _Glide$settings2 = Glide.settings,
+            perSwipe = _Glide$settings2.perSwipe,
+            touchAngle = _Glide$settings2.touchAngle,
+            classes = _Glide$settings2.classes;
+        var swipe = this.touches(event);
+        var threshold = this.threshold(event);
+        var swipeDistance = swipe.pageX - swipeStartX;
+        var swipeDeg = swipeSin * 180 / Math.PI;
+        this.enable();
+
+        if (swipeDistance > threshold && swipeDeg < touchAngle) {
+          Components.Run.make(Components.Direction.resolve("".concat(perSwipe, "<")));
+        } else if (swipeDistance < -threshold && swipeDeg < touchAngle) {
+          Components.Run.make(Components.Direction.resolve("".concat(perSwipe, ">")));
+        } else {
+          // While swipe don't reach distance apply previous transform.
+          Components.Move.make();
+        }
+
+        Components.Html.root.classList.remove(classes.dragging);
+        this.unbindSwipeMove();
+        this.unbindSwipeEnd();
+        Events.emit('swipe.end');
+      }
+    },
+
+    /**
+     * Binds swipe's starting event.
+     *
+     * @return {Void}
+     */
+    bindSwipeStart: function bindSwipeStart() {
+      var _this = this;
+
+      var _Glide$settings3 = Glide.settings,
+          swipeThreshold = _Glide$settings3.swipeThreshold,
+          dragThreshold = _Glide$settings3.dragThreshold;
+
+      if (swipeThreshold) {
+        Binder.on(START_EVENTS[0], Components.Html.wrapper, function (event) {
+          _this.start(event);
+        }, capture);
+      }
+
+      if (dragThreshold) {
+        Binder.on(START_EVENTS[1], Components.Html.wrapper, function (event) {
+          _this.start(event);
+        }, capture);
+      }
+    },
+
+    /**
+     * Unbinds swipe's starting event.
+     *
+     * @return {Void}
+     */
+    unbindSwipeStart: function unbindSwipeStart() {
+      Binder.off(START_EVENTS[0], Components.Html.wrapper, capture);
+      Binder.off(START_EVENTS[1], Components.Html.wrapper, capture);
+    },
+
+    /**
+     * Binds swipe's moving event.
+     *
+     * @return {Void}
+     */
+    bindSwipeMove: function bindSwipeMove() {
+      var _this2 = this;
+
+      Binder.on(MOVE_EVENTS, Components.Html.wrapper, throttle(function (event) {
+        _this2.move(event);
+      }, Glide.settings.throttle), capture);
+    },
+
+    /**
+     * Unbinds swipe's moving event.
+     *
+     * @return {Void}
+     */
+    unbindSwipeMove: function unbindSwipeMove() {
+      Binder.off(MOVE_EVENTS, Components.Html.wrapper, capture);
+    },
+
+    /**
+     * Binds swipe's ending event.
+     *
+     * @return {Void}
+     */
+    bindSwipeEnd: function bindSwipeEnd() {
+      var _this3 = this;
+
+      Binder.on(END_EVENTS, Components.Html.wrapper, function (event) {
+        _this3.end(event);
+      });
+    },
+
+    /**
+     * Unbinds swipe's ending event.
+     *
+     * @return {Void}
+     */
+    unbindSwipeEnd: function unbindSwipeEnd() {
+      Binder.off(END_EVENTS, Components.Html.wrapper);
+    },
+
+    /**
+     * Normalizes event touches points accorting to different types.
+     *
+     * @param {Object} event
+     */
+    touches: function touches(event) {
+      if (MOUSE_EVENTS.indexOf(event.type) > -1) {
+        return event;
+      }
+
+      return event.touches[0] || event.changedTouches[0];
+    },
+
+    /**
+     * Gets value of minimum swipe distance settings based on event type.
+     *
+     * @return {Number}
+     */
+    threshold: function threshold(event) {
+      var settings = Glide.settings;
+
+      if (MOUSE_EVENTS.indexOf(event.type) > -1) {
+        return settings.dragThreshold;
+      }
+
+      return settings.swipeThreshold;
+    },
+
+    /**
+     * Enables swipe event.
+     *
+     * @return {self}
+     */
+    enable: function enable() {
+      disabled = false;
+      Components.Transition.enable();
+      return this;
+    },
+
+    /**
+     * Disables swipe event.
+     *
+     * @return {self}
+     */
+    disable: function disable() {
+      disabled = true;
+      Components.Transition.disable();
+      return this;
+    }
+  };
+  /**
+   * Add component class:
+   * - after initial building
+   */
+
+  Events.on('build.after', function () {
+    Components.Html.root.classList.add(Glide.settings.classes.swipeable);
+  });
+  /**
+   * Remove swiping bindings:
+   * - on destroying, to remove added EventListeners
+   */
+
+  Events.on('destroy', function () {
+    Swipe.unbindSwipeStart();
+    Swipe.unbindSwipeMove();
+    Swipe.unbindSwipeEnd();
+    Binder.destroy();
+  });
+  return Swipe;
+}
+
+function Images (Glide, Components, Events) {
+  /**
+   * Instance of the binder for DOM Events.
+   *
+   * @type {EventsBinder}
+   */
+  var Binder = new EventsBinder();
+  var Images = {
+    /**
+     * Binds listener to glide wrapper.
+     *
+     * @return {Void}
+     */
+    mount: function mount() {
+      this.bind();
+    },
+
+    /**
+     * Binds `dragstart` event on wrapper to prevent dragging images.
+     *
+     * @return {Void}
+     */
+    bind: function bind() {
+      Binder.on('dragstart', Components.Html.wrapper, this.dragstart);
+    },
+
+    /**
+     * Unbinds `dragstart` event on wrapper.
+     *
+     * @return {Void}
+     */
+    unbind: function unbind() {
+      Binder.off('dragstart', Components.Html.wrapper);
+    },
+
+    /**
+     * Event handler. Prevents dragging.
+     *
+     * @return {Void}
+     */
+    dragstart: function dragstart(event) {
+      event.preventDefault();
+    }
+  };
+  /**
+   * Remove bindings from images:
+   * - on destroying, to remove added EventListeners
+   */
+
+  Events.on('destroy', function () {
+    Images.unbind();
+    Binder.destroy();
+  });
+  return Images;
+}
+
+function Anchors (Glide, Components, Events) {
+  /**
+   * Instance of the binder for DOM Events.
+   *
+   * @type {EventsBinder}
+   */
+  var Binder = new EventsBinder();
+  /**
+   * Holds detaching status of anchors.
+   * Prevents detaching of already detached anchors.
+   *
+   * @private
+   * @type {Boolean}
+   */
+
+  var detached = false;
+  /**
+   * Holds preventing status of anchors.
+   * If `true` redirection after click will be disabled.
+   *
+   * @private
+   * @type {Boolean}
+   */
+
+  var prevented = false;
+  var Anchors = {
+    /**
+     * Setups a initial state of anchors component.
+     *
+     * @returns {Void}
+     */
+    mount: function mount() {
+      /**
+       * Holds collection of anchors elements.
+       *
+       * @private
+       * @type {HTMLCollection}
+       */
+      this._a = Components.Html.wrapper.querySelectorAll('a');
+      this.bind();
+    },
+
+    /**
+     * Binds events to anchors inside a track.
+     *
+     * @return {Void}
+     */
+    bind: function bind() {
+      Binder.on('click', Components.Html.wrapper, this.click);
+    },
+
+    /**
+     * Unbinds events attached to anchors inside a track.
+     *
+     * @return {Void}
+     */
+    unbind: function unbind() {
+      Binder.off('click', Components.Html.wrapper);
+    },
+
+    /**
+     * Handler for click event. Prevents clicks when glide is in `prevent` status.
+     *
+     * @param  {Object} event
+     * @return {Void}
+     */
+    click: function click(event) {
+      if (prevented) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+    },
+
+    /**
+     * Detaches anchors click event inside glide.
+     *
+     * @return {self}
+     */
+    detach: function detach() {
+      prevented = true;
+
+      if (!detached) {
+        for (var i = 0; i < this.items.length; i++) {
+          this.items[i].draggable = false;
+        }
+
+        detached = true;
+      }
+
+      return this;
+    },
+
+    /**
+     * Attaches anchors click events inside glide.
+     *
+     * @return {self}
+     */
+    attach: function attach() {
+      prevented = false;
+
+      if (detached) {
+        for (var i = 0; i < this.items.length; i++) {
+          this.items[i].draggable = true;
+        }
+
+        detached = false;
+      }
+
+      return this;
+    }
+  };
+  define(Anchors, 'items', {
+    /**
+     * Gets collection of the arrows HTML elements.
+     *
+     * @return {HTMLElement[]}
+     */
+    get: function get() {
+      return Anchors._a;
+    }
+  });
+  /**
+   * Detach anchors inside slides:
+   * - on swiping, so they won't redirect to its `href` attributes
+   */
+
+  Events.on('swipe.move', function () {
+    Anchors.detach();
+  });
+  /**
+   * Attach anchors inside slides:
+   * - after swiping and transitions ends, so they can redirect after click again
+   */
+
+  Events.on('swipe.end', function () {
+    Components.Transition.after(function () {
+      Anchors.attach();
+    });
+  });
+  /**
+   * Unbind anchors inside slides:
+   * - on destroying, to bring anchors to its initial state
+   */
+
+  Events.on('destroy', function () {
+    Anchors.attach();
+    Anchors.unbind();
+    Binder.destroy();
+  });
+  return Anchors;
+}
+
+var NAV_SELECTOR = '[data-glide-el="controls[nav]"]';
+var CONTROLS_SELECTOR = '[data-glide-el^="controls"]';
+var PREVIOUS_CONTROLS_SELECTOR = "".concat(CONTROLS_SELECTOR, " [data-glide-dir*=\"<\"]");
+var NEXT_CONTROLS_SELECTOR = "".concat(CONTROLS_SELECTOR, " [data-glide-dir*=\">\"]");
+function Controls (Glide, Components, Events) {
+  /**
+   * Instance of the binder for DOM Events.
+   *
+   * @type {EventsBinder}
+   */
+  var Binder = new EventsBinder();
+  var capture = supportsPassive$1 ? {
+    passive: true
+  } : false;
+  var Controls = {
+    /**
+     * Inits arrows. Binds events listeners
+     * to the arrows HTML elements.
+     *
+     * @return {Void}
+     */
+    mount: function mount() {
+      /**
+       * Collection of navigation HTML elements.
+       *
+       * @private
+       * @type {HTMLCollection}
+       */
+      this._n = Components.Html.root.querySelectorAll(NAV_SELECTOR);
+      /**
+       * Collection of controls HTML elements.
+       *
+       * @private
+       * @type {HTMLCollection}
+       */
+
+      this._c = Components.Html.root.querySelectorAll(CONTROLS_SELECTOR);
+      /**
+       * Collection of arrow control HTML elements.
+       *
+       * @private
+       * @type {Object}
+       */
+
+      this._arrowControls = {
+        previous: Components.Html.root.querySelectorAll(PREVIOUS_CONTROLS_SELECTOR),
+        next: Components.Html.root.querySelectorAll(NEXT_CONTROLS_SELECTOR)
+      };
+      this.addBindings();
+    },
+
+    /**
+     * Sets active class to current slide.
+     *
+     * @return {Void}
+     */
+    setActive: function setActive() {
+      for (var i = 0; i < this._n.length; i++) {
+        this.addClass(this._n[i].children);
+      }
+    },
+
+    /**
+     * Removes active class to current slide.
+     *
+     * @return {Void}
+     */
+    removeActive: function removeActive() {
+      for (var i = 0; i < this._n.length; i++) {
+        this.removeClass(this._n[i].children);
+      }
+    },
+
+    /**
+     * Toggles active class on items inside navigation.
+     *
+     * @param  {HTMLElement} controls
+     * @return {Void}
+     */
+    addClass: function addClass(controls) {
+      var settings = Glide.settings;
+      var item = controls[Glide.index];
+
+      if (!item) {
+        return;
+      }
+
+      item.classList.add(settings.classes.nav.active);
+      siblings(item).forEach(function (sibling) {
+        sibling.classList.remove(settings.classes.nav.active);
+      });
+    },
+
+    /**
+     * Removes active class from active control.
+     *
+     * @param  {HTMLElement} controls
+     * @return {Void}
+     */
+    removeClass: function removeClass(controls) {
+      var item = controls[Glide.index];
+      item === null || item === void 0 ? void 0 : item.classList.remove(Glide.settings.classes.nav.active);
+    },
+
+    /**
+     * Calculates, removes or adds `Glide.settings.classes.disabledArrow` class on the control arrows
+     */
+    setArrowState: function setArrowState() {
+      if (Glide.settings.rewind) {
+        return;
+      }
+
+      var next = Controls._arrowControls.next;
+      var previous = Controls._arrowControls.previous;
+      this.resetArrowState(next, previous);
+
+      if (Glide.index === 0) {
+        this.disableArrow(previous);
+      }
+
+      if (Glide.index === Components.Run.length) {
+        this.disableArrow(next);
+      }
+    },
+
+    /**
+     * Removes `Glide.settings.classes.disabledArrow` from given NodeList elements
+     *
+     * @param {NodeList[]} lists
+     */
+    resetArrowState: function resetArrowState() {
+      var settings = Glide.settings;
+
+      for (var _len = arguments.length, lists = new Array(_len), _key = 0; _key < _len; _key++) {
+        lists[_key] = arguments[_key];
+      }
+
+      lists.forEach(function (list) {
+        toArray(list).forEach(function (element) {
+          element.classList.remove(settings.classes.arrow.disabled);
+        });
+      });
+    },
+
+    /**
+     * Adds `Glide.settings.classes.disabledArrow` to given NodeList elements
+     *
+     * @param {NodeList[]} lists
+     */
+    disableArrow: function disableArrow() {
+      var settings = Glide.settings;
+
+      for (var _len2 = arguments.length, lists = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        lists[_key2] = arguments[_key2];
+      }
+
+      lists.forEach(function (list) {
+        toArray(list).forEach(function (element) {
+          element.classList.add(settings.classes.arrow.disabled);
+        });
+      });
+    },
+
+    /**
+     * Adds handles to the each group of controls.
+     *
+     * @return {Void}
+     */
+    addBindings: function addBindings() {
+      for (var i = 0; i < this._c.length; i++) {
+        this.bind(this._c[i].children);
+      }
+    },
+
+    /**
+     * Removes handles from the each group of controls.
+     *
+     * @return {Void}
+     */
+    removeBindings: function removeBindings() {
+      for (var i = 0; i < this._c.length; i++) {
+        this.unbind(this._c[i].children);
+      }
+    },
+
+    /**
+     * Binds events to arrows HTML elements.
+     *
+     * @param {HTMLCollection} elements
+     * @return {Void}
+     */
+    bind: function bind(elements) {
+      for (var i = 0; i < elements.length; i++) {
+        Binder.on('click', elements[i], this.click);
+        Binder.on('touchstart', elements[i], this.click, capture);
+      }
+    },
+
+    /**
+     * Unbinds events binded to the arrows HTML elements.
+     *
+     * @param {HTMLCollection} elements
+     * @return {Void}
+     */
+    unbind: function unbind(elements) {
+      for (var i = 0; i < elements.length; i++) {
+        Binder.off(['click', 'touchstart'], elements[i]);
+      }
+    },
+
+    /**
+     * Handles `click` event on the arrows HTML elements.
+     * Moves slider in direction given via the
+     * `data-glide-dir` attribute.
+     *
+     * @param {Object} event
+     * @return {void}
+     */
+    click: function click(event) {
+      if (!supportsPassive$1 && event.type === 'touchstart') {
+        event.preventDefault();
+      }
+
+      var direction = event.currentTarget.getAttribute('data-glide-dir');
+      Components.Run.make(Components.Direction.resolve(direction));
+    }
+  };
+  define(Controls, 'items', {
+    /**
+     * Gets collection of the controls HTML elements.
+     *
+     * @return {HTMLElement[]}
+     */
+    get: function get() {
+      return Controls._c;
+    }
+  });
+  /**
+   * Swap active class of current navigation item:
+   * - after mounting to set it to initial index
+   * - after each move to the new index
+   */
+
+  Events.on(['mount.after', 'move.after'], function () {
+    Controls.setActive();
+  });
+  /**
+   * Add or remove disabled class of arrow elements
+   */
+
+  Events.on(['mount.after', 'run'], function () {
+    Controls.setArrowState();
+  });
+  /**
+   * Remove bindings and HTML Classes:
+   * - on destroying, to bring markup to its initial state
+   */
+
+  Events.on('destroy', function () {
+    Controls.removeBindings();
+    Controls.removeActive();
+    Binder.destroy();
+  });
+  return Controls;
+}
+
+function Keyboard (Glide, Components, Events) {
+  /**
+   * Instance of the binder for DOM Events.
+   *
+   * @type {EventsBinder}
+   */
+  var Binder = new EventsBinder();
+  var Keyboard = {
+    /**
+     * Binds keyboard events on component mount.
+     *
+     * @return {Void}
+     */
+    mount: function mount() {
+      if (Glide.settings.keyboard) {
+        this.bind();
+      }
+    },
+
+    /**
+     * Adds keyboard press events.
+     *
+     * @return {Void}
+     */
+    bind: function bind() {
+      Binder.on('keyup', document, this.press);
+    },
+
+    /**
+     * Removes keyboard press events.
+     *
+     * @return {Void}
+     */
+    unbind: function unbind() {
+      Binder.off('keyup', document);
+    },
+
+    /**
+     * Handles keyboard's arrows press and moving glide foward and backward.
+     *
+     * @param  {Object} event
+     * @return {Void}
+     */
+    press: function press(event) {
+      var perSwipe = Glide.settings.perSwipe;
+      var arrowSymbols = {
+        ArrowRight: '>',
+        ArrowLeft: '<'
+      };
+
+      if (['ArrowRight', 'ArrowLeft'].includes(event.code)) {
+        Components.Run.make(Components.Direction.resolve("".concat(perSwipe).concat(arrowSymbols[event.code])));
+      }
+    }
+  };
+  /**
+   * Remove bindings from keyboard:
+   * - on destroying to remove added events
+   * - on updating to remove events before remounting
+   */
+
+  Events.on(['destroy', 'update'], function () {
+    Keyboard.unbind();
+  });
+  /**
+   * Remount component
+   * - on updating to reflect potential changes in settings
+   */
+
+  Events.on('update', function () {
+    Keyboard.mount();
+  });
+  /**
+   * Destroy binder:
+   * - on destroying to remove listeners
+   */
+
+  Events.on('destroy', function () {
+    Binder.destroy();
+  });
+  return Keyboard;
+}
+
+function Autoplay (Glide, Components, Events) {
+  /**
+   * Instance of the binder for DOM Events.
+   *
+   * @type {EventsBinder}
+   */
+  var Binder = new EventsBinder();
+  var Autoplay = {
+    /**
+     * Initializes autoplaying and events.
+     *
+     * @return {Void}
+     */
+    mount: function mount() {
+      this.enable();
+      this.start();
+
+      if (Glide.settings.hoverpause) {
+        this.bind();
+      }
+    },
+
+    /**
+     * Enables autoplaying
+     *
+     * @returns {Void}
+     */
+    enable: function enable() {
+      this._e = true;
+    },
+
+    /**
+     * Disables autoplaying.
+     *
+     * @returns {Void}
+     */
+    disable: function disable() {
+      this._e = false;
+    },
+
+    /**
+     * Starts autoplaying in configured interval.
+     *
+     * @param {Boolean|Number} force Run autoplaying with passed interval regardless of `autoplay` settings
+     * @return {Void}
+     */
+    start: function start() {
+      var _this = this;
+
+      if (!this._e) {
+        return;
+      }
+
+      this.enable();
+
+      if (Glide.settings.autoplay) {
+        if (isUndefined(this._i)) {
+          this._i = setInterval(function () {
+            _this.stop();
+
+            Components.Run.make('>');
+
+            _this.start();
+
+            Events.emit('autoplay');
+          }, this.time);
+        }
+      }
+    },
+
+    /**
+     * Stops autorunning of the glide.
+     *
+     * @return {Void}
+     */
+    stop: function stop() {
+      this._i = clearInterval(this._i);
+    },
+
+    /**
+     * Stops autoplaying while mouse is over glide's area.
+     *
+     * @return {Void}
+     */
+    bind: function bind() {
+      var _this2 = this;
+
+      Binder.on('mouseover', Components.Html.root, function () {
+        if (_this2._e) {
+          _this2.stop();
+        }
+      });
+      Binder.on('mouseout', Components.Html.root, function () {
+        if (_this2._e) {
+          _this2.start();
+        }
+      });
+    },
+
+    /**
+     * Unbind mouseover events.
+     *
+     * @returns {Void}
+     */
+    unbind: function unbind() {
+      Binder.off(['mouseover', 'mouseout'], Components.Html.root);
+    }
+  };
+  define(Autoplay, 'time', {
+    /**
+     * Gets time period value for the autoplay interval. Prioritizes
+     * times in `data-glide-autoplay` attrubutes over options.
+     *
+     * @return {Number}
+     */
+    get: function get() {
+      var autoplay = Components.Html.slides[Glide.index].getAttribute('data-glide-autoplay');
+
+      if (autoplay) {
+        return toInt(autoplay);
+      }
+
+      return toInt(Glide.settings.autoplay);
+    }
+  });
+  /**
+   * Stop autoplaying and unbind events:
+   * - on destroying, to clear defined interval
+   * - on updating via API to reset interval that may changed
+   */
+
+  Events.on(['destroy', 'update'], function () {
+    Autoplay.unbind();
+  });
+  /**
+   * Stop autoplaying:
+   * - before each run, to restart autoplaying
+   * - on pausing via API
+   * - on destroying, to clear defined interval
+   * - while starting a swipe
+   * - on updating via API to reset interval that may changed
+   */
+
+  Events.on(['run.before', 'swipe.start', 'update'], function () {
+    Autoplay.stop();
+  });
+  Events.on(['pause', 'destroy'], function () {
+    Autoplay.disable();
+    Autoplay.stop();
+  });
+  /**
+   * Start autoplaying:
+   * - after each run, to restart autoplaying
+   * - on playing via API
+   * - while ending a swipe
+   */
+
+  Events.on(['run.after', 'swipe.end'], function () {
+    Autoplay.start();
+  });
+  /**
+   * Start autoplaying:
+   * - after each run, to restart autoplaying
+   * - on playing via API
+   * - while ending a swipe
+   */
+
+  Events.on(['play'], function () {
+    Autoplay.enable();
+    Autoplay.start();
+  });
+  /**
+   * Remount autoplaying:
+   * - on updating via API to reset interval that may changed
+   */
+
+  Events.on('update', function () {
+    Autoplay.mount();
+  });
+  /**
+   * Destroy a binder:
+   * - on destroying glide instance to clearup listeners
+   */
+
+  Events.on('destroy', function () {
+    Binder.destroy();
+  });
+  return Autoplay;
+}
+
+/**
+ * Sorts keys of breakpoint object so they will be ordered from lower to bigger.
+ *
+ * @param {Object} points
+ * @returns {Object}
+ */
+
+function sortBreakpoints(points) {
+  if (isObject(points)) {
+    return sortKeys(points);
+  } else {
+    warn("Breakpoints option must be an object");
+  }
+
+  return {};
+}
+
+function Breakpoints (Glide, Components, Events) {
+  /**
+   * Instance of the binder for DOM Events.
+   *
+   * @type {EventsBinder}
+   */
+  var Binder = new EventsBinder();
+  /**
+   * Holds reference to settings.
+   *
+   * @type {Object}
+   */
+
+  var settings = Glide.settings;
+  /**
+   * Holds reference to breakpoints object in settings. Sorts breakpoints
+   * from smaller to larger. It is required in order to proper
+   * matching currently active breakpoint settings.
+   *
+   * @type {Object}
+   */
+
+  var points = sortBreakpoints(settings.breakpoints);
+  /**
+   * Cache initial settings before overwritting.
+   *
+   * @type {Object}
+   */
+
+  var defaults = Object.assign({}, settings);
+  var Breakpoints = {
+    /**
+     * Matches settings for currectly matching media breakpoint.
+     *
+     * @param {Object} points
+     * @returns {Object}
+     */
+    match: function match(points) {
+      if (typeof window.matchMedia !== 'undefined') {
+        for (var point in points) {
+          if (points.hasOwnProperty(point)) {
+            if (window.matchMedia("(max-width: ".concat(point, "px)")).matches) {
+              return points[point];
+            }
+          }
+        }
+      }
+
+      return defaults;
+    }
+  };
+  /**
+   * Overwrite instance settings with currently matching breakpoint settings.
+   * This happens right after component initialization.
+   */
+
+  Object.assign(settings, Breakpoints.match(points));
+  /**
+   * Update glide with settings of matched brekpoint:
+   * - window resize to update slider
+   */
+
+  Binder.on('resize', window, throttle(function () {
+    Glide.settings = mergeOptions(settings, Breakpoints.match(points));
+  }, Glide.settings.throttle));
+  /**
+   * Resort and update default settings:
+   * - on reinit via API, so breakpoint matching will be performed with options
+   */
+
+  Events.on('update', function () {
+    points = sortBreakpoints(points);
+    defaults = Object.assign({}, settings);
+  });
+  /**
+   * Unbind resize listener:
+   * - on destroying, to bring markup to its initial state
+   */
+
+  Events.on('destroy', function () {
+    Binder.off('resize', window);
+  });
+  return Breakpoints;
+}
+
+var COMPONENTS = {
+  // Required
+  Html: Html,
+  Translate: Translate,
+  Transition: Transition,
+  Direction: Direction,
+  Peek: Peek,
+  Sizes: Sizes,
+  Gaps: Gaps,
+  Move: Move,
+  Clones: Clones,
+  Resize: Resize,
+  Build: Build,
+  Run: Run,
+  // Optional
+  Swipe: Swipe,
+  Images: Images,
+  Anchors: Anchors,
+  Controls: Controls,
+  Keyboard: Keyboard,
+  Autoplay: Autoplay,
+  Breakpoints: Breakpoints
+};
+
+var Glide = /*#__PURE__*/function (_Core) {
+  _inherits(Glide, _Core);
+
+  var _super = _createSuper(Glide);
+
+  function Glide() {
+    _classCallCheck(this, Glide);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(Glide, [{
+    key: "mount",
+    value: function mount() {
+      var extensions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      return _get(_getPrototypeOf(Glide.prototype), "mount", this).call(this, Object.assign({}, COMPONENTS, extensions));
+    }
+  }]);
+
+  return Glide;
+}(Glide$1);
+
+
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = __webpack_modules__;
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/chunk loaded */
+/******/ 	(() => {
+/******/ 		var deferred = [];
+/******/ 		__webpack_require__.O = (result, chunkIds, fn, priority) => {
+/******/ 			if(chunkIds) {
+/******/ 				priority = priority || 0;
+/******/ 				for(var i = deferred.length; i > 0 && deferred[i - 1][2] > priority; i--) deferred[i] = deferred[i - 1];
+/******/ 				deferred[i] = [chunkIds, fn, priority];
+/******/ 				return;
+/******/ 			}
+/******/ 			var notFulfilled = Infinity;
+/******/ 			for (var i = 0; i < deferred.length; i++) {
+/******/ 				var [chunkIds, fn, priority] = deferred[i];
+/******/ 				var fulfilled = true;
+/******/ 				for (var j = 0; j < chunkIds.length; j++) {
+/******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
+/******/ 						chunkIds.splice(j--, 1);
+/******/ 					} else {
+/******/ 						fulfilled = false;
+/******/ 						if(priority < notFulfilled) notFulfilled = priority;
+/******/ 					}
+/******/ 				}
+/******/ 				if(fulfilled) {
+/******/ 					deferred.splice(i--, 1)
+/******/ 					var r = fn();
+/******/ 					if (r !== undefined) result = r;
+/******/ 				}
+/******/ 			}
+/******/ 			return result;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/jsonp chunk loading */
+/******/ 	(() => {
+/******/ 		// no baseURI
+/******/ 		
+/******/ 		// object to store loaded and loading chunks
+/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
+/******/ 		var installedChunks = {
+/******/ 			"index": 0,
+/******/ 			"./style-index": 0
+/******/ 		};
+/******/ 		
+/******/ 		// no chunk on demand loading
+/******/ 		
+/******/ 		// no prefetching
+/******/ 		
+/******/ 		// no preloaded
+/******/ 		
+/******/ 		// no HMR
+/******/ 		
+/******/ 		// no HMR manifest
+/******/ 		
+/******/ 		__webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
+/******/ 		
+/******/ 		// install a JSONP callback for chunk loading
+/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
+/******/ 			var [chunkIds, moreModules, runtime] = data;
+/******/ 			// add "moreModules" to the modules object,
+/******/ 			// then flag all "chunkIds" as loaded and fire callback
+/******/ 			var moduleId, chunkId, i = 0;
+/******/ 			if(chunkIds.some((id) => (installedChunks[id] !== 0))) {
+/******/ 				for(moduleId in moreModules) {
+/******/ 					if(__webpack_require__.o(moreModules, moduleId)) {
+/******/ 						__webpack_require__.m[moduleId] = moreModules[moduleId];
+/******/ 					}
+/******/ 				}
+/******/ 				if(runtime) var result = runtime(__webpack_require__);
+/******/ 			}
+/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
+/******/ 			for(;i < chunkIds.length; i++) {
+/******/ 				chunkId = chunkIds[i];
+/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
+/******/ 					installedChunks[chunkId][0]();
+/******/ 				}
+/******/ 				installedChunks[chunkId] = 0;
+/******/ 			}
+/******/ 			return __webpack_require__.O(result);
+/******/ 		}
+/******/ 		
+/******/ 		var chunkLoadingGlobal = globalThis["webpackChunkfictional_university_theme"] = globalThis["webpackChunkfictional_university_theme"] || [];
+/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
+/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["./style-index"], () => (__webpack_require__("./src/index.js")))
+/******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
+/******/ 	
+/******/ })()
+;
+//# sourceMappingURL=index.js.map
