@@ -4,6 +4,14 @@
   border: #ccc solid 1px;
   margin: 20px 0;
 }
+.acf-map .gm-ui-hover-effect {
+  position: absolute !important;
+  top: 0;
+  right: 0;
+}
+.acf-map .gm-style-iw-d h3 {
+  margin-top: 0;
+}
 
 /* fixes potential theme css conflict */
 .acf-map img {

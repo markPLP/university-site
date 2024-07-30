@@ -89,10 +89,23 @@
                 $homepageEvents->the_post(); 
                 get_template_part('/template-parts/content-event');
 
-              } wp_reset_postdata(); // good practice to RESET the query
+              } 
+            }
+            wp_reset_postdata(); // good practice to RESET the query
+
+            // NO NEED TO DO A CUSTOM QUERY HERE BECAUSE WE ARE UNDER PROGRAM POST
+
+            $relatedCampuses = get_field('related_campus');
+            if($relatedCampuses) {
+              echo '<hr class="section-break">';
+              echo '<h2 class="headline headline--medium">' . get_the_title() . ' is avaible at these Campuses</h2>';
+              echo '<ul class="min-list link-list">';
+              foreach ($relatedCampuses as $campus) { ?>
+                 <li><a href="<?php echo get_the_permalink($campus); ?>"><?php echo get_the_title($campus) ?></a></li>
+              <?php }
+              echo '</ul>';
             }
           ?>
-
     </div>
   <?php }
   get_footer();

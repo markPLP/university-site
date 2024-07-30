@@ -19,13 +19,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// import Gmap from "./modules/Gmap"
 
 // Instantiate a new object using our modules/classes
 const mobileMenu = new _modules_MobileMenu__WEBPACK_IMPORTED_MODULE_1__["default"]();
 const heroSlider = new _modules_HeroSlider__WEBPACK_IMPORTED_MODULE_2__["default"]();
 const googleMap = new _modules_GoogleMap__WEBPACK_IMPORTED_MODULE_3__["default"]();
-// const gmap = new Gmap()
 
 /***/ }),
 

@@ -8,8 +8,6 @@
 !/wp-content/plugins/
 !/wp-content/mu-plugins/
 
-# Within your theme/plugin, ignore compiled files, logs, etc.
-# Example for a theme named "my-theme"
 wp-content/themes/fictional-university-theme/node_modules/
 wp-content/themes/fictional-university-theme/build/*.css.map
 wp-content/themes/fictional-university-theme/build/*.js.map
