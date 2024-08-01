@@ -1,13 +1,10 @@
 # Ignore everything in the root except the "wp-content" directory
 *
-!wp-content/
 !.gitignore
 
 # Within "wp-content", ignore everything except your theme/plugin
-wp-content/*
-!wp-content/themes/
-!wp-content/plugins/
-!wp-content/mu-plugins/
+# wp-content/themes/
+wp-content/plugins/
 
 wp-content/themes/fictional-university-theme/node_modules/
 wp-content/themes/fictional-university-theme/build/*.css.map
