@@ -237,15 +237,21 @@ class Search {
     this.previousValue = this.searchField.val();
   }
   getResults() {
-    // use arrow function instead of anonymous function to bind this on the main object
-    jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON(universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchField.val(), posts => {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().when(jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON(universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchField.val()), jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON(universityData.root_url + '/wp-json/wp/v2/pages?search=' + this.searchField.val())).then((posts, pages) => {
+      let combineResults = posts[0].concat(pages[0]);
+      // using ternary operator inside template literal - if statement will not work
       this.resultsDiv.html(`<h2 class="search-overlay__section-title">General information</h2>
-          ${posts.length ? '<ul class="link-list  min-list">' : '<p>No general information available</p>'}
-            ${posts.map(item => `<li><a href="${item.link}">${item.title.rendered}</a></li>`).join('')}
-          ${posts.length ? '</ul>' : ''}
-        `);
+        ${combineResults.length ? '<ul class="link-list  min-list">' : '<p>No general information available</p>'}
+          ${combineResults.map(item => `<li><a href="${item.link}">${item.title.rendered}</a></li>`).join('')}
+        ${combineResults.length ? '</ul>' : ''}
+      `);
+      this.isSpinnerVisible = false; // load spinner icon after another search 
+    }, () => {
+      this.resultsDiv.html('<p>Unexpected error; please try again later');
     });
-    this.isSpinnerVisible = false; // load spinner icon after another search 
+
+    // use arrow function instead of anonymous function to bind this on the main object
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON(universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchField.val(), posts => {});
   }
   openOverlay() {
     this.searchOverlay.addClass("search-overlay--active");

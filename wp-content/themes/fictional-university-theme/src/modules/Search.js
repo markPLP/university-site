@@ -44,16 +44,30 @@ class Search {
   }
 
   getResults() {
+    $.when(
+      $.getJSON(universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchField.val()),
+      $.getJSON(universityData.root_url + '/wp-json/wp/v2/pages?search=' + this.searchField.val())
+    ).then((posts, pages) => {
+      let combineResults = posts[0].concat(pages[0]);
+      // using ternary operator inside template literal - if statement will not work
+      this.resultsDiv.html(`<h2 class="search-overlay__section-title">General information</h2>
+        ${combineResults.length ? '<ul class="link-list  min-list">' : '<p>No general information available</p>' }
+          ${combineResults.map(item => `<li><a href="${item.link}">${item.title.rendered}</a></li>`).join('')}
+        ${combineResults.length ? '</ul>' : '' }
+      `);
+
+      this.isSpinnerVisible = false; // load spinner icon after another search 
+    }, () => {
+      this.resultsDiv.html('<p>Unexpected error; please try again later');
+    });
+
+
     // use arrow function instead of anonymous function to bind this on the main object
     $.getJSON(universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchField.val(), posts => { 
-        this.resultsDiv.html(`<h2 class="search-overlay__section-title">General information</h2>
-          ${posts.length ? '<ul class="link-list  min-list">' : '<p>No general information available</p>' }
-            ${posts.map(item => `<li><a href="${item.link}">${item.title.rendered}</a></li>`).join('')}
-          ${posts.length ? '</ul>' : '' }
-        `);
+        
     });
     
-    this.isSpinnerVisible = false; // load spinner icon after another search 
+    
   }
 
   openOverlay() {
