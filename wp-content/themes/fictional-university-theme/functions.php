@@ -38,6 +38,15 @@ function university_files() {
   wp_enqueue_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
   wp_enqueue_style('university_main_styles', get_theme_file_uri('/build/style-index.css'));
   wp_enqueue_style('university_extra_styles', get_theme_file_uri('/build/index.css'));
+
+  // make localized strings or dynamic data available to scripts on the front end.
+  // has 3 arguments 
+  // #1 name JS file you want to make flexible
+  // #2 makeup a variable name
+  // #3 array of data we want to be avaible on Javascript 
+  wp_localize_script('main-university-js', 'universityData', array(
+    'root_url' => get_site_url()
+  ));
 }
 
 add_action('wp_enqueue_scripts', 'university_files');
