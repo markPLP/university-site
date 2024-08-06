@@ -33,7 +33,7 @@ class Search {
           this.resultsDiv.html('<div class="spinner-loader"></div>');
           this.isSpinnerVisible = true;
         }
-        this.typingTimer = setTimeout(this.getResults.bind(this), 2000) // .bind(this) here access the properties/methods from getResults func
+        this.typingTimer = setTimeout(this.getResults.bind(this), 751) // .bind(this) here access the properties/methods from getResults func
       } else {
         this.resultsDiv.html('');
         this.isSpinnerVisible = false;
@@ -43,7 +43,10 @@ class Search {
   }
 
   getResults() {
-    this.resultsDiv.html("helo sxear");
+    $.getJSON('http://university-site.local/wp-json/wp/v2/posts?search=', function() {
+
+    });
+   // this.resultsDiv.html("helo sxear");
     this.isSpinnerVisible = false;
   }
 
