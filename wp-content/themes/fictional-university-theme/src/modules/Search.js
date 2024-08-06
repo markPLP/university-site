@@ -52,7 +52,7 @@ class Search {
       // using ternary operator inside template literal - if statement will not work
       this.resultsDiv.html(`<h2 class="search-overlay__section-title">General information</h2>
         ${combineResults.length ? '<ul class="link-list  min-list">' : '<p>No general information available</p>' }
-          ${combineResults.map(item => `<li><a href="${item.link}">${item.title.rendered}</a></li>`).join('')}
+          ${combineResults.map(item => `<li><a href="${item.link}">${item.title.rendered}</a> ${item.type == 'post' ? `by ${item.authorName}` : '' }</li>`).join('')}
         ${combineResults.length ? '</ul>' : '' }
       `);
 
@@ -63,11 +63,9 @@ class Search {
 
 
     // use arrow function instead of anonymous function to bind this on the main object
-    $.getJSON(universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchField.val(), posts => { 
-        
-    });
-    
-    
+    // $.getJSON(universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchField.val(), posts => { 
+    // });
+
   }
 
   openOverlay() {
