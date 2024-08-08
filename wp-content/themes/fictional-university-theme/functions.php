@@ -1,4 +1,8 @@
 <?php
+
+//require get_template_directory() . '/inc/search-route.php';
+require get_theme_file_path('/inc/search-route.php');
+
 // add custom field REST API
 function university_custom_rest() {
   register_rest_field('post', 'authorName', array(
@@ -65,8 +69,8 @@ function university_features() {
   // register_nav_menu('footerLocation1', 'Footer Location One');
   // register_nav_menu('footerLocation2', 'Footer Location Two');
   add_theme_support('title-tag'); // title tag for the browser
-  add_theme_support('post-thumbnails');
-  add_image_size('professorLandscape', 400, 260, true);
+  add_theme_support('post-thumbnails'); // add support for post thumbnails (featured images) 
+  add_image_size('professorLandscape', 400, 260, true); // the 'true' param is a boolean that specifies whether the image should be cropped to exactly match the dimensions
   add_image_size('professorPortrait', 480, 650, true);
   add_image_size('pageBanner', 1500, 350, true);
 }
