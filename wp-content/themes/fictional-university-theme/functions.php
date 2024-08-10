@@ -58,7 +58,8 @@ function university_files() {
   // #2 makeup a variable name
   // #3 array of data we want to be avaible on Javascript 
   wp_localize_script('main-university-js', 'universityData', array(
-    'root_url' => get_site_url()
+    'root_url' => get_site_url(),
+    'nonce' => wp_create_nonce('wp_rest')
   ));
 }
 
