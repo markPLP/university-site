@@ -2313,32 +2313,61 @@ class MyNotes {
   async deleteNote(e) {
     const thisNote = e.currentTarget.parentElement;
     const thisNoteID = thisNote.dataset.id;
+    const url = universityData.root_url + '/wp-json/wp/v2/note/' + thisNoteID;
     try {
-      const response = await this.deleteData(universityData.root_url + '/wp-json/wp/v2/note/' + thisNoteID);
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-WP-Nonce': universityData.nonce
+        }
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
       thisNote.classList.add('link-list__list--slide-up');
-      setTimeout(function () {
+      setTimeout(() => {
         thisNote.remove();
       }, 400);
-      console.log('Item delete successfully', response);
+      console.log('Item deleted successfully', await response.json());
     } catch (error) {
       console.error('Delete request failed', error);
     }
   }
 
-  // PROMISE -  Define the deleteData method
-  async deleteData(url) {
-    const response = await fetch(url, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-WP-Nonce': universityData.nonce // Adding the nonce header
-      }
-    });
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return await response.json(); // Adjust based on the API's response format
-  }
+  // async deleteNote(e) {  
+  //   const thisNote = e.currentTarget.parentElement
+  //   const thisNoteID = thisNote.dataset.id;
+
+  //   try { 
+  //       const response = await this.deleteData(universityData.root_url + '/wp-json/wp/v2/note/' + thisNoteID);
+  //       thisNote.classList.add('link-list__list--slide-up');
+  //       setTimeout(function() {
+  //         thisNote.remove();
+  //       }, 400);        
+
+  //       console.log('Item delete successfully', response);
+  //     } catch(error) {
+  //       console.error('Delete request failed', error);
+  //     } 
+  // }
+
+  // // PROMISE -  Define the deleteData method
+  // async deleteData(url) {
+  //   const response = await fetch(url, {
+  //     method: 'DELETE',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'X-WP-Nonce': universityData.nonce, // Adding the nonce header
+  //     },
+  //   });
+
+  //   if (!response.ok) {
+  //     throw new Error('Network response was not ok');
+  //   }
+
+  //   return await response.json(); // Adjust based on the API's response format
+  // }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MyNotes);
 
