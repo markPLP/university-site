@@ -707,10 +707,12 @@ body.login {
 /* Reveal and Hide Fade Transitions */
 #my-notes {
   position: relative;
+  overflow: hidden;
 }
 
 #my-notes li {
-  transition: all 0.4s ease-out;
+  background-color: #fff;
+  transition: transform 0.5s ease-in-out;
   opacity: 1;
 }
 
@@ -729,6 +731,11 @@ body.login {
   position: absolute;
   right: 0;
   left: 0;
+  opacity: 0;
+}
+
+.link-list__list--slide-up {
+  transform: translateY(-100%);
   opacity: 0;
 }
 
