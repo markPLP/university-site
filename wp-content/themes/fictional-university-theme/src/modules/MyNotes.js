@@ -5,26 +5,65 @@ class MyNotes {
     this.events();
   }
 
+  // EVENTS will go here
   events() {
     this.deleteBtns.forEach(btn => {
       btn.addEventListener('click', (e) => this.deleteNote(e));
     });
 
-    // this.editBtns.forEach(btn => {
-    //   btn.addEventListener('click', (e) => this.editNote(e));
-    // });
+    this.editBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => this.editNote(e));
+    });
   }
 
-  // methods will go here
-  // editNote(e) {
-  //   const thisNote = e.currentTarget.parentElement
-  //   const thisNoteID = thisNote.dataset.id;
-  //   const x = thisNoteID.child.classList.contains('note-title-field');
-    
-  //   console.log(x);
-  // }
+  // METHODS will go here
+  editNote(e) {
+    const thisNote = e.currentTarget.parentElement;
+    console.log(thisNote.dataset.id);
 
-  async deleteNote(e) {
+    if(thisNote.getAttribute('data-editable') === 'true') {
+      this.makeNoteReadonly(thisNote); // use param 'thisNote' to use the global selector
+    } else {
+      this.makeNoteEditable(thisNote); // use param 'thisNote' to use the global selector
+    }    
+  }
+
+  makeNoteEditable(thisNote) {
+   // const thisNote = e.currentTarget.parentElement;
+    thisNote.classList.add('link-list--active');
+    const cancelLink = thisNote.querySelector('.edit-note');
+    
+    if(cancelLink) {
+      cancelLink.innerHTML = `<i class="fa fa-times" aria-hidden="true"></i> Cancel`;
+    }
+    // set fields to be editable
+    ['note-title-field', 'note-body-field'].forEach(className => {
+        const field = thisNote.querySelector(`.${className}`);
+        field.removeAttribute('readonly');
+        field.setAttribute('read', '');
+    });
+    thisNote.setAttribute('data-editable', 'true');
+  }
+
+  makeNoteReadonly(thisNote) {
+   // const thisNote = e.currentTarget.parentElement;
+    thisNote.classList.remove('link-list--active');
+    const cancelLink = thisNote.querySelector('.edit-note');
+    
+    if(cancelLink) {
+      cancelLink.innerHTML = `<i class="fa fa-pencil" aria-hidden="true"></i> Edit`;
+    }
+    // set to read-only
+    ['note-title-field', 'note-body-field'].forEach(className => {
+        const field = thisNote.querySelector(`.${className}`);
+        field.removeAttribute('readonly');
+        field.setAttribute('readonly', 'readonly');
+    });
+    thisNote.setAttribute('data-editable', 'false')
+  }
+
+  // PROMISE - deletenote function
+  async deleteNote(e) {  
     const thisNote = e.currentTarget.parentElement
     const thisNoteID = thisNote.dataset.id;
        
@@ -41,7 +80,7 @@ class MyNotes {
       } 
   }
 
-  // Define the deleteData method
+  // PROMISE -  Define the deleteData method
   async deleteData(url) {
     const response = await fetch(url, {
       method: 'DELETE',
@@ -54,7 +93,7 @@ class MyNotes {
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-
+    
     return await response.json(); // Adjust based on the API's response format
   }
 }

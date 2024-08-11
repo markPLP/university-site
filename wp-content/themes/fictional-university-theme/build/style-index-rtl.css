@@ -8,6 +8,7 @@ body {
   font-family: "Roboto", sans-serif;
   overflow-x: hidden;
   position: relative;
+  box-sizing: border-box;
 }
 
 img {
@@ -709,10 +710,23 @@ body.login {
   position: relative;
   overflow: hidden;
 }
-
 #my-notes li {
   background-color: #fff;
+}
+#my-notes .link-list--active {
+  background-color: var(--wp--preset--color--cyan-bluish-gray);
+}
+#my-notes .link-list--active .note-title-field,
+#my-notes .link-list--active .note-body-field {
+  background-color: var(--wp--preset--color--cyan-bluish-gray);
+}
+#my-notes .link-list--active .update-note {
+  visibility: visible;
+}
+
+#my-notes li {
   transition: transform 0.5s ease-in-out;
+  padding: 20px;
   opacity: 1;
 }
 

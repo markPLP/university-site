@@ -771,11 +771,15 @@ body.login {
 /* Reveal and Hide Fade Transitions */
 #my-notes {
   position: relative;
+  overflow: hidden;
 }
 
 #my-notes li {
-  -webkit-transition: all 0.4s ease-out;
-  transition: all 0.4s ease-out;
+  background-color: #fff;
+  -webkit-transition: -webkit-transform 0.5s ease-in-out;
+  transition: -webkit-transform 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out, -webkit-transform 0.5s ease-in-out;
   opacity: 1;
 }
 
@@ -794,6 +798,12 @@ body.login {
   position: absolute;
   left: 0;
   right: 0;
+  opacity: 0;
+}
+
+.link-list__list--slide-up {
+  -webkit-transform: translateY(-100%);
+          transform: translateY(-100%);
   opacity: 0;
 }
 

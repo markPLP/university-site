@@ -132,11 +132,28 @@
 #my-notes {
   position: relative;
   overflow: hidden;
+
+  li {
+    background-color: #fff;
+  }
+
+  .link-list--active {
+    background-color: var(--wp--preset--color--cyan-bluish-gray);
+  
+    .note-title-field,
+    .note-body-field {
+      background-color: var(--wp--preset--color--cyan-bluish-gray);
+    }
+  
+    .update-note {
+      visibility: visible;
+    }
+  }
 }
 
 #my-notes li {
-  background-color: #fff;
   transition: transform 0.5s ease-in-out;
+  padding: 20px;
   opacity: 1;
 }
 
