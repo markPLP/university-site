@@ -1,32 +1,43 @@
 class MyNotes {
   constructor() {
-    //this.myNotes = document.querySelector('#my-notes');
+    this.myNoteWrapper = document.querySelector('#my-notes');
     this.deleteBtns = document.querySelectorAll('.delete-note');
     this.editBtns = document.querySelectorAll('.edit-note');
     this.updateBtns = document.querySelectorAll('.update-note');
+    this.createBtn = document.querySelector('.submit-note');
+    this.newNoteTitleField = document.querySelector('.new-note-title');
+    this.newNoteBodyField = document.querySelector('.new-note-body');
     this.events();
   }
 
   // EVENTS will go here
   events() {
-    this.deleteBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => this.deleteNote(e));
+
+    this.myNoteWrapper.addEventListener('click', (e) => {
+      const element = e.target;
+      // edit note
+      if(element.classList.contains('edit-note')) {
+        this.editNote(e); // use this.editNote to refer to the class method
+      }
+      // delete note
+      if(element.classList.contains('delete-note')) {
+        this.deleteNote(e); 
+      }
+      // update note
+      if(element.classList.contains('update-note')) {
+        this.updateNote(e); 
+      }
     });
 
-    this.editBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => this.editNote(e));
-    });
-
-    this.updateBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => this.updateNote(e));
-    });
+    this.createBtn.addEventListener('click', this.createNote.bind(this));
   }
 
   // METHODS will go here
   editNote(e) {
-    const thisNote = e.currentTarget.parentElement;
-    console.log(thisNote.dataset.id);
-
+    const thisNote = e.target.parentElement;
+    thisNote.dataset.id
+    console.log(thisNote);
+    
     if(thisNote.getAttribute('data-editable') === 'true') {
       this.makeNoteReadonly(thisNote); // use param 'thisNote' to use the global selector
     } else {
@@ -70,7 +81,7 @@ class MyNotes {
 
   // async/await - deletenote function
   async deleteNote(e) {  
-    const thisNote = e.currentTarget.parentElement;
+    const thisNote = e.target.parentElement;
     const thisNoteID = thisNote.dataset.id;
     const url = universityData.root_url + '/wp-json/wp/v2/note/' + thisNoteID;
   
@@ -100,7 +111,7 @@ class MyNotes {
 
   // async/await - updateNote function
   async updateNote(e) {  
-    const thisNote = e.currentTarget.parentElement;
+    const thisNote = e.target.parentElement;
     const thisNoteID = thisNote.dataset.id;
     const url = universityData.root_url + '/wp-json/wp/v2/note/' + thisNoteID;
     
@@ -129,6 +140,54 @@ class MyNotes {
 
     } catch(error) {
       console.error('update request failed', error);
+    } 
+  }  
+
+  // async/await - createNote function
+  async createNote(e) {  
+    const url = universityData.root_url + '/wp-json/wp/v2/note/';
+
+    const ourUpdatedPost = {
+      'title' : this.newNoteTitleField.value,
+      'content' : this.newNoteBodyField.value,
+      'status' : 'publish' // by default this is draft
+    }
+
+    try { 
+      const response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(ourUpdatedPost), // Pass the update data in the body and stringify it
+        headers: {
+          'Content-Type': 'application/json',
+          'X-WP-Nonce': universityData.nonce, // nonce is required here for authentication 
+        },
+      });
+  
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const responseData = await response.json(); // Parse the JSON response
+
+      console.log('Item created successfully', responseData);
+      
+      const noteContent = responseData.content.rendered.replace(/<\/?p>/g, '');
+      const newListNote = document.createElement('li');
+      newListNote.dataset.id = responseData.id;
+      newListNote.innerHTML = `
+          <input readonly="" class="note-title-field" value="${responseData.title.rendered}">
+          <span class="edit-note"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</span>
+          <span class="delete-note"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</span>
+          <textarea readonly class="note-body-field">${noteContent}</textarea>
+          <span class="update-note btn btn--blue btn--small"><i class="fa fa-arrow-right" aria-hidden="true"></i> Save</span>
+      `;
+      this.myNoteWrapper.prepend(newListNote);
+      // clear after prepend
+      this.newNoteTitleField.value = '';
+      this.newNoteBodyField.value = '';
+    } catch(error) {
+      console.error('Create request failed', error);
     } 
   }  
 }
