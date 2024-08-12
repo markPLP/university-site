@@ -2253,8 +2253,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class MyNotes {
   constructor() {
+    //this.myNotes = document.querySelector('#my-notes');
     this.deleteBtns = document.querySelectorAll('.delete-note');
     this.editBtns = document.querySelectorAll('.edit-note');
+    this.updateBtns = document.querySelectorAll('.update-note');
     this.events();
   }
 
@@ -2265,6 +2267,9 @@ class MyNotes {
     });
     this.editBtns.forEach(btn => {
       btn.addEventListener('click', e => this.editNote(e));
+    });
+    this.updateBtns.forEach(btn => {
+      btn.addEventListener('click', e => this.updateNote(e));
     });
   }
 
@@ -2309,7 +2314,7 @@ class MyNotes {
     thisNote.setAttribute('data-editable', 'false');
   }
 
-  // PROMISE - deletenote function
+  // async/await - deletenote function
   async deleteNote(e) {
     const thisNote = e.currentTarget.parentElement;
     const thisNoteID = thisNote.dataset.id;
@@ -2319,55 +2324,53 @@ class MyNotes {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'X-WP-Nonce': universityData.nonce
+          'X-WP-Nonce': universityData.nonce // nonce is required here for authentication 
         }
       });
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
+
+      // Add class and await the delay before removing the element
       thisNote.classList.add('link-list__list--slide-up');
-      setTimeout(() => {
-        thisNote.remove();
-      }, 400);
+      await new Promise(resolve => setTimeout(resolve, 400));
+      thisNote.remove();
       console.log('Item deleted successfully', await response.json());
     } catch (error) {
       console.error('Delete request failed', error);
     }
   }
 
-  // async deleteNote(e) {  
-  //   const thisNote = e.currentTarget.parentElement
-  //   const thisNoteID = thisNote.dataset.id;
+  // async/await - updateNote function
+  async updateNote(e) {
+    const thisNote = e.currentTarget.parentElement;
+    const thisNoteID = thisNote.dataset.id;
+    const url = universityData.root_url + '/wp-json/wp/v2/note/' + thisNoteID;
 
-  //   try { 
-  //       const response = await this.deleteData(universityData.root_url + '/wp-json/wp/v2/note/' + thisNoteID);
-  //       thisNote.classList.add('link-list__list--slide-up');
-  //       setTimeout(function() {
-  //         thisNote.remove();
-  //       }, 400);        
-
-  //       console.log('Item delete successfully', response);
-  //     } catch(error) {
-  //       console.error('Delete request failed', error);
-  //     } 
-  // }
-
-  // // PROMISE -  Define the deleteData method
-  // async deleteData(url) {
-  //   const response = await fetch(url, {
-  //     method: 'DELETE',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'X-WP-Nonce': universityData.nonce, // Adding the nonce header
-  //     },
-  //   });
-
-  //   if (!response.ok) {
-  //     throw new Error('Network response was not ok');
-  //   }
-
-  //   return await response.json(); // Adjust based on the API's response format
-  // }
+    // get the updated title and content
+    let ourUpdatedPost = {
+      'title': thisNote.querySelector('.note-title-field').value,
+      'content': thisNote.querySelector('.note-body-field').value
+    };
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(ourUpdatedPost),
+        // Pass the update data in the body and stringify it
+        headers: {
+          'Content-Type': 'application/json',
+          'X-WP-Nonce': universityData.nonce // nonce is required here for authentication 
+        }
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      this.makeNoteReadonly(thisNote);
+      console.log('Item updated successfully', await response.json());
+    } catch (error) {
+      console.error('update request failed', error);
+    }
+  }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MyNotes);
 
