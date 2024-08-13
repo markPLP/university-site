@@ -53,8 +53,8 @@
 function university_post_types() {
   // Campus Post Type
   register_post_type('campus', array(
-    'capability_type' => 'campus',
-    'map_meta_cap' => true,
+    'capability_type' => 'campus', // for custom post
+    'map_meta_cap' => true, // for custom post type - show on Members plugin - permission role
     'show_in_rest' => true,
     'supports' => array('title', 'editor', 'excerpt'),
     'rewrite' => array('slug' => 'campuses'),
@@ -123,7 +123,9 @@ function university_post_types() {
   ));
 
   // Note Post Type
-  register_post_type('note', array(
+  register_post_type('note', array( 
+    'capability_type' => 'note', // custom post type inherit permission to blog post type by default
+    'map_meta_cap' => true, // for custom post type - show on Members plugin - permission role
     'show_in_rest' => true,
     'supports' => array('title', 'editor'),
     'public' => false, // false - private to user account

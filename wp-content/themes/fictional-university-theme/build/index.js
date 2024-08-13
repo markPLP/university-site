@@ -2265,20 +2265,12 @@ class MyNotes {
 
   // EVENTS will go here
   events() {
+    // Event delegation to manage actions 
     this.myNoteWrapper.addEventListener('click', e => {
       const element = e.target;
-      // edit note
-      if (element.classList.contains('edit-note')) {
-        this.editNote(e); // use this.editNote to refer to the class method
-      }
-      // delete note
-      if (element.classList.contains('delete-note')) {
-        this.deleteNote(e);
-      }
-      // update note
-      if (element.classList.contains('update-note')) {
-        this.updateNote(e);
-      }
+      if (element.classList.contains('edit-note')) this.editNote(e); // use this.editNote to refer to the class method
+      if (element.classList.contains('delete-note')) this.deleteNote(e);
+      if (element.classList.contains('update-note')) this.updateNote(e);
     });
     this.createBtn.addEventListener('click', this.createNote.bind(this));
   }
@@ -2287,7 +2279,6 @@ class MyNotes {
   editNote(e) {
     const thisNote = e.target.parentElement;
     thisNote.dataset.id;
-    console.log(thisNote);
     if (thisNote.getAttribute('data-editable') === 'true') {
       this.makeNoteReadonly(thisNote); // use param 'thisNote' to use the global selector
     } else {
@@ -2389,7 +2380,7 @@ class MyNotes {
     const ourUpdatedPost = {
       'title': this.newNoteTitleField.value,
       'content': this.newNoteBodyField.value,
-      'status': 'publish' // by default this is draft
+      'status': 'private' // by default this is draft
     };
     try {
       const response = await fetch(url, {
@@ -2410,8 +2401,12 @@ class MyNotes {
       const noteContent = responseData.content.rendered.replace(/<\/?p>/g, '');
       const newListNote = document.createElement('li');
       newListNote.dataset.id = responseData.id;
+      let titleReplace = responseData.title.rendered;
+      if (titleReplace.startsWith('Private: ')) {
+        titleReplace = titleReplace.replace('Private: ', '');
+      }
       newListNote.innerHTML = `
-          <input readonly="" class="note-title-field" value="${responseData.title.rendered}">
+          <input readonly="" class="note-title-field" value="${titleReplace}">
           <span class="edit-note"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</span>
           <span class="delete-note"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</span>
           <textarea readonly class="note-body-field">${noteContent}</textarea>
