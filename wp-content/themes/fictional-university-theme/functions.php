@@ -5,8 +5,14 @@ require get_theme_file_path('/inc/search-route.php');
 
 // add custom field REST API
 function university_custom_rest() {
+  // add authorName
   register_rest_field('post', 'authorName', array(
     'get_callback' => function() { return get_the_author(); }
+  ));
+
+  // add get_current_user_id
+  register_rest_field('post', 'userNoteCount', array(
+    'get_callback' => function() { return count_user_posts(get_current_user_id()); }
   ));
 }
 
@@ -129,6 +135,8 @@ function redirectSubsToFrontend() {
   }
 }
 
+
+// hide adminbar for subscriber
 add_action('wp_loaded', 'noSubsAdminBar');
 
 function noSubsAdminBar() {
@@ -164,11 +172,20 @@ function ourLoginTitle() {
 
 // Force note posts to be private
 // modify post data before it is inserted into the database.
-add_filter('wp_insert_post_data', 'makeNotePrivate');
+add_filter('wp_insert_post_data', 'makeNotePrivate', 10, 2); //  10, 20 represents the 2 arguments $data, $postarr
+                                                             // 10 is the priority to run 1st     
 
 // only on note post
-function makeNotePrivate($data) {
+// $data do not have post ID
+// $postarr does contain the post ID
+function makeNotePrivate($data, $postarr) {
   if($data['post_type'] == 'note') {
+    // add policy per-user post limit
+    // count_user_posts(GET THE USER ID, 'WHAT POST TYPE'
+    if(count_user_posts(get_current_user_id(), 'note') > 4 && !$postarr['ID']) { // !$postarr['ID'] true if ID do not exist/incoming
+      die('You have reached your note limit'); // stop running, no post no data is being processd
+    }
+
     $data['post_content'] = sanitize_textarea_field($data['post_content']);
     $data['post_title'] = sanitize_text_field($data['post_title']);
   }

@@ -91,6 +91,7 @@ class MyNotes {
   
       // Add class and await the delay before removing the element
       thisNote.classList.add('link-list__list--slide-up');
+      document.querySelector('.note-limit-message').classList.remove('active');
       await new Promise(resolve => setTimeout(resolve, 400));
       thisNote.remove();       
   
@@ -135,58 +136,72 @@ class MyNotes {
   }  
 
   // async/await - createNote function
+  
   async createNote(e) {  
     const url = universityData.root_url + '/wp-json/wp/v2/note/';
 
     const ourUpdatedPost = {
-      'title' : this.newNoteTitleField.value,
-      'content' : this.newNoteBodyField.value,
-      'status' : 'private' // by default this is draft
-
-    }
+        'title' : this.newNoteTitleField.value,
+        'content' : this.newNoteBodyField.value,
+        'status' : 'private' // by default this is draft
+    };
 
     try { 
-      const response = await fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(ourUpdatedPost), // Pass the update data in the body and stringify it
-        headers: {
-          'Content-Type': 'application/json',
-          'X-WP-Nonce': universityData.nonce, // nonce is required here for authentication 
-        },
-      });
-  
+        const response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(ourUpdatedPost), // Pass the update data in the body and stringify it
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': universityData.nonce, // nonce is required here for authentication 
+            },
+        });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+        const contentType = response.headers.get('Content-Type');
+       
+        // log this as text for unknown error/data format
+        const responseText = await response.text(); // Get the response as text
+        const showMessage = document.querySelector('.note-limit-message'); 
+        // Check if the response text is the note limit message
+        if (responseText === "You have reached your note limit") { 
+            showMessage.classList.add('active');
+            throw new Error(responseText); // Stop further processing
+        }
 
-      const responseData = await response.json(); // Parse the JSON response
+        // Proceed to parse if it's JSON
+        if (contentType && contentType.includes('application/json')) {
+            const responseData = JSON.parse(responseText); // Parse JSON
 
-      console.log('Item created successfully', responseData);
-      
-      const noteContent = responseData.content.rendered.replace(/<\/?p>/g, '');
-      const newListNote = document.createElement('li');
-      newListNote.dataset.id = responseData.id;
-      let titleReplace = responseData.title.rendered;
-      if(titleReplace.startsWith('Private: ')) {
-        titleReplace = titleReplace.replace('Private: ', '');
-      }
-      
-      newListNote.innerHTML = `
-          <input readonly="" class="note-title-field" value="${titleReplace}">
-          <span class="edit-note"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</span>
-          <span class="delete-note"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</span>
-          <textarea readonly class="note-body-field">${noteContent}</textarea>
-          <span class="update-note btn btn--blue btn--small"><i class="fa fa-arrow-right" aria-hidden="true"></i> Save</span>
-      `;
-      this.myNoteWrapper.prepend(newListNote);
-      // clear after prepend
-      this.newNoteTitleField.value = '';
-      this.newNoteBodyField.value = '';
-    } catch(error) {
-      console.error('Create request failed', error);
+            showMessage.classList.remove('active');
+            const noteContent = responseData.content.rendered.replace(/<\/?p>/g, '');
+            const newListNote = document.createElement('li');
+            newListNote.dataset.id = responseData.id;
+            let titleReplace = responseData.title.rendered;
+            if (titleReplace.startsWith('Private: ')) {
+                titleReplace = titleReplace.replace('Private: ', '');
+            }
+
+            newListNote.innerHTML = `
+                <input readonly="" class="note-title-field" value="${titleReplace}">
+                <span class="edit-note"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</span>
+                <span class="delete-note"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</span>
+                <textarea readonly class="note-body-field">${noteContent}</textarea>
+                <span class="update-note btn btn--blue btn--small"><i class="fa fa-arrow-right" aria-hidden="true"></i> Save</span>
+            `;
+            this.myNoteWrapper.prepend(newListNote);
+
+            // Clear the input fields after prepending
+            this.newNoteTitleField.value = '';
+            this.newNoteBodyField.value = '';
+        } else {
+            // If not JSON, treat it as a plain text error
+            console.error('Unexpected non-JSON response:', responseText);
+            throw new Error(responseText);
+        }
+
+    } catch (error) {
+        console.error('Create request failed', error.message || error); 
     } 
-  }  
+  }
 }
 
 export default MyNotes;

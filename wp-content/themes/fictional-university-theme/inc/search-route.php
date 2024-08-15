@@ -24,7 +24,7 @@ function universitySearchResults($data) {
   $mainQuery = new WP_Query(array(
     // search on all post type based on keyword(s)
     // make an array of all post_type
-    'post_type' => array('post', 'page', 'professor', 'event', 'campus', 'program'),
+    'post_type' => array('post', 'page', 'professor', 'event', 'campus', 'program', 'note'),
     's' => sanitize_text_field($data['term']) // 's' is for search // the word 'term' could be anything
     // use sanitize_text_field for extra security measures for SQL injection
   ));

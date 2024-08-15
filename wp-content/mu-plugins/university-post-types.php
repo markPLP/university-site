@@ -129,7 +129,7 @@ function university_post_types() {
     'show_in_rest' => true,
     'supports' => array('title', 'editor'),
     'public' => false, // false - private to user account
-    'show_ui' => true, // show in the admin dashboard UI
+    'show_ui' => true, // show in the admin dashboard UI if 'public' is set to false
     'labels' => array(
       'name' => 'Notes',
       'add_new_item' => 'Add New Note',
