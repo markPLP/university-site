@@ -139,6 +139,24 @@ function university_post_types() {
     ),
     'menu_icon' => 'dashicons-welcome-write-blog'
   ));
+
+    // Liked professor Post Type
+    register_post_type('like', array( 
+      // 'capability_type' => 'note', // custom post type inherit permission to blog post type by default
+      // 'map_meta_cap' => true, // for custom post type - show on Members plugin - permission role
+      'show_in_rest' => false, // dont show rest // make own
+      'supports' => array('title'),
+      'public' => false, // false - private to user account
+      'show_ui' => true, // show in the admin dashboard UI if 'public' is set to false
+      'labels' => array(
+        'name' => 'Likes',
+        'add_new_item' => 'Add New Like',
+        'edit_item' => 'Edit Like',
+        'all_items' => 'All Likes',
+        'singular_name' => 'Like'
+      ),
+      'menu_icon' => 'dashicons-heart'
+    ));
 }
 
 add_action('init', 'university_post_types');

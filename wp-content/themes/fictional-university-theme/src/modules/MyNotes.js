@@ -1,13 +1,16 @@
 class MyNotes {
   constructor() {
-    this.myNoteWrapper = document.querySelector('#my-notes');
-    this.deleteBtns = document.querySelectorAll('.delete-note');
-    this.editBtns = document.querySelectorAll('.edit-note');
-    this.updateBtns = document.querySelectorAll('.update-note');
-    this.createBtn = document.querySelector('.submit-note');
-    this.newNoteTitleField = document.querySelector('.new-note-title');
-    this.newNoteBodyField = document.querySelector('.new-note-body');
-    this.events();
+    // wrap in if statement - run events in #my-notes DOM only
+    if(document.querySelector('#my-notes')) {
+      this.myNoteWrapper = document.querySelector('#my-notes');
+      this.deleteBtns = document.querySelectorAll('.delete-note');
+      this.editBtns = document.querySelectorAll('.edit-note');
+      this.updateBtns = document.querySelectorAll('.update-note');
+      this.createBtn = document.querySelector('.submit-note');
+      this.newNoteTitleField = document.querySelector('.new-note-title');
+      this.newNoteBodyField = document.querySelector('.new-note-body');
+      this.events();
+    }
   }
 
   // EVENTS will go here
