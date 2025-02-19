@@ -28,7 +28,10 @@
     padding-top: 58px;
     opacity: 0;
     transform: translateY(-20%);
-    transition: opacity 0.3s ease-out, visibility 0.3s ease-out, transform 0.3s ease-out;
+    transition:
+      opacity 0.3s ease-out,
+      visibility 0.3s ease-out,
+      transform 0.3s ease-out;
     padding-bottom: 20px;
 
     &--active {

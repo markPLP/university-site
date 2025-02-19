@@ -243,6 +243,9 @@ li {
   cursor: pointer;
   top: 1px;
   margin-right: 20px;
+  background-color: transparent;
+  border: 0;
+  outline: none;
 }
 @media (min-width: 960px) {
   .search-trigger {

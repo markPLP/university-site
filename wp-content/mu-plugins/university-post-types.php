@@ -55,8 +55,8 @@ function university_post_types() {
   register_post_type('campus', array(
     'capability_type' => 'campus', // for custom post
     'map_meta_cap' => true, // for custom post type - show on Members plugin - permission role
-    'show_in_rest' => true,
-    'supports' => array('title', 'editor', 'excerpt'),
+    'show_in_rest' => true, 
+    'supports' => array('title', 'editor', 'excerpt'), 
     'rewrite' => array('slug' => 'campuses'),
     'has_archive' => true,
     'public' => true,
@@ -73,11 +73,11 @@ function university_post_types() {
   // Event Post Type
   register_post_type('event', array(
     'capability_type' => 'event',
-    'map_meta_cap' => true,
-    'show_in_rest' => true,
-    'supports' => array('title', 'editor', 'excerpt'),
-    'rewrite' => array('slug' => 'events'),
-    'has_archive' => true,
+    'map_meta_cap' => true, // require the capabilities
+    'show_in_rest' => true, // enable rest api - block editor
+    'supports' => array('title', 'editor', 'excerpt'), // support for title, editor, and excerpt
+    'rewrite' => array('slug' => 'events'), // change the slug to be plural
+    'has_archive' => true, // archive page for the custom post type
     'public' => true,
     'labels' => array(
       'name' => 'Events',
@@ -93,7 +93,7 @@ function university_post_types() {
   // Program Post Type
   register_post_type('program', array(
     'show_in_rest' => true,
-    'supports' => array('title', 'editor'),
+    'supports' => array('title'), // removed editor and replaced with custom field main_body_content
     'rewrite' => array('slug' => 'programs'),
     'has_archive' => true,
     'public' => true,
@@ -129,7 +129,7 @@ function university_post_types() {
     'show_in_rest' => true,
     'supports' => array('title', 'editor'),
     'public' => false, // false - private to user account
-    'show_ui' => true, // show in the admin dashboard UI if 'public' is set to false
+    'show_ui' => true, // if pulic is false, show in the admin dashboard UI
     'labels' => array(
       'name' => 'Notes',
       'add_new_item' => 'Add New Note',
@@ -140,11 +140,11 @@ function university_post_types() {
     'menu_icon' => 'dashicons-welcome-write-blog'
   ));
 
-    // Liked professor Post Type
+    // Like professor Post Type
     register_post_type('like', array( 
       // 'capability_type' => 'note', // custom post type inherit permission to blog post type by default
       // 'map_meta_cap' => true, // for custom post type - show on Members plugin - permission role
-      'show_in_rest' => false, // dont show rest // make own
+    'show_in_rest' => false, // dont show rest // MAKE YOUR OWN REST API
       'supports' => array('title'),
       'public' => false, // false - private to user account
       'show_ui' => true, // show in the admin dashboard UI if 'public' is set to false

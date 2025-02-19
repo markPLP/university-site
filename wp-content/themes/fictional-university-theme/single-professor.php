@@ -17,8 +17,8 @@
                 'post_type' => 'like',
                 'meta_query' => array(
                   array(
-                    'key' => 'liked_professor_id',
-                    'compare' => 'LIKE',
+                    'key' => 'liked_professor_id', // custom field key
+                    'compare' => 'LIKE', // exact match
                     'value' => get_the_ID()
                   )
                 ),
@@ -49,7 +49,7 @@
               <i class="fa fa-heart" aria-hidden="true"></i>
               <span class="like-count"><?php
                 // found_posts - get the total post of the matching query / no pagination
-                echo $likeCount->found_posts; ?>
+                echo $likeCount->found_posts; ?> 
                </span>
             </span>
            <?php the_content(); ?></div>

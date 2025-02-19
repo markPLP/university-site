@@ -40,7 +40,10 @@
           <?php }
             
           ?>
+          <!-- href link is a fall back if javascript search is not working or javascriopt is disabled -->
           <a href="<?php echo esc_url(site_url('/search')); ?>" class="search-trigger js-search-trigger"><i class="fa fa-search" aria-hidden="true"></i></a>
+          
+  
         </div>
       </div>
     </div>

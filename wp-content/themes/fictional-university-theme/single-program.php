@@ -15,7 +15,7 @@
           <span class="metabox__main"><?php the_title(); ?></span>
         </p>
       </div>
-      <div class="genetic-content"><?php the_field('main_body_content'); ?></div>
+      <div class="generic-content"><?php the_field('main_body_content'); ?></div>
       
 
       <?php 
@@ -55,9 +55,10 @@
               </li>
             <?php } 
             echo '</ul>';
-            wp_reset_postdata(); // good practice to RESET the query
+           
           }
 
+          wp_reset_postdata(); // good practice to RESET the query, every time you use a custom query
 
           // ACF event - event_date query
             $today = date('Ymd');
@@ -73,6 +74,7 @@
                     'compare' => '>=',
                     'value' => $today,
                     'type' => 'numeric'
+                  // THIS FILTER HERE WILL FILTER THE EVENTS RELATED TO THE PROGRAM
                   ), array( // read as if the related_programs LIKE-contains this current post<get_the_ID>
                     'key' => 'related_programs', 
                     'compare' => 'LIKE',
@@ -91,9 +93,11 @@
 
               } 
             }
-            wp_reset_postdata(); // good practice to RESET the query
 
-            // NO NEED TO DO A CUSTOM QUERY HERE BECAUSE WE ARE UNDER PROGRAM POST
+             wp_reset_postdata(); // good practice to RESET the query, every time you use a custom query
+            
+            
+             // NO NEED TO DO A CUSTOM QUERY HERE BECAUSE WE ARE UNDER PROGRAM POST
 
             $relatedCampuses = get_field('related_campus');
             if($relatedCampuses) {

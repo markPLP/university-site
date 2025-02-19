@@ -2,8 +2,8 @@
 
 get_header();
 pageBanner(array(
-  'title' => get_the_archive_title(),
-  'subtitle' => get_the_archive_description()
+  'title' => get_the_archive_title(), // instead of the_archive_title() we use get_the_archive_title() to return the title
+  'subtitle' => get_the_archive_description() // instead of the_archive_description() we use get_the_archive_description() to return the description
 ));
  ?>
 

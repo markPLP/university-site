@@ -1,7 +1,7 @@
 class MyNotes {
   constructor() {
     // wrap in if statement - run events in #my-notes DOM only
-    if(document.querySelector('#my-notes')) {
+    if (document.querySelector('#my-notes')) {
       this.myNoteWrapper = document.querySelector('#my-notes');
       this.deleteBtns = document.querySelectorAll('.delete-note');
       this.editBtns = document.querySelectorAll('.edit-note');
@@ -15,13 +15,12 @@ class MyNotes {
 
   // EVENTS will go here
   events() {
-
-    // Event delegation to manage actions 
+    // Event delegation to manage actions
     this.myNoteWrapper.addEventListener('click', (e) => {
       const element = e.target;
-      if(element.classList.contains('edit-note')) this.editNote(e); // use this.editNote to refer to the class method
-      if(element.classList.contains('delete-note')) this.deleteNote(e); 
-      if(element.classList.contains('update-note')) this.updateNote(e); 
+      if (element.classList.contains('edit-note')) this.editNote(e); // use this.editNote to refer to the class method
+      if (element.classList.contains('delete-note')) this.deleteNote(e);
+      if (element.classList.contains('update-note')) this.updateNote(e);
     });
 
     this.createBtn.addEventListener('click', this.createNote.bind(this));
@@ -30,180 +29,181 @@ class MyNotes {
   // METHODS will go here
   editNote(e) {
     const thisNote = e.target.parentElement;
-    thisNote.dataset.id
+    thisNote.dataset.id;
 
-    if(thisNote.getAttribute('data-editable') === 'true') {
+    if (thisNote.getAttribute('data-editable') === 'true') {
       this.makeNoteReadonly(thisNote); // use param 'thisNote' to use the global selector
     } else {
       this.makeNoteEditable(thisNote); // use param 'thisNote' to use the global selector
-    }    
+    }
   }
 
   makeNoteEditable(thisNote) {
-   // const thisNote = e.currentTarget.parentElement;
+    // const thisNote = e.currentTarget.parentElement;
     thisNote.classList.add('link-list--active');
     const cancelLink = thisNote.querySelector('.edit-note');
-    
-    if(cancelLink) {
+
+    if (cancelLink) {
       cancelLink.innerHTML = `<i class="fa fa-times" aria-hidden="true"></i> Cancel`;
     }
     // set fields to be editable
-    ['note-title-field', 'note-body-field'].forEach(className => {
-        const field = thisNote.querySelector(`.${className}`);
-        field.removeAttribute('readonly');
-        field.setAttribute('read', '');
+    ['note-title-field', 'note-body-field'].forEach((className) => {
+      const field = thisNote.querySelector(`.${className}`);
+      field.removeAttribute('readonly');
+      field.setAttribute('read', '');
     });
     thisNote.setAttribute('data-editable', 'true');
   }
 
   makeNoteReadonly(thisNote) {
-   // const thisNote = e.currentTarget.parentElement;
+    // const thisNote = e.currentTarget.parentElement;
     thisNote.classList.remove('link-list--active');
     const cancelLink = thisNote.querySelector('.edit-note');
-    
-    if(cancelLink) {
+
+    if (cancelLink) {
       cancelLink.innerHTML = `<i class="fa fa-pencil" aria-hidden="true"></i> Edit`;
     }
     // set to read-only
-    ['note-title-field', 'note-body-field'].forEach(className => {
-        const field = thisNote.querySelector(`.${className}`);
-        field.removeAttribute('readonly');
-        field.setAttribute('readonly', 'readonly');
+    ['note-title-field', 'note-body-field'].forEach((className) => {
+      const field = thisNote.querySelector(`.${className}`);
+      field.removeAttribute('readonly');
+      field.setAttribute('readonly', 'readonly');
     });
-    thisNote.setAttribute('data-editable', 'false')
+    thisNote.setAttribute('data-editable', 'false');
   }
 
   // async/await - deletenote function
-  async deleteNote(e) {  
+  async deleteNote(e) {
     const thisNote = e.target.parentElement;
     const thisNoteID = thisNote.dataset.id;
     const url = universityData.root_url + '/wp-json/wp/v2/note/' + thisNoteID;
-  
-    try { 
+
+    try {
       const response = await fetch(url, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'X-WP-Nonce': universityData.nonce, // nonce is required here for authentication 
+          'X-WP-Nonce': universityData.nonce, // nonce is required here for authentication
         },
       });
-  
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-  
+
       // Add class and await the delay before removing the element
       thisNote.classList.add('link-list__list--slide-up');
       document.querySelector('.note-limit-message').classList.remove('active');
-      await new Promise(resolve => setTimeout(resolve, 400));
-      thisNote.remove();       
-  
+      await new Promise((resolve) => setTimeout(resolve, 400));
+      thisNote.remove();
+
       console.log('Item deleted successfully', await response.json());
-    } catch(error) {
+    } catch (error) {
       console.error('Delete request failed', error);
-    } 
-  }  
+    }
+  }
 
   // async/await - updateNote function
-  async updateNote(e) {  
+  async updateNote(e) {
     const thisNote = e.target.parentElement;
     const thisNoteID = thisNote.dataset.id;
     const url = universityData.root_url + '/wp-json/wp/v2/note/' + thisNoteID;
-    
+
     // get the updated title and content
     let ourUpdatedPost = {
-      'title' : thisNote.querySelector('.note-title-field').value,
-      'content' : thisNote.querySelector('.note-body-field').value
-    }
+      title: thisNote.querySelector('.note-title-field').value,
+      content: thisNote.querySelector('.note-body-field').value,
+    };
 
-    try { 
+    try {
       const response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify(ourUpdatedPost), // Pass the update data in the body and stringify it
         headers: {
           'Content-Type': 'application/json',
-          'X-WP-Nonce': universityData.nonce, // nonce is required here for authentication 
+          'X-WP-Nonce': universityData.nonce, // nonce is required here for authentication
         },
       });
-  
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-  
+
       this.makeNoteReadonly(thisNote);
       console.log('Item updated successfully', await response.json());
-
-    } catch(error) {
+    } catch (error) {
       console.error('update request failed', error);
-    } 
-  }  
+    }
+  }
 
   // async/await - createNote function
-  
-  async createNote(e) {  
+
+  async createNote(e) {
     const url = universityData.root_url + '/wp-json/wp/v2/note/';
 
     const ourUpdatedPost = {
-        'title' : this.newNoteTitleField.value,
-        'content' : this.newNoteBodyField.value,
-        'status' : 'private' // by default this is draft
+      title: this.newNoteTitleField.value,
+      content: this.newNoteBodyField.value,
+      status: 'private', // by default this is draft
     };
 
-    try { 
-        const response = await fetch(url, {
-            method: 'POST',
-            body: JSON.stringify(ourUpdatedPost), // Pass the update data in the body and stringify it
-            headers: {
-                'Content-Type': 'application/json',
-                'X-WP-Nonce': universityData.nonce, // nonce is required here for authentication 
-            },
-        });
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(ourUpdatedPost), // Pass the update data in the body and stringify it
+        headers: {
+          'Content-Type': 'application/json',
+          'X-WP-Nonce': universityData.nonce, // nonce is required here for authentication
+        },
+      });
 
-        const contentType = response.headers.get('Content-Type');
-       
-        // log this as text for unknown error/data format
-        const responseText = await response.text(); // Get the response as text
-        const showMessage = document.querySelector('.note-limit-message'); 
-        // Check if the response text is the note limit message
-        if (responseText === "You have reached your note limit") { 
-            showMessage.classList.add('active');
-            throw new Error(responseText); // Stop further processing
+      const contentType = response.headers.get('Content-Type');
+
+      // log this as text for unknown error/data format
+      const responseText = await response.text(); // Get the response as text
+      const showMessage = document.querySelector('.note-limit-message');
+      // Check if the response text is the note limit message
+      if (responseText === 'You have reached your note limit') {
+        showMessage.classList.add('active');
+        throw new Error(responseText); // Stop further processing
+      }
+
+      // Proceed to parse if it's JSON
+      if (contentType && contentType.includes('application/json')) {
+        const responseData = JSON.parse(responseText); // Parse JSON
+
+        showMessage.classList.remove('active');
+        const noteContent = responseData.content.rendered.replace(
+          /<\/?p>/g,
+          ''
+        );
+        const newListNote = document.createElement('li');
+        newListNote.dataset.id = responseData.id;
+        let titleReplace = responseData.title.rendered;
+        if (titleReplace.startsWith('Private: ')) {
+          titleReplace = titleReplace.replace('Private: ', '');
         }
 
-        // Proceed to parse if it's JSON
-        if (contentType && contentType.includes('application/json')) {
-            const responseData = JSON.parse(responseText); // Parse JSON
-
-            showMessage.classList.remove('active');
-            const noteContent = responseData.content.rendered.replace(/<\/?p>/g, '');
-            const newListNote = document.createElement('li');
-            newListNote.dataset.id = responseData.id;
-            let titleReplace = responseData.title.rendered;
-            if (titleReplace.startsWith('Private: ')) {
-                titleReplace = titleReplace.replace('Private: ', '');
-            }
-
-            newListNote.innerHTML = `
+        newListNote.innerHTML = `
                 <input readonly="" class="note-title-field" value="${titleReplace}">
                 <span class="edit-note"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</span>
                 <span class="delete-note"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</span>
                 <textarea readonly class="note-body-field">${noteContent}</textarea>
                 <span class="update-note btn btn--blue btn--small"><i class="fa fa-arrow-right" aria-hidden="true"></i> Save</span>
             `;
-            this.myNoteWrapper.prepend(newListNote);
+        this.myNoteWrapper.prepend(newListNote);
 
-            // Clear the input fields after prepending
-            this.newNoteTitleField.value = '';
-            this.newNoteBodyField.value = '';
-        } else {
-            // If not JSON, treat it as a plain text error
-            console.error('Unexpected non-JSON response:', responseText);
-            throw new Error(responseText);
-        }
-
+        // Clear the input fields after prepending
+        this.newNoteTitleField.value = '';
+        this.newNoteBodyField.value = '';
+      } else {
+        // If not JSON, treat it as a plain text error
+        console.error('Unexpected non-JSON response:', responseText);
+        throw new Error(responseText);
+      }
     } catch (error) {
-        console.error('Create request failed', error.message || error); 
-    } 
+      console.error('Create request failed', error.message || error);
+    }
   }
 }
 

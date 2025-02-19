@@ -13,30 +13,44 @@
     <div class="full-width-split group">
       <div class="full-width-split__one">
         <div class="full-width-split__inner">
-          <h2 class="headline headline--small-plus t-center">Upcoming Events</h2>
+          <h2 class="headline headline--small-plus t-center">Upcoming Events!</h2>
           <!-- display only upcoming events -->
           <?php 
             $today = date('Ymd');
-            $homepageEvents = new WP_Query(array(
+            $homepageEvents = new WP_Query(array( // new instance of the wp_query class variable/object $homepageEvents
               'post_type' => 'event',
-              'posts_per_page' => -1, // -1 display all events
-              'order' => 'DECS',
-              'meta_key' => 'event_date', // if setting up meta value make sure to add meta_key first 
+              'posts_per_page' => 2, // -1 display all events
+               // 'order' => 'post_date', // order by post date - DEFAULT
+               // 'orderby' => 'rand', // order randomly
+              'order' => 'DECS', // default is DESC
+              // meta_key and meta_value_num should be set up first before using meta_query
+              // these two are required to use meta_query
+              'meta_key' => 'event_date', // is a custom field - if setting up meta value make sure to add meta_key first 
               'orderby' => 'meta_value_num', // we used meta_value_num because event_date is a checking on date/number
               'meta_query' => array(
                   array( // read as - if key is >= to $today
                     'key' => 'event_date',
                     'compare' => '>=',
                     'value' => $today,
-                    'type' => 'numeric'
+                    'type' => 'numeric' // type numeric is used for date - string is for text
                   )
+                  // could add more array for more conditions
+                  // array(),
+                  // array()  
               )            
             ));
 
-            while($homepageEvents->have_posts()) {
-              $homepageEvents->the_post(); 
-              get_template_part('template-parts/content', 'event');
+            if($homepageEvents->have_posts()) {
+               while($homepageEvents->have_posts()) { // keep repeating the loop until there are no more posts to show
+              $homepageEvents->the_post();
+              // 2nd argument is the template part file name - dynamic template part
+             // get_template_part('template-parts/content', get_post_type()); 
+              get_template_part('template-parts/content', 'event'); // get the content-event.php
+            } 
+            } else {
+                 echo '<p class="t-center">No upcoming events yet...</p>';
             }
+           
           ?>
           <p class="t-center no-margin"><a href="<?php echo get_post_type_archive_link('event'); ?>" class="btn btn--blue">View All Events</a></p>
         </div>
@@ -61,9 +75,12 @@
                   </a>
                   <div class="event-summary__content">
                     <h5 class="event-summary__title headline headline--tiny"><a href="<?php echo the_permalink(); ?>"><?php the_title(); ?></a></h5>
-                    <p><?php if (has_excerpt()) {
-                      echo get_the_excerpt();
+                    <p>
+                       <!-- if there is an excerpt show it, if not trim the content to 18 words -->
+                      <?php if (has_excerpt()) {
+                      echo get_the_excerpt(); // get_the_excerpt removes html tags vs the_excerpt
                     } else {
+                      // trims words to 18
                       echo wp_trim_words(get_the_content(), 18);
                     }; ?><a href="<?php echo the_permalink(); ?>" class="nu gray"> Read more</a></p>
                   </div>

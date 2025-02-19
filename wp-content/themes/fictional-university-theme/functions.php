@@ -19,21 +19,24 @@ function university_custom_rest() {
 add_action('rest_api_init', 'university_custom_rest');
 
 // custom banner
+// $args is an array that can be passed to the function to customize the banner
+// $args short for arguments - could be anything banana unicorn etc
+// IMPORTANT!!!! NULL so the argument is optional instead of required -
 function pageBanner($args = NULL) {
-  
+// !isset -  we're not directly trying to access an array item if it doesn't exist, we're using the specifically designed isset tool in PHP to check if it exists or not. This will fix our warning issue.
   if (!isset($args['title'])) {
-    $args['title'] = get_the_title();
+    $args['title'] = get_the_title(); // if not set, get the title of the page - fallback content
   }
 
   if (!isset($args['subtitle'])) {
-    $args['subtitle'] = get_field('page_banner_subtitle');
+    $args['subtitle'] = get_field('page_banner_subtitle'); // if not set, get the custom_field - fallback content
   }
 
   if (!isset($args['photo'])) {
     if (get_field('page_banner_background_image') AND !is_archive() AND !is_home() ) {
       $args['photo'] = get_field('page_banner_background_image')['sizes']['pageBanner'];
     } else {
-      $args['photo'] = get_theme_file_uri('/images/ocean.jpg');
+      $args['photo'] = get_theme_file_uri('/images/ocean.jpg'); // fallback image
     }
   }
 
@@ -85,6 +88,8 @@ function university_features() {
 add_action('after_setup_theme', 'university_features');
 
 function university_adjust_queries($query) {
+
+
   // campus archive
   if (!is_admin() AND is_post_type_archive('campus') AND $query->is_main_query()) {
     $query->set('posts_per_page', -1);
@@ -96,6 +101,8 @@ function university_adjust_queries($query) {
     $query->set('posts_per_page', -1);
   }
   // event archive
+  // not in the admin AND in archive 'event' AND is the main query(not a custom query)
+  // this code will only run on the event archive page or URL
   if (!is_admin() AND is_post_type_archive('event') AND $query->is_main_query()) {
     $today = date('Ymd');
     $query->set('meta_key', 'event_date');
@@ -112,6 +119,7 @@ function university_adjust_queries($query) {
   }
 }
 
+// pre_get_posts is a hook that allows you to modify the current query before it is run.
 add_action('pre_get_posts', 'university_adjust_queries');
 
 function universityMapKey($api) {
@@ -195,3 +203,10 @@ function makeNotePrivate($data, $postarr) {
   }
   return $data;
 }
+
+// try disable gutenberg for note post type
+function disable_gutenberg_for_note($current_status, $post_type) {
+    if ($post_type === 'note') return false;
+    return $current_status;
+}
+add_filter('use_block_editor_for_post_type', 'disable_gutenberg_for_note', 10, 2);
