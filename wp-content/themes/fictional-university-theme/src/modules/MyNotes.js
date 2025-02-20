@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 class MyNotes {
   constructor() {
     // wrap in if statement - run events in #my-notes DOM only
@@ -9,6 +11,8 @@ class MyNotes {
       this.createBtn = document.querySelector('.submit-note');
       this.newNoteTitleField = document.querySelector('.new-note-title');
       this.newNoteBodyField = document.querySelector('.new-note-body');
+      this.noteLimitMessage = document.querySelector('.note-limit-message');
+      this.noteEmptyMessage = document.querySelector('.note-empty-message');
       this.events();
     }
   }
@@ -18,9 +22,22 @@ class MyNotes {
     // Event delegation to manage actions
     this.myNoteWrapper.addEventListener('click', (e) => {
       const element = e.target;
-      if (element.classList.contains('edit-note')) this.editNote(e); // use this.editNote to refer to the class method
-      if (element.classList.contains('delete-note')) this.deleteNote(e);
-      if (element.classList.contains('update-note')) this.updateNote(e);
+      if (
+        element.classList.contains('edit-note') ||
+        e.target.classList.contains('fa-trash-o')
+      )
+        this.editNote(e); // use this.editNote to refer to the class method
+      if (
+        element.classList.contains('delete-note') ||
+        e.target.classList.contains('fa-pencil') ||
+        e.target.classList.contains('fa-times')
+      )
+        this.deleteNote(e);
+      if (
+        element.classList.contains('update-note') ||
+        e.target.classList.contains('fa-arrow-right')
+      )
+        this.updateNote(e);
     });
 
     this.createBtn.addEventListener('click', this.createNote.bind(this));
@@ -30,6 +47,9 @@ class MyNotes {
   editNote(e) {
     const thisNote = e.target.parentElement;
     thisNote.dataset.id;
+    //  console.log(thisNote.dataset.id);
+    this.noteEmptyMessage.classList.remove('active');
+    this.noteLimitMessage.classList.remove('active');
 
     if (thisNote.getAttribute('data-editable') === 'true') {
       this.makeNoteReadonly(thisNote); // use param 'thisNote' to use the global selector
@@ -74,20 +94,27 @@ class MyNotes {
 
   // async/await - deletenote function
   async deleteNote(e) {
+    this.noteEmptyMessage.classList.remove('active');
+    this.noteLimitMessage.classList.remove('active');
     const thisNote = e.target.parentElement;
     const thisNoteID = thisNote.dataset.id;
     const url = universityData.root_url + '/wp-json/wp/v2/note/' + thisNoteID;
 
     try {
-      const response = await fetch(url, {
-        method: 'DELETE',
+      const response = await axios.delete(url, {
+        // method: 'DELETE', // only use this if you're not using axios
         headers: {
           'Content-Type': 'application/json',
           'X-WP-Nonce': universityData.nonce, // nonce is required here for authentication
         },
       });
 
-      if (!response.ok) {
+      // ONLY USE THIS IF NOT USING AXIOS
+      // if (!response.ok) {
+      //   throw new Error('Network response was not ok');
+      // }
+
+      if (response.status !== 200) {
         throw new Error('Network response was not ok');
       }
 
@@ -97,7 +124,8 @@ class MyNotes {
       await new Promise((resolve) => setTimeout(resolve, 400));
       thisNote.remove();
 
-      console.log('Item deleted successfully', await response.json());
+      // console.log('Item deleted successfully', await response.json());
+      console.log('Item deleted successfully');
     } catch (error) {
       console.error('Delete request failed', error);
     }
@@ -139,7 +167,17 @@ class MyNotes {
   // async/await - createNote function
 
   async createNote(e) {
+    e.preventDefault();
     const url = universityData.root_url + '/wp-json/wp/v2/note/';
+    //   this.noteEmptyMessage.classList.remove('active');
+    this.noteEmptyMessage.classList.remove('active');
+    const showMessage = document.querySelector('.note-empty-message');
+
+    if (!this.newNoteTitleField.value || !this.newNoteBodyField.value) {
+      showMessage.classList.add('active');
+      // alert('Please fill in the title field');
+      return;
+    }
 
     const ourUpdatedPost = {
       title: this.newNoteTitleField.value,

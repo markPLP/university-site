@@ -407,17 +407,21 @@ li {
   margin-right: 10px;
 }
 
-.note-limit-message {
+.note-limit-message,
+.note-empty-message {
   visibility: hidden;
   opacity: 0;
   transition: all 0.3s ease-out;
   color: #c32929;
   font-weight: bold;
+  display: none;
 }
 
-.note-limit-message.active {
+.note-limit-message.active,
+.note-empty-message.active {
   visibility: visible;
   opacity: 1;
+  display: inline-block;
 }
 
 /* Like Box */
