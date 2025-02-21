@@ -18,6 +18,7 @@
     "@googlemaps/js-api-loader": "^1.16.6",
     "@wordpress/scripts": "*",
     "axios": "^0.21.1",
-    "normalize.css": "^8.0.1"
+    "normalize.css": "^8.0.1",
+    "toastify-js": "^1.12.0"
   }
 }
