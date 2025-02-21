@@ -144,7 +144,7 @@ function university_post_types() {
     register_post_type('like', array( 
       // 'capability_type' => 'note', // custom post type inherit permission to blog post type by default
       // 'map_meta_cap' => true, // for custom post type - show on Members plugin - permission role
-    'show_in_rest' => false, // dont show rest // MAKE YOUR OWN REST API
+    'show_in_rest' => true, // dont show rest // MAKE YOUR OWN REST API
       'supports' => array('title'),
       'public' => false, // false - private to user account
       'show_ui' => true, // show in the admin dashboard UI if 'public' is set to false

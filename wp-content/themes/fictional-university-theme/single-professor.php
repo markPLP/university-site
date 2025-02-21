@@ -19,32 +19,48 @@
                   array(
                     'key' => 'liked_professor_id', // custom field key
                     'compare' => 'LIKE', // exact match
-                    'value' => get_the_ID()
+                    'value' => get_the_ID() // 38 - get the current post id (professor id
                   )
                 ),
               ));
 
               // make heart color-fill if there is existing liked post
               $existStatus = 'no';
+              
+              // check if the user is logged in
+              // if not logged in, the heart icon will be empty
+              if(is_user_logged_in()) {
+                // check if the liked_professor_id is already liked by the current user
+                $existQuery = new WP_Query(array(
+                  'author' => get_current_user_id(), // get the userID of the current user who liked the post
+                  'post_type' => 'like',
+                  'meta_query' => array(
+                    array(
+                      'key' => 'liked_professor_id',
+                      'compare' => 'LIKE',
+                      'value' => get_the_ID()
+                    )
+                  ),
+                ));
 
-              $existQuery = new WP_Query(array(
-                'author' => get_current_user_id(),
-                'post_type' => 'like',
-                'meta_query' => array(
-                  array(
-                    'key' => 'liked_professor_id',
-                    'compare' => 'LIKE',
-                    'value' => get_the_ID()
-                  )
-                ),
-              ));
-
-              if($existQuery->found_posts) {
-                $existStatus = 'yes';
-              }
+                // if the post is already liked by the current user 
+                // if it's greater than zero, this will evaluate to true.
+                // if true existStatus will be 'yes'
+                if($existQuery->found_posts) {
+                  $existStatus = 'yes';
+                }
+                }
 
             ?>
-            <span class="like-box" data-exists="<?php echo $existStatus; ?>">
+            <?php 
+              // data-exists="<?php echo $existStatus; - custom attribute
+              // this will be used in the javascript to check if the post is already liked or not
+              // if yes, the heart icon will be filled with color
+              // data-like="<?php echo $existQuery->posts[0]->ID; 
+              // custom attribute This will be the ID of the like post we want to delete if the user clicks the heart icon again.
+              // isset($existQuery->posts[0]->ID): The isset function checks if the ID property of the first element in the posts array of the $existQuery object is set and not null. This ensures that the code only proceeds if the ID property exists.
+            ?>
+            <span class="like-box" data-like="<?php if (isset($existQuery->posts[0]->ID)) echo $existQuery->posts[0]->ID; ?>" data-professor="<?php the_ID(); ?>" data-exists="<?php echo $existStatus; ?>">
               <i class="fa fa-heart-o" aria-hidden="true"></i>
               <i class="fa fa-heart" aria-hidden="true"></i>
               <span class="like-count"><?php
