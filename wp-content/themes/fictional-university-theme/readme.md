@@ -696,6 +696,194 @@ Each user can only like a professor once. And we will also want to make sure tha
 - first delete all the Likes post(trash posts)
 - go to like-route.php code condition check
 
+############
+
+# First plugin!
+
+1.  create folder in plugin dir - ourFirst-first-unique-plugin
+
+# Plugin - Admin setting page
+
+1. setup admin setting page for our plugin
+
+```php
+  // Setup admin page settings
+  // this will show on the admin dashboard > Settings > Word Count
+  function adminPage() {
+  // has 5 arguments
+  // #1 page title
+  // #2 menu title
+  // #3 capability  - user role that can see this menu 'manage_options' - admin
+  // #4 menu slug
+  // #5 callback function
+
+    add_options_page('Word Count Settings', 'Word Count', 'manage_options', 'word-count-settings-page', 'callBackFunction'); // use array($this, 'ourHTML') is for Class based approach
+  }
+```
+
+2. go to our-first-unique-plugin for reference
+
+######################
+
+# Form setting and setting API
+
+1. Save the prefrences on the database
+2. Local app - goto database open adminer
+3. go to table wp_options > Selec data
+
+#####################
+
+# Class WordCountAndTimePlugin - function settings() steps in backward (static)
+
+// add this function in reverse register_settings at last
+
+1. register_setting()
+2. add_settings_field()
+3. add_settings_section
+
+#######################
+
+# counting the words, Characters, and Read time
+
+1.                       add_filter('the_content', array($this, 'ifWrap'));
+
+# Translations/ Localization(for PHP)
+
+1. Start at top by adding in the commented code - Text Domain: wcpdomain AND Domain Path: /languages
+
+```php
+/*
+  Plugin Name: Our Test Plugin
+  Description: A truly amazing plugin.
+  Version: 1.0
+  Author: Mark
+  Author URI: markLPL.com
+  Text Domain: wcpdomain
+  Domain Path: /languages
+*/
+```
+
+2. change FROM add_options_page('Word Count Settings', 'Word Count')
+   TO
+
+```php
+  add_options_page('Word Count Settings', __('Word Count', 'wcpdomain'))
+```
+
+3. install Loco Translate plugin
+   - create template
+
+# 2nd plugin - Sub-menu & Custom Icon - Word filter plugin
+
+1. create plugin folder - word-filter-plugin
+2. custom admin menu icon / css
+
+- custom svg
+- in browser console type the following to convert svg to base64
+  - btoa(`INSERT HERE THE <SVG></SVG>`) and hit enter
+
+3. Load custom css in this particular admin page
+
+# 2nd plugin - Manually Handing Admin Form Submit
+
+- Key points
+  - <?php if (isset($_POST['justsubmitted']) == "true") $this->handleForm() ?>
+  - <?php wp_nonce_field('saveFilterWords', 'ourNonce') ?>
+  - if (wp_verify_nonce($\_POST['ourNonce'], 'saveFilterWords') AND current_user_can('manage_options')) {
+  - update_option('plugin_words_to_filter', sanitize_text_field($\_POST['plugin_words_to_filter'])); ?>
+
+# 2nd plugin - Finish
+
+1. go to \_\_construct()
+
+
+    - add_filter('the_content', array($this, 'filterLogic'));
+    - if (get_option('plugin_words_to_filter')) add_filter('the_content', array($this, 'filterLogic'));
+
+Key Points
+
+- function filterLogic($content) {
+- $badWords = explode(',', get_option('plugin_words_to_filter'));
+- $badWordsTrimmed = array_map('trim', $badWords);
+- return str_ireplace($badWordsTrimmed, esc_html(get_option('replacementText', '\*\*\*\*')), $content);
+- function optionsSubPage() { ?>
+
+```php
+
+```
+
+```php
+
+```
+
+```php
+
+```
+
+```php
+
+```
+
+```php
+
+```
+
+```php
+
+```
+
+```php
+
+```
+
+```php
+
+```
+
+```php
+
+```
+
+```php
+
+```
+
+```php
+
+```
+
+```php
+
+```
+
+```php
+
+```
+
+```php
+
+```
+
+```php
+
+```
+
+```php
+
+```
+
+```php
+
+```
+
+```php
+
+```
+
+```php
+
+```
+
 ```php
 
 ```

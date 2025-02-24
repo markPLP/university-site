@@ -28,3 +28,6 @@ wp-content/plugins/my-plugin/vendor/
 wp-content/plugins/my-plugin/*.log
 wp-content/plugins/my-plugin/*.css.map
 wp-content/plugins/my-plugin/*.js.map
+# Except for the following plugins
+!/wp-content/plugins/ourFirst-first-unique-plugin
+!/wp-content/plugins/word-filter-plugin
