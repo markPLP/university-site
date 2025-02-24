@@ -71,7 +71,7 @@ class WordFilterPlugin {
 // 2nd argument - esc_html(get_option('replacementText', '****')) - get the value from the database and escape it
 // 3rd argument - $content - the content to search in - content is the argument that is passed to the filterLogic function
 // return the filtered content
-// y
+
     return str_ireplace($badWordsTrimmed, esc_html(get_option('replacementText', '****')), $content);
   }
 

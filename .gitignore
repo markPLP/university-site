@@ -21,6 +21,10 @@ wp-content/themes/fictional-university-theme/css/base/*.css.map
 wp-content/themes/fictional-university-theme/css/modules/*.scss
 wp-content/themes/fictional-university-theme/css/modules/*.css.map
 
+# Except for the following plugins
+!wp-content/plugins/ourFirst-first-unique-plugin/**
+!wp-content/plugins/word-filter-plugin/**
+
 /wp-content/plugins/
 # Example for a plugin named "my-plugin"
 wp-content/plugins/my-plugin/node_modules/
@@ -28,6 +32,4 @@ wp-content/plugins/my-plugin/vendor/
 wp-content/plugins/my-plugin/*.log
 wp-content/plugins/my-plugin/*.css.map
 wp-content/plugins/my-plugin/*.js.map
-# Except for the following plugins
-!wp-content/plugins/ourFirst-first-unique-plugin/**
-!wp-content/plugins/word-filter-plugin/**
+
