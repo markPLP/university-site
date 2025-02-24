@@ -24,14 +24,13 @@ wp-content/themes/fictional-university-theme/css/modules/*.css.map
 # Except for the following plugins
 !wp-content/plugins/ourFirst-first-unique-plugin/**
 !wp-content/plugins/word-filter-plugin/**
-!wp-content/plugins/are-you-paying-attention/**
+!wp-content/plugins/are-you-paying-attention/
 
-/wp-content/plugins/
-!wp-content/plugins/are-you-paying-attention/node_modules/
+# Ignore node_modules in are-you-paying-attention plugin
+# wp-content/plugins/are-you-paying-attention/node_modules/
 # Example for a plugin named "my-plugin"
 wp-content/plugins/my-plugin/node_modules/
 wp-content/plugins/my-plugin/vendor/
 wp-content/plugins/my-plugin/*.log
 wp-content/plugins/my-plugin/*.css.map
 wp-content/plugins/my-plugin/*.js.map
-
