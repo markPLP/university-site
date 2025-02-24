@@ -4,8 +4,8 @@
   Plugin Name: Our Word Filter Plugin
   Description: Replaces a list of words.
   Version 1.0
-  Author: Brad
-  Author URI: https://www.udemy.com/user/bradschiff/
+  Author: Mark
+  Author URI: https://mplp-portfolio.netlify.app/
 */
 
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly - Safety measure

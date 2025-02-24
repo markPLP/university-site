@@ -745,7 +745,7 @@ Each user can only like a professor once. And we will also want to make sure tha
 
 # counting the words, Characters, and Read time
 
-1.                       add_filter('the_content', array($this, 'ifWrap'));
+1.                                             add_filter('the_content', array($this, 'ifWrap'));
 
 # Translations/ Localization(for PHP)
 
@@ -773,6 +773,8 @@ Each user can only like a professor once. And we will also want to make sure tha
 3. install Loco Translate plugin
    - create template
 
+####################################
+
 # 2nd plugin - Sub-menu & Custom Icon - Word filter plugin
 
 1. create plugin folder - word-filter-plugin
@@ -784,6 +786,8 @@ Each user can only like a professor once. And we will also want to make sure tha
 
 3. Load custom css in this particular admin page
 
+####################################
+
 # 2nd plugin - Manually Handing Admin Form Submit
 
 - Key points
@@ -792,13 +796,14 @@ Each user can only like a professor once. And we will also want to make sure tha
   - if (wp_verify_nonce($\_POST['ourNonce'], 'saveFilterWords') AND current_user_can('manage_options')) {
   - update_option('plugin_words_to_filter', sanitize_text_field($\_POST['plugin_words_to_filter'])); ?>
 
+####################################
+
 # 2nd plugin - Finish
 
 1. go to \_\_construct()
 
-
-    - add_filter('the_content', array($this, 'filterLogic'));
-    - if (get_option('plugin_words_to_filter')) add_filter('the_content', array($this, 'filterLogic'));
+   - add_filter('the_content', array($this, 'filterLogic'));
+   - if (get_option('plugin_words_to_filter')) add_filter('the_content', array($this, 'filterLogic'));
 
 Key Points
 
@@ -808,9 +813,72 @@ Key Points
 - return str_ireplace($badWordsTrimmed, esc_html(get_option('replacementText', '\*\*\*\*')), $content);
 - function optionsSubPage() { ?>
 
-```php
+####################################
 
+# Plugin Dev: Three Chapters
+
+1. php(actions, filters, admin settings, pages, & menus)
+2. Javascript(gutenberg block types, React)
+3. Database(custom post types vs our ouw DB table)
+
+####################################
+
+# Javascript custom block types
+
+1. create test.js file
+2. create index.php file - register
+   - create php Class
+   - Test JS if working
+   - Activate plugin
+
+```php
+class AreYouPayingAttention {
+  function __construct() {
+    add_action('enqueue_block_editor_assets', array($this, 'adminAssets'));
+  // add_action('init', array($this, 'adminAssets'));
+  }
+  function adminAssets() {
+    wp_enqueue_script('ournewblocktype', plugin_dir_url(__FILE__) . 'text.js', array('wp_blocks'));
+  }
+}
 ```
+
+# Introducing JSX
+
+1. in plugin folder/directory
+
+- npm init -y - CREATES A PACKAGE JSON FILE
+- npm install @wordpress/scripts --save-dev
+- create a folder 'src' and inside index.js
+- convert jsx - go to package.json file
+  - create a build script
+    - "build":"wp-scripts build", "start":"wp-scripts start"
+- TELL WORDPRESS TO LOAD THE build file version
+  - go to index.php and change the directory to point to => plugin_dir_url(**FILE**) . 'build/index.js
+
+####################
+
+# Introducing JSX - block type Attributes - interactive
+
+- Key points
+  - JSX code
+  ```js
+      attributes: {
+        skyColor: { type: 'string' },
+        grassColor: { type: 'string' },
+      },
+  ```
+
+####################
+
+# Block output or saves
+
+# Block output dynamic
+
+- to index.php file
+- add render
+
+# Plugin Multiple choice block
 
 ```php
 
