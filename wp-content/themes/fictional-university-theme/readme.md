@@ -745,7 +745,7 @@ Each user can only like a professor once. And we will also want to make sure tha
 
 # counting the words, Characters, and Read time
 
-1.                                             add_filter('the_content', array($this, 'ifWrap'));
+1.                                                        add_filter('the_content', array($this, 'ifWrap'));
 
 # Translations/ Localization(for PHP)
 
@@ -880,9 +880,116 @@ class AreYouPayingAttention {
 
 # Plugin Multiple choice block
 
+# Disable button update if not stars/correct answer is selected
+
+1. go to console / f12
+
+- type wp.data.select('core/block-editor').getBlocks() ----> this will display all the blocks that are availble on the page
+
+# Use React on the Frontend
+
+1. go to src and create a new js file -
+   - frontend.js
+2. in package.json add in scripts
+   ```js
+   "scripts": {
+   "build": "wp-scripts build src/index.js src/frontend.js",
+   "start": "wp-scripts start src/index.js src/frontend.js",
+   },
+   ```
+3. in index.php load the js and scss fields
+
+-
+
+###########################
+
+# React not rendering issue
+
+###########################
+✅ ADD .babelrc
+{
+"presets": ["@wordpress/babel-preset-default"]
+}
+
+✅ ADD webpack.config.js
+
+const path = require('path');
+
+module.exports = {
+entry: {
+frontend: './src/frontend.js',
+},
+output: {
+path: path.resolve(\_\_dirname, 'build'),
+filename: '[name].js',
+},
+module: {
+rules: [
+{
+test: /\.js$/,
+        exclude: /node_modules/,
+        use: 'babel-loader',
+      },
+      {
+        test: /\.scss$/,
+use: ['style-loader', 'css-loader', 'sass-loader'], // Loaders for SCSS
+},
+],
+},
+resolve: {
+extensions: ['.js', '.scss'],
+},
+};
+
+✅ 1. Check Your Installed Version of @wordpress/scripts
+You're using @wordpress/scripts@30.11.0, which should support JSX out of the box. However, to ensure compatibility, try updating it:
+
+- npm install @wordpress/scripts@latest --save-dev
+
+✅ 2. Force Babel to Recognize JSX (If Needed)
+Since @wordpress/scripts internally uses Babel, you usually don’t need a .babelrc file. But in rare cases, adding one can help.
+
+👉 Create a .babelrc file in your plugin root directory (next to package.json):
+
+{
+"presets": ["@wordpress/babel-preset-default"]
+}
+
+✅ 3. Ensure Your Build Folder is Correct
+You mentioned that the output is going to a dist folder instead of build. By default, wp-scripts outputs to build/.
+
+👉 Check your package.json scripts:
+
+"scripts": {
+"build": "wp-scripts build",
+"start": "wp-scripts start"
+}
+
+✅ 4. Delete and Reinstall Dependencies
+If the issue persists, try a full reset:
+
+rm -rf node_modules package-lock.json
+npm install
+npm run build
+
+####################################
+
+# Passing Block Data From PHP into REACT
+
+1. go to index.php <div class="paying-attention-update-me"><pre style="display: none;"><?php echo wp_json_encode($attributes) ?></pre></div>
+
+# Dynamic background color of block
+
+- import { InspectorControls, BlockControls, AlignmentToolbar } from "@wordpress/block-editor"
+- import { PanelBody, PanelRow,} from '@wordpress/components';
+
+````
+
+
+
 ```php
 
-```
+````
 
 ```php
 
