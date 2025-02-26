@@ -1,7 +1,8 @@
 {
   "name": "are-you-paying-attention",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "",
+  "main": "test.js",
   "scripts": {
     "build": "wp-scripts build src/index.js src/frontend.js",
     "start": "wp-scripts start src/index.js src/frontend.js",
@@ -10,19 +11,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
-    "@babel/core": "^7.26.9",
-    "@babel/preset-env": "^7.26.9",
-    "@babel/preset-react": "^7.26.3",
-    "@wordpress/blocks": "^14.7.0",
-    "@wordpress/components": "^29.4.0",
-    "@wordpress/scripts": "^30.11.0",
-    "babel-loader": "^9.2.1",
-    "css-loader": "^7.1.2",
-    "sass": "^1.85.0",
-    "sass-loader": "^16.0.5",
-    "style-loader": "^4.0.0"
+    "@wordpress/scripts": "^26.19.0"
   },
   "dependencies": {
     "react-color": "^2.19.3"

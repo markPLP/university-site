@@ -745,7 +745,7 @@ Each user can only like a professor once. And we will also want to make sure tha
 
 # counting the words, Characters, and Read time
 
-1.                                                        add_filter('the_content', array($this, 'ifWrap'));
+1.                                                         add_filter('the_content', array($this, 'ifWrap'));
 
 # Translations/ Localization(for PHP)
 
@@ -913,33 +913,35 @@ class AreYouPayingAttention {
 
 ✅ ADD webpack.config.js
 
+```js
 const path = require('path');
 
 module.exports = {
-entry: {
-frontend: './src/frontend.js',
-},
-output: {
-path: path.resolve(\_\_dirname, 'build'),
-filename: '[name].js',
-},
-module: {
-rules: [
-{
-test: /\.js$/,
+  entry: {
+    frontend: './src/frontend.js',
+  },
+  output: {
+    path: path.resolve(__dirname, 'build'),
+    filename: '[name].js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
         exclude: /node_modules/,
         use: 'babel-loader',
       },
       {
         test: /\.scss$/,
-use: ['style-loader', 'css-loader', 'sass-loader'], // Loaders for SCSS
-},
-],
-},
-resolve: {
-extensions: ['.js', '.scss'],
-},
+        use: ['style-loader', 'css-loader', 'sass-loader'], // Loaders for SCSS
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.js', '.scss'],
+  },
 };
+```
 
 ✅ 1. Check Your Installed Version of @wordpress/scripts
 You're using @wordpress/scripts@30.11.0, which should support JSX out of the box. However, to ensure compatibility, try updating it:
